@@ -13,14 +13,7 @@ export const metadata: Metadata = {
     description: 'Préservez et partagez vos souvenirs en toute sécurité.',
     url: 'https://milele4ever.com',
     siteName: 'Milele4Ever',
-    images: [
-      {
-        url: 'https://milele4ever.com/og-image.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Milele4Ever - Souvenirs Éternels',
-      },
-    ],
+    images: [{ url: 'https://milele4ever.com/og-image.jpg', width: 1200, height: 630 }],
     locale: 'fr_FR',
     type: 'website',
   },
