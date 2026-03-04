@@ -3,7 +3,7 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-white text-gray-900 font-sans">
 
-      {/* HERO SECTION */}
+      {/* HERO */}
       <section className="pt-32 pb-20 text-center px-6 max-w-5xl mx-auto">
         <h1 className="text-6xl md:text-7xl font-bold text-emerald-900 mb-6">
           Milele4Ever.
@@ -11,7 +11,7 @@ export default function Home() {
         <p className="text-2xl text-gray-700 max-w-3xl mx-auto mb-12">
           La plateforme unifiée qui transforme vos histoires, photos et vidéos en héritage éternel.
         </p>
-        <div className="flex flex-col sm:flex-row justify-center gap-8">
+        <div className="flex flex-col sm:flex-row justify-center gap-10">
           <a href="#" className="text-xl font-medium text-blue-600 border-b-2 border-blue-600 pb-1 hover:text-blue-700 transition">
             Commencer gratuitement
           </a>
