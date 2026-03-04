@@ -68,6 +68,18 @@ export default function Home() {
           ))}
         </div>
       </section>
+
+      {/* FOOTER */}
+      <footer className="bg-[#0f766e] text-white py-16 text-center">
+        <div className="max-w-5xl mx-auto px-6">
+          <p className="text-2xl font-semibold mb-4">Milele4Ever.</p>
+          <p className="text-lg opacity-90 mb-8">Vos souvenirs, pour toujours.</p>
+          <div className="text-sm opacity-75">
+            © 2026 Milele4Ever – Tous droits réservés<br />
+            Fait avec ❤️ pour préserver l’essentiel
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
