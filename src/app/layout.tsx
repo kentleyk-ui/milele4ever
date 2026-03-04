@@ -6,11 +6,11 @@ import Navbar from '@/components/Navbar';
 export const metadata: Metadata = {
   title: 'Milele4Ever – Vos souvenirs, pour toujours',
   description: 'La plateforme unifiée qui transforme vos histoires, photos et vidéos en héritage éternel. Préservez et partagez vos souvenirs en toute sécurité.',
-  keywords: ['souvenirs éternels', 'héritage numérique', 'mémoire familiale', 'plateforme souvenirs', 'Milele4Ever'],
+  keywords: ['souvenirs éternels', 'héritage numérique', 'mémoire familiale', 'Milele4Ever', 'préservation souvenirs'],
   authors: [{ name: 'Kent' }],
   openGraph: {
     title: 'Milele4Ever – Vos souvenirs, pour toujours',
-    description: 'Transformez vos histoires en héritage éternel.',
+    description: 'Préservez et partagez vos souvenirs en toute sécurité.',
     url: 'https://milele4ever.com',
     siteName: 'Milele4Ever',
     images: [
@@ -29,10 +29,6 @@ export const metadata: Metadata = {
     title: 'Milele4Ever – Vos souvenirs, pour toujours',
     description: 'La plateforme pour préserver vos souvenirs éternels.',
     images: ['https://milele4ever.com/og-image.jpg'],
-  },
-  robots: {
-    index: true,
-    follow: true,
   },
 };
 
