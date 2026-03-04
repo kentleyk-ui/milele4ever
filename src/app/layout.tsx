@@ -17,12 +17,6 @@ export const metadata: Metadata = {
     locale: 'fr_FR',
     type: 'website',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Milele4Ever – Vos souvenirs, pour toujours',
-    description: 'La plateforme pour préserver vos souvenirs éternels.',
-    images: ['https://milele4ever.com/og-image.jpg'],
-  },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
