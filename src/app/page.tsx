@@ -5,7 +5,7 @@ export default function Home() {
 
       {/* HERO */}
       <section className="pt-32 pb-20 text-center px-6 max-w-5xl mx-auto">
-        <h1 className="text-6xl md:text-7xl font-bold text-emerald-900 mb-6">
+        <h1 className="text-6xl md:text-7xl font-bold text-[#0f766e] mb-6">
           Milele4Ever.
         </h1>
         <p className="text-2xl text-gray-700 max-w-3xl mx-auto mb-12">
@@ -25,23 +25,23 @@ export default function Home() {
       <section className="py-16 border-t border-b border-gray-200 bg-white">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 text-center px-6">
           <div>
-            <p className="text-6xl font-bold text-emerald-600">2.8M</p>
+            <p className="text-6xl font-bold text-[#0f766e]">2.8M</p>
             <p className="text-xl text-gray-600 mt-3">souvenirs préservés</p>
           </div>
           <div>
-            <p className="text-6xl font-bold text-emerald-600">94%</p>
+            <p className="text-6xl font-bold text-[#0f766e]">94%</p>
             <p className="text-xl text-gray-600 mt-3">de satisfaction</p>
           </div>
           <div>
-            <p className="text-6xl font-bold text-emerald-600">∞</p>
+            <p className="text-6xl font-bold text-[#0f766e]">∞</p>
             <p className="text-xl text-gray-600 mt-3">durée garantie</p>
           </div>
         </div>
       </section>
 
       {/* PLATEFORME */}
-      <section className="py-16 text-center px-6 bg-emerald-50">
-        <h2 className="text-4xl font-bold text-emerald-900 mb-6">
+      <section className="py-16 text-center px-6 bg-[#ccfbf1]">
+        <h2 className="text-4xl font-bold text-[#0f766e] mb-6">
           La plateforme faite pour l’éternité
         </h2>
         <p className="text-xl text-gray-700 max-w-3xl mx-auto">
@@ -51,7 +51,7 @@ export default function Home() {
 
       {/* USAGES */}
       <section className="py-16 px-6 bg-white">
-        <h2 className="text-4xl font-bold text-center text-emerald-900 mb-12">
+        <h2 className="text-4xl font-bold text-center text-[#0f766e] mb-12">
           Pour tous vos souvenirs
         </h2>
         <div className="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -62,7 +62,7 @@ export default function Home() {
             ["Patrimoine culturel", "Héritage vivant"]
           ].map(([title, desc]) => (
             <div key={title} className="border-b border-gray-200 pb-8 last:border-0">
-              <h3 className="text-3xl font-semibold text-emerald-800 mb-3">{title}</h3>
+              <h3 className="text-3xl font-semibold text-[#0f766e] mb-3">{title}</h3>
               <p className="text-xl text-gray-600">{desc}</p>
             </div>
           ))}
