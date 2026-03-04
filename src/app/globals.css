@@ -10,3 +10,8 @@
   --text: #111827;
   --background: #ffffff;
 }
+.dark {
+  --background: #0a0a0a;
+  --text: #f1f1f1;
+  --primary: #14b8a6;
+}
