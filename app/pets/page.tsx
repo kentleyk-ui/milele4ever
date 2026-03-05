@@ -26,26 +26,25 @@ export default function PetsPage() {
         </header>
         
         {/* Main content */}
-        <main className="flex-1 flex flex-col items-center justify-center px-4 text-center">
-          <div className="max-w-lg mx-auto space-y-8">
-            <div className="flex justify-center">
-              <div className="h-20 w-20 rounded-full bg-primary/10 flex items-center justify-center">
-                <PawPrint className="h-10 w-10 text-primary" />
+        <main className="flex-1 flex flex-col items-start justify-start px-6 md:px-12 pt-8 md:pt-16 text-left">
+          <div className="max-w-sm space-y-6">
+            <div className="flex items-center gap-3">
+              <div className="h-14 w-14 rounded-full bg-primary/20 flex items-center justify-center">
+                <PawPrint className="h-7 w-7 text-primary" />
               </div>
-            </div>
-            
-            <div className="space-y-4">
-              <h1 className="font-serif text-3xl md:text-4xl font-bold text-foreground">
+              <h1 className="font-serif text-2xl md:text-3xl font-bold text-foreground">
                 Pour nos amis poilus
               </h1>
-              
-              <div className="flex items-center justify-center gap-2 text-primary">
+            </div>
+            
+            <div className="space-y-3">
+              <div className="flex items-center gap-2 text-primary">
                 <Heart className="h-4 w-4 fill-current" />
                 <span className="text-sm font-medium">Section a venir</span>
                 <Heart className="h-4 w-4 fill-current" />
               </div>
               
-              <p className="text-muted-foreground leading-relaxed">
+              <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
                 Bientot, vous pourrez creer des memoriaux pour vos compagnons a quatre pattes 
                 et acceder a des services funeraires dedies aux animaux de compagnie.
               </p>
@@ -55,7 +54,7 @@ export default function PetsPage() {
               </p>
             </div>
             
-            <Button asChild className="mt-8">
+            <Button asChild size="sm">
               <Link href="/">
                 Retourner a l{"'"}accueil
               </Link>
