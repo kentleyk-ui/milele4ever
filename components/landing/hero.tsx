@@ -50,6 +50,16 @@ export function Hero() {
             <Link href="/auth/login">Se connecter</Link>
           </Button>
         </div>
+        
+        {/* Lien temporaire pour presentation */}
+        <div className="pt-4">
+          <Link 
+            href="/app/services" 
+            className="text-sm text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
+          >
+            Voir les services (Demo)
+          </Link>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mt-24 max-w-5xl mx-auto w-full">

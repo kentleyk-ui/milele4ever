@@ -23,7 +23,7 @@ export function LandingFooter() {
           Pour toujours dans nos coeurs. Avec respect et dignite.
         </p>
         <p className="text-xs text-muted-foreground">
-          {'© '}{new Date().getFullYear()} Milele. Tous droits reserves.
+          Product Owner - Kent Ley_CIO {'© '}{new Date().getFullYear()} Milele. Tous droits reserves.
         </p>
       </div>
     </footer>
