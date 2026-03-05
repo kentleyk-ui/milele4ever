@@ -10,7 +10,7 @@ export default function PetsPage() {
         className="absolute inset-0 bg-cover bg-center bg-no-repeat"
         style={{ backgroundImage: "url('/images/sultan.jpg')" }}
       >
-        <div className="absolute inset-0 bg-background/85 dark:bg-background/90" />
+        <div className="absolute inset-0 bg-background/70 dark:bg-background/75" />
       </div>
       
       {/* Content */}
@@ -26,40 +26,40 @@ export default function PetsPage() {
         </header>
         
         {/* Main content */}
-        <main className="flex-1 flex flex-col items-start justify-start px-6 md:px-12 pt-8 md:pt-16 text-left">
-          <div className="max-w-sm space-y-6">
+        <main className="flex-1 flex flex-col items-start justify-between px-6 md:px-12 pt-2 pb-8 text-left">
+          <div className="max-w-sm space-y-4">
             <div className="flex items-center gap-3">
-              <div className="h-14 w-14 rounded-full bg-primary/20 flex items-center justify-center">
-                <PawPrint className="h-7 w-7 text-primary" />
+              <div className="h-12 w-12 rounded-full bg-primary/20 flex items-center justify-center">
+                <PawPrint className="h-6 w-6 text-primary" />
               </div>
-              <h1 className="font-serif text-2xl md:text-3xl font-bold text-foreground">
+              <h1 className="font-serif text-xl md:text-2xl font-bold text-foreground">
                 Pour nos amis poilus
               </h1>
             </div>
             
-            <div className="space-y-3">
+            <div className="space-y-2">
               <div className="flex items-center gap-2 text-primary">
                 <Heart className="h-4 w-4 fill-current" />
                 <span className="text-sm font-medium">Section a venir</span>
                 <Heart className="h-4 w-4 fill-current" />
               </div>
               
-              <p className="text-muted-foreground leading-relaxed text-sm md:text-base">
+              <p className="text-muted-foreground leading-relaxed text-sm">
                 Bientot, vous pourrez creer des memoriaux pour vos compagnons a quatre pattes 
                 et acceder a des services funeraires dedies aux animaux de compagnie.
               </p>
               
               <p className="text-sm text-muted-foreground/70 italic">
-                Parce qu{"'"}ils font partie de la famille.
+                Parce qu{"'"}ils font partie de la famille (et que Sultan Ley a besoin d{"'"}un petit frere 😊)
               </p>
             </div>
-            
-            <Button asChild size="sm">
-              <Link href="/">
-                Retourner a l{"'"}accueil
-              </Link>
-            </Button>
           </div>
+          
+          <Button asChild size="sm" className="mt-auto">
+            <Link href="/">
+              Retourner a l{"'"}accueil
+            </Link>
+          </Button>
         </main>
         
         {/* Footer */}
