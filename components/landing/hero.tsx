@@ -54,7 +54,7 @@ export function Hero() {
         {/* Lien temporaire pour presentation */}
         <div className="pt-4">
           <Link 
-            href="/app/services" 
+            href="/app/services/new" 
             className="text-sm text-primary underline underline-offset-4 hover:text-primary/80 transition-colors"
           >
             Voir les services (Demo)
