@@ -2,19 +2,18 @@
 
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { FileText, Clock, CheckCircle, XCircle, Loader2 } from "lucide-react"
+import { FileText, Clock, CheckCircle, XCircle, Loader2, User } from "lucide-react"
 import { format } from "date-fns"
 import { fr } from "date-fns/locale"
 
 interface ServiceRequest {
   id: string
-  service_type: string
   status: string
-  full_name: string
-  preferred_date: string | null
-  location: string | null
+  deceased_full_name: string | null
+  deceased_first_names: string | null
+  service_type: string | null
+  death_date: string | null
   created_at: string
-  memorials: { full_name: string } | null
 }
 
 interface ServiceRequestsListProps {
@@ -22,20 +21,18 @@ interface ServiceRequestsListProps {
 }
 
 const serviceTypeLabels: Record<string, string> = {
-  funeral: "Obseques completes",
+  enterrement: "Enterrement",
   cremation: "Cremation",
-  memorial_service: "Ceremonie commemorative",
-  transport: "Transport funeraire",
-  flowers: "Arrangements floraux",
-  catering: "Reception / Traiteur",
-  other: "Autre service",
+  inhumation_ecologique: "Inhumation ecologique",
+  ceremonie_virtuelle: "Ceremonie virtuelle",
+  aucun: "Aucun service principal",
 }
 
-const statusConfig: Record<string, { label: string; icon: React.ElementType; color: string }> = {
-  pending: { label: "En attente", icon: Clock, color: "bg-amber-500" },
-  in_progress: { label: "En cours", icon: Loader2, color: "bg-blue-500" },
-  completed: { label: "Termine", icon: CheckCircle, color: "bg-green-500" },
-  cancelled: { label: "Annule", icon: XCircle, color: "bg-gray-500" },
+const statusConfig: Record<string, { label: string; icon: React.ElementType; variant: "default" | "secondary" | "destructive" | "outline" }> = {
+  submitted: { label: "Soumise", icon: Clock, variant: "default" },
+  processing: { label: "En traitement", icon: Loader2, variant: "secondary" },
+  completed: { label: "Terminee", icon: CheckCircle, variant: "outline" },
+  cancelled: { label: "Annulee", icon: XCircle, variant: "destructive" },
 }
 
 export function ServiceRequestsList({ requests }: ServiceRequestsListProps) {
@@ -47,7 +44,7 @@ export function ServiceRequestsList({ requests }: ServiceRequestsListProps) {
         </div>
         <h3 className="font-semibold mb-2">Aucune demande</h3>
         <p className="text-muted-foreground text-sm">
-          Vous n&apos;avez pas encore fait de demande de service
+          Vous n&apos;avez pas encore soumis de demande de service
         </p>
       </div>
     )
@@ -56,38 +53,39 @@ export function ServiceRequestsList({ requests }: ServiceRequestsListProps) {
   return (
     <div className="space-y-4">
       {requests.map((request) => {
-        const status = statusConfig[request.status] || statusConfig.pending
+        const status = statusConfig[request.status] || statusConfig.submitted
         const StatusIcon = status.icon
+        const deceasedName = [request.deceased_first_names, request.deceased_full_name]
+          .filter(Boolean)
+          .join(" ") || "Non specifie"
 
         return (
           <Card key={request.id}>
             <CardContent className="p-4">
               <div className="flex items-start justify-between gap-3 mb-3">
-                <div>
-                  <h3 className="font-medium">
-                    {serviceTypeLabels[request.service_type] || request.service_type}
-                  </h3>
-                  {request.memorials && (
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-full bg-muted flex items-center justify-center">
+                    <User className="w-5 h-5 text-muted-foreground" />
+                  </div>
+                  <div>
+                    <h3 className="font-medium">{deceasedName}</h3>
                     <p className="text-sm text-muted-foreground">
-                      Pour: {request.memorials.full_name}
+                      {request.service_type ? serviceTypeLabels[request.service_type] : "Service non specifie"}
                     </p>
-                  )}
+                  </div>
                 </div>
-                <Badge variant="secondary" className="flex items-center gap-1">
-                  <StatusIcon className={`h-3 w-3 ${request.status === 'in_progress' ? 'animate-spin' : ''}`} />
+                <Badge variant={status.variant} className="flex items-center gap-1">
+                  <StatusIcon className={`h-3 w-3 ${request.status === 'processing' ? 'animate-spin' : ''}`} />
                   {status.label}
                 </Badge>
               </div>
 
-              <div className="text-sm text-muted-foreground space-y-1">
-                {request.preferred_date && (
-                  <p>Date souhaitee: {format(new Date(request.preferred_date), "d MMMM yyyy", { locale: fr })}</p>
-                )}
-                {request.location && (
-                  <p>Lieu: {request.location}</p>
+              <div className="text-sm text-muted-foreground space-y-1 pl-13">
+                {request.death_date && (
+                  <p>Date du deces: {format(new Date(request.death_date), "d MMMM yyyy", { locale: fr })}</p>
                 )}
                 <p className="text-xs">
-                  Demande du {format(new Date(request.created_at), "d MMMM yyyy 'a' HH:mm", { locale: fr })}
+                  Demande soumise le {format(new Date(request.created_at), "d MMMM yyyy 'a' HH:mm", { locale: fr })}
                 </p>
               </div>
             </CardContent>
