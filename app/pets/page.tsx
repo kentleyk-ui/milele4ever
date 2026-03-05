@@ -50,7 +50,7 @@ export default function PetsPage() {
               </p>
               
               <p className="text-sm text-muted-foreground/70 italic">
-                Parce qu{"'"}ils font partie de la famille (et que Sultan Ley a besoin d{"'"}un petit frere 😊)
+                Parce qu{"'"}ils font partie de la famille et que Sultan Ley a besoin d{"'"}un petit frere... 😊...
               </p>
             </div>
           </div>
