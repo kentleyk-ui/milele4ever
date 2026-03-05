@@ -22,10 +22,10 @@ export function LandingHeader() {
         </Link>
         <nav className="flex items-center gap-2">
           <Button variant="ghost" size="sm" asChild>
-            <Link href="/login">Connexion</Link>
+            <Link href="/auth/login">Connexion</Link>
           </Button>
           <Button size="sm" asChild>
-            <Link href="/register">Inscription</Link>
+            <Link href="/auth/sign-up">Inscription</Link>
           </Button>
         </nav>
       </div>

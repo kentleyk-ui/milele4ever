@@ -22,10 +22,10 @@ export function Hero() {
         
         <div className="flex flex-col sm:flex-row gap-3 justify-center pt-4">
           <Button size="lg" asChild>
-            <Link href="/register">Creer un compte</Link>
+            <Link href="/auth/sign-up">Creer un compte</Link>
           </Button>
           <Button size="lg" variant="outline" asChild>
-            <Link href="/login">Se connecter</Link>
+            <Link href="/auth/login">Se connecter</Link>
           </Button>
         </div>
       </div>
