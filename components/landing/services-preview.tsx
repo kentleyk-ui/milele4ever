@@ -1,19 +1,20 @@
+import Link from "next/link"
 import { Flower2, Car, ScrollText, PawPrint, UtensilsCrossed, Building } from "lucide-react"
 
 const services = [
-  { icon: Building, label: "Salons funeraires", description: "Maisons funeraires et crematoriums" },
-  { icon: Flower2, label: "Fleuristes", description: "Arrangements floraux et couronnes" },
-  { icon: UtensilsCrossed, label: "Traiteurs", description: "Receptions et repas commemoratifs" },
-  { icon: ScrollText, label: "Notaires", description: "Services juridiques et succession" },
-  { icon: Car, label: "Transport", description: "Services de transport funeraire" },
-  { icon: PawPrint, label: "Pour nos amis poilus", description: "Services funeraires pour animaux" },
+  { icon: Building, label: "Salons funeraires", description: "Maisons funeraires et crematoriums", href: "#" },
+  { icon: Flower2, label: "Fleuristes", description: "Arrangements floraux et couronnes", href: "#" },
+  { icon: UtensilsCrossed, label: "Traiteurs", description: "Receptions et repas commemoratifs", href: "#" },
+  { icon: ScrollText, label: "Notaires", description: "Services juridiques et succession", href: "#" },
+  { icon: Car, label: "Transport", description: "Services de transport funeraire", href: "#" },
+  { icon: PawPrint, label: "Pour nos amis poilus", description: "Services funeraires pour animaux", href: "/pets" },
 ]
 
 export function ServicesPreview() {
   return (
     <section className="py-16 px-4 bg-muted/50">
       <div className="max-w-4xl mx-auto text-center">
-        <h2 className="text-2xl font-bold tracking-tight sm:text-3xl mb-4">
+        <h2 className="font-serif text-2xl font-bold tracking-tight sm:text-3xl mb-4">
           Tous les services au meme endroit
         </h2>
         <p className="text-muted-foreground mb-10 max-w-2xl mx-auto">
@@ -23,13 +24,14 @@ export function ServicesPreview() {
         
         <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
           {services.map((service) => (
-            <div
+            <Link
               key={service.label}
-              className="flex flex-col items-center p-4 rounded-lg bg-background border hover:border-primary/50 transition-colors"
+              href={service.href}
+              className="flex flex-col items-center p-4 rounded-lg bg-background border hover:border-primary/50 hover:shadow-md transition-all"
             >
               <service.icon className="h-8 w-8 text-primary mb-3" />
               <span className="font-medium text-sm">{service.label}</span>
-            </div>
+            </Link>
           ))}
         </div>
       </div>
