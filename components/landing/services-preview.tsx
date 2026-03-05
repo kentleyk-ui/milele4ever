@@ -1,4 +1,4 @@
-import { Flower2, Car, ScrollText, Stethoscope, UtensilsCrossed, Building } from "lucide-react"
+import { Flower2, Car, ScrollText, PawPrint, UtensilsCrossed, Building } from "lucide-react"
 
 const services = [
   { icon: Building, label: "Salons funeraires", description: "Maisons funeraires et crematoriums" },
@@ -6,7 +6,7 @@ const services = [
   { icon: UtensilsCrossed, label: "Traiteurs", description: "Receptions et repas commemoratifs" },
   { icon: ScrollText, label: "Notaires", description: "Services juridiques et succession" },
   { icon: Car, label: "Transport", description: "Services de transport funeraire" },
-  { icon: Stethoscope, label: "Veterinaires", description: "Services funeraires pour animaux" },
+  { icon: PawPrint, label: "Pour nos amis poilus", description: "Services funeraires pour animaux" },
 ]
 
 export function ServicesPreview() {
