@@ -72,7 +72,10 @@ export default async function FamilyPage({ params }: FamilyPageProps) {
           <AddFamilyMemberButton 
             memorialId={id} 
             availableMemorials={availableMemorials || []}
-            existingRelationships={relationships?.map(r => r.related_memorial?.id).filter(Boolean) as string[] || []}
+            existingRelationships={relationships?.map(r => {
+              const relatedMemorial = Array.isArray(r.related_memorial) ? r.related_memorial[0] : r.related_memorial
+              return relatedMemorial?.id
+            }).filter(Boolean) as string[] || []}
           />
         ) : null}
       />
@@ -80,7 +83,10 @@ export default async function FamilyPage({ params }: FamilyPageProps) {
       <main className="flex-1 p-4 pb-24">
         <FamilyTree 
           centralPerson={memorial}
-          relationships={relationships || []}
+          relationships={relationships?.map(r => ({
+            ...r,
+            related_memorial: Array.isArray(r.related_memorial) ? r.related_memorial[0] : r.related_memorial
+          })) || []}
           canEdit={canEdit}
         />
       </main>

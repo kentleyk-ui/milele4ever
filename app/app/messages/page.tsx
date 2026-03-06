@@ -79,7 +79,16 @@ export default async function MessagesPage() {
 
       <main className="flex-1 pb-24">
         <ConversationsList 
-          conversations={conversationsWithMessages} 
+          conversations={conversationsWithMessages.map(c => ({
+            ...c,
+            conversations: Array.isArray(c.conversations) ? {
+              ...c.conversations[0],
+              conversation_participants: c.conversations[0]?.conversation_participants?.map(p => ({
+                ...p,
+                profiles: Array.isArray(p.profiles) ? p.profiles[0] : p.profiles
+              })) || []
+            } : c.conversations
+          }))} 
           currentUserId={user.id}
         />
       </main>

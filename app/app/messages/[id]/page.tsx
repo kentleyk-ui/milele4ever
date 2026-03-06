@@ -61,9 +61,10 @@ export default async function ChatPage({ params }: ChatPageProps) {
     .eq("is_read", false)
 
   // Get other participants for header
-  const otherParticipants = participation.conversations.conversation_participants
-    .filter(p => p.user_id !== user.id)
-    .map(p => p.profiles)
+  const conversations = Array.isArray(participation.conversations) ? participation.conversations[0] : participation.conversations
+  const otherParticipants = conversations?.conversation_participants
+    ?.filter(p => p.user_id !== user.id)
+    ?.map(p => Array.isArray(p.profiles) ? p.profiles[0] : p.profiles) || []
 
   return (
     <ChatView
@@ -74,7 +75,10 @@ export default async function ChatPage({ params }: ChatPageProps) {
         avatar_url: user.user_metadata?.avatar_url || null,
       }}
       otherParticipants={otherParticipants}
-      initialMessages={messages || []}
+      initialMessages={messages?.map(m => ({
+        ...m,
+        profiles: Array.isArray(m.profiles) ? m.profiles[0] : m.profiles
+      })) || []}
     />
   )
 }

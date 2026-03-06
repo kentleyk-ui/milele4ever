@@ -65,7 +65,10 @@ export default async function TimelinePage({ params }: TimelinePageProps) {
 
       <main className="flex-1 p-4 pb-24">
         <TimelineView 
-          events={events || []} 
+          events={events?.map(e => ({
+            ...e,
+            profiles: Array.isArray(e.profiles) ? e.profiles[0] : e.profiles
+          })) || []} 
           memorial={memorial}
           canEdit={canEdit}
         />
