@@ -78,7 +78,11 @@ export function ChatView({ conversationId, currentUser, otherParticipants, initi
             .single()
 
           if (newMsg) {
-            setMessages(prev => [...prev, newMsg as Message])
+            const transformedMsg = {
+              ...newMsg,
+              profiles: Array.isArray(newMsg.profiles) ? newMsg.profiles[0] : newMsg.profiles
+            }
+            setMessages(prev => [...prev, transformedMsg as Message])
           }
         }
       )

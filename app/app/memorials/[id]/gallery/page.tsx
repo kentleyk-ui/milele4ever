@@ -60,7 +60,10 @@ export default async function GalleryPage({ params }: GalleryPageProps) {
       />
 
       <main className="flex-1 p-4 pb-24">
-        <GalleryGrid media={media || []} memorialId={id} />
+        <GalleryGrid media={media?.map(m => ({
+          ...m,
+          profiles: Array.isArray(m.profiles) ? m.profiles[0] : m.profiles
+        })) || []} memorialId={id} />
       </main>
     </div>
   )

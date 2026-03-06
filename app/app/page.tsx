@@ -21,8 +21,12 @@ export default async function FeedPage() {
 
   return (
     <>
-      <AppHeader user={user} />
-      <FeedContent posts={posts || []} recentMemorials={recentMemorials || []} />
+      <AppHeader />
+      <FeedContent posts={posts?.map(p => ({
+        ...p,
+        profiles: Array.isArray(p.profiles) ? p.profiles[0] : p.profiles,
+        memorials: Array.isArray(p.memorials) ? p.memorials[0] : p.memorials
+      })) || []} recentMemorials={recentMemorials || []} />
     </>
   )
 }
