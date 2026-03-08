@@ -1,0 +1,165 @@
+✨ SYSTÈME DE RESTAURATION DE SAUVEGARDE SUPABASE - PRÊT À L'EMPLOI
+
+Bonjour ! Vous venez de mettre en place un système complet et automatisé de restauration de sauvegarde pour votre application Milele4Ever.
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📦 FICHIERS CRÉÉS (dans /scripts/)
+
+MIGRATIONS SQL (à exécuter dans cet ordre):
+✅ 001-create-tables.sql ............ Crée les 13 tables principales
+✅ 002-rls-policies.sql ............ Applique les politiques de sécurité (RLS)
+✅ 003-service-request-full.sql .... Migration améliorée service_requests
+
+SCRIPTS D'AUTOMATISATION:
+✅ restore-backup.js .............. Script Node.js pour restauration automatique
+✅ restore-backup.py .............. Script Python pour restauration automatique
+✅ restore.sh ..................... Script interactif Shell (Linux/Mac)
+✅ export-backup.js ............... Script pour exporter les données vers JSON
+✅ verify.js ...................... Vérifie que tout est correctement configuré
+
+DOCUMENTATION COMPLÈTE:
+✅ README.md ...................... Vue d'ensemble rapide
+✅ RESTORE_GUIDE.md ............... Guide détaillé (3 méthodes)
+✅ restore-gui.html ............... Interface Web pour restauration
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🚀 COMMENT UTILISER
+
+OPTION 1 : PLUS SIMPLE (via npm)
+─────────────────────────────────────
+npm run db:restore
+
+Prérequis: Node.js installé + variables d'environnement dans .env.local
+
+
+OPTION 2 : PYTHON
+─────────────────────────────────────
+npm run db:restore:py
+
+Prérequis: Python 3.8+ + psycopg2-binary
+
+
+OPTION 3 : INTERFACE WEB
+─────────────────────────────────────
+Ouvrez le fichier: scripts/restore-gui.html dans votre navigateur
+Pas de dépendances requises !
+
+
+OPTION 4 : DASHBOARD SUPABASE (Recommandé pour débutants)
+─────────────────────────────────────
+1. Allez sur https://supabase.com/dashboard
+2. Sélectionnez votre projet "milele4ever"
+3. Allez dans SQL Editor
+4. Copiez/exécutez les 3 fichiers .sql dans l'ordre
+
+
+OPTION 5 : EXPORTER VOS DONNÉES D'ABORD
+─────────────────────────────────────
+npm run db:export
+
+Crée un backup-DATE.json avec toutes vos données actuelles
+
+═══════════════════════════════════════════════════════════════════════════════
+
+⚙️ CONFIGURATION REQUISE
+
+Créez un fichier .env.local à la racine du projet avec:
+
+  NEXT_PUBLIC_SUPABASE_URL=https://xxxxx.supabase.co
+  SUPABASE_SERVICE_ROLE_KEY=votre_clé_secrète_ici
+
+Où trouver ces valeurs:
+  1. https://supabase.com/dashboard
+  2. Sélectionnez votre projet
+  3. Settings → API
+  4. Copiez Project URL et Service Role Secret
+
+⚠️  Ne partagez JAMAIS votre SUPABASE_SERVICE_ROLE_KEY publiquement!
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📊 STRUCTURE DE BASE DE DONNÉES
+
+13 tables seront restaurées:
+
+  UTILISATEURS & PROFILS:
+  ├─ profiles (utilisateurs)
+  
+  MEMORIALS (pages commémoratives):
+  ├─ memorials (pages principales)
+  ├─ memorial_members (permissions)
+  ├─ posts (publications)
+  ├─ media (photos/vidéos)
+  ├─ timeline_events (événements de vie)
+  ├─ family_relationships (généalogie)
+  ├─ candles (bougies virtuelles)
+  
+  MESSAGERIE:
+  ├─ conversations (fils de discussion)
+  ├─ conversation_participants (participants)
+  ├─ messages (messages)
+  
+  NOTIFICATIONS & SERVICES:
+  ├─ notifications (alertes)
+  ├─ service_requests (demandes funéraires)
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🔒 SÉCURITÉ
+
+✅ Row Level Security (RLS) activé sur toutes les tables
+✅ Les utilisateurs ne voient que leurs propres données
+✅ Les memorials publics sont visibles par tous
+✅ Les modifications nécessitent les bonnes permissions
+✅ Les notifications ne sont visibles que par le destinataire
+
+═══════════════════════════════════════════════════════════════════════════════
+
+✅ VÉRIFICATION APRÈS RESTAURATION
+
+Exécutez cette requête SQL pour vérifier que tout est en place:
+
+  SELECT table_name 
+  FROM information_schema.tables 
+  WHERE table_schema = 'public'
+  ORDER BY table_name;
+
+Vous devriez voir les 13 tables listées ci-dessus.
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📝 COMMANDES npm DISPONIBLES
+
+  npm run dev                  # Lancer l'app en développement
+  npm run build               # Builder pour production
+  npm run lint                # Vérifier le code
+  
+  npm run db:restore          # Restaurer depuis sauvegarde (Node.js)
+  npm run db:restore:py       # Restaurer depuis sauvegarde (Python)
+  npm run db:export           # Exporter les données actuelles en JSON
+
+═══════════════════════════════════════════════════════════════════════════════
+
+📚 DOCUMENTATION COMPLÈTE
+
+Pour plus d'informations détaillées, consultez:
+
+  scripts/README.md               - Vue d'ensemble
+  scripts/RESTORE_GUIDE.md        - Guide complet (3 méthodes + dépannage)
+  scripts/restore-gui.html        - Interface Web interactive
+
+═══════════════════════════════════════════════════════════════════════════════
+
+🎉 PRÊT À COMMENCER!
+
+Vous avez maintenant un système complet de restauration de sauvegarde.
+
+Prochaines étapes:
+1. Créez le fichier .env.local avec vos variables Supabase
+2. Choisissez votre méthode préférée parmi les options ci-dessus
+3. Exécutez la restauration
+4. Vérifiez que les données sont chargées
+
+Bonne restauration! 🚀
