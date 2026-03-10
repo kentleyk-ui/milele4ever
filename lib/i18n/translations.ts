@@ -84,6 +84,21 @@ export const translations: Record<Language, Record<string, string>> = {
     'pets.role': 'Chief Relaxation Officer',
     'pets.bio': 'A loyal companion who believes in the importance of rest and reflection.',
     
+    // Feedback
+    'feedback.title': 'Suggestions',
+    'feedback.subtitle': 'Your ideas help us improve Milele',
+    'feedback.name': 'Your name (optional)',
+    'feedback.namePlaceholder': 'Anonymous',
+    'feedback.message': 'Your message',
+    'feedback.messagePlaceholder': 'Share your ideas, suggestions or feedback...',
+    'feedback.send': 'Send',
+    'feedback.sent': 'Message sent!',
+    'feedback.sentDesc': 'Thank you for your feedback.',
+    'feedback.disclaimer': 'Your message will be sent to the Milele team.',
+    'feedback.emailSubject': 'Suggestion - Milele',
+    'feedback.emailFrom': 'From',
+    'feedback.anonymous': 'Anonymous',
+
     // Common
     'common.back': 'Back',
     'common.save': 'Save',
@@ -192,6 +207,21 @@ export const translations: Record<Language, Record<string, string>> = {
     'pets.role': 'Directeur de la Détente',
     'pets.bio': 'Un compagnon loyal qui croit en l\'importance du repos et de la réflexion.',
     
+    // Feedback
+    'feedback.title': 'Suggestions',
+    'feedback.subtitle': 'Vos idées nous aident à améliorer Milele',
+    'feedback.name': 'Votre nom (optionnel)',
+    'feedback.namePlaceholder': 'Anonyme',
+    'feedback.message': 'Votre message',
+    'feedback.messagePlaceholder': 'Partagez vos idées, suggestions ou commentaires...',
+    'feedback.send': 'Envoyer',
+    'feedback.sent': 'Message envoyé!',
+    'feedback.sentDesc': 'Merci pour votre retour.',
+    'feedback.disclaimer': 'Votre message sera envoyé à l\'équipe Milele.',
+    'feedback.emailSubject': 'Suggestion - Milele',
+    'feedback.emailFrom': 'De la part de',
+    'feedback.anonymous': 'Anonyme',
+
     // Common
     'common.back': 'Retour',
     'common.save': 'Enregistrer',

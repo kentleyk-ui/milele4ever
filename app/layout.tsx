@@ -3,6 +3,7 @@ import { DM_Sans, Playfair_Display } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import { I18nProvider } from '@/lib/i18n/context'
+import { FeedbackButton } from '@/components/feedback-button'
 import './globals.css'
 
 const dmSans = DM_Sans({ 
@@ -71,6 +72,7 @@ export default function RootLayout({
         >
           <I18nProvider>
             {children}
+            <FeedbackButton />
           </I18nProvider>
         </ThemeProvider>
         <Analytics />
