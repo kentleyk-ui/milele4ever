@@ -8,11 +8,11 @@ export function ServicesPreview() {
   const { t } = useI18n()
 
   const services = [
-    { icon: Building, label: t('services.funeralHome'), description: t('services.funeralHomeDesc'), href: "#" },
-    { icon: Flower2, label: t('services.florists'), description: t('services.floristsDesc'), href: "#" },
-    { icon: UtensilsCrossed, label: t('services.caterers'), description: t('services.caterersDesc'), href: "#" },
-    { icon: ScrollText, label: t('services.notaries'), description: t('services.notariesDesc'), href: "#" },
-    { icon: Car, label: t('services.transport'), description: t('services.transportDesc'), href: "#" },
+    { icon: Building, label: t('services.funeralHome'), description: t('services.funeralHomeDesc'), href: "/app/services" },
+    { icon: Flower2, label: t('services.florists'), description: t('services.floristsDesc'), href: "/app/services" },
+    { icon: UtensilsCrossed, label: t('services.caterers'), description: t('services.caterersDesc'), href: "/app/services" },
+    { icon: ScrollText, label: t('services.notaries'), description: t('services.notariesDesc'), href: "/app/services" },
+    { icon: Car, label: t('services.transport'), description: t('services.transportDesc'), href: "/app/services" },
     { icon: PawPrint, label: t('services.pets'), description: t('services.petsDesc'), href: "/pets" },
   ]
 
