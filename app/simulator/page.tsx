@@ -20,84 +20,76 @@ type ServiceOption = {
   icon: React.ElementType
   label: string
   description: string
-  priceRange: string
-  basePrice: number
+  basePriceXAF: number
 }
 
 type CeremonyType = 'religious' | 'civil' | 'intimate' | 'none'
 
 export default function SimulatorPage() {
-  const { t, language } = useI18n()
+  const { t, language, formatPrice } = useI18n()
   const [step, setStep] = useState(1)
   const [ceremonyType, setCeremonyType] = useState<CeremonyType>('civil')
   const [selectedServices, setSelectedServices] = useState<string[]>([])
   const [guestCount, setGuestCount] = useState<'small' | 'medium' | 'large'>('medium')
   const [showResults, setShowResults] = useState(false)
 
+  // Prices in FCFA (XAF)
   const services: ServiceOption[] = [
     { 
       id: 'funeral_home', 
       icon: Building, 
       label: language === 'fr' ? 'Salon funeraire' : 'Funeral Home',
       description: language === 'fr' ? 'Organisation et preparation' : 'Organization and preparation',
-      priceRange: '2,500 - 5,000 €',
-      basePrice: 3500
+      basePriceXAF: 2500000
     },
     { 
       id: 'flowers', 
       icon: Flower2, 
       label: language === 'fr' ? 'Fleurs' : 'Flowers',
       description: language === 'fr' ? 'Arrangements floraux' : 'Floral arrangements',
-      priceRange: '200 - 800 €',
-      basePrice: 400
+      basePriceXAF: 150000
     },
     { 
       id: 'catering', 
       icon: UtensilsCrossed, 
       label: language === 'fr' ? 'Traiteur' : 'Catering',
       description: language === 'fr' ? 'Reception et repas' : 'Reception and meals',
-      priceRange: '500 - 2,000 €',
-      basePrice: 1000
+      basePriceXAF: 500000
     },
     { 
       id: 'notary', 
       icon: ScrollText, 
       label: language === 'fr' ? 'Notaire' : 'Notary',
       description: language === 'fr' ? 'Services juridiques' : 'Legal services',
-      priceRange: '300 - 1,500 €',
-      basePrice: 600
+      basePriceXAF: 200000
     },
     { 
       id: 'transport', 
       icon: Car, 
       label: language === 'fr' ? 'Transport' : 'Transport',
       description: language === 'fr' ? 'Vehicules funeraires' : 'Funeral vehicles',
-      priceRange: '400 - 1,200 €',
-      basePrice: 700
+      basePriceXAF: 300000
     },
     { 
       id: 'music', 
       icon: Music, 
       label: language === 'fr' ? 'Musique' : 'Music',
       description: language === 'fr' ? 'Musiciens ou sonorisation' : 'Musicians or sound system',
-      priceRange: '150 - 600 €',
-      basePrice: 300
+      basePriceXAF: 150000
     },
     { 
       id: 'photography', 
       icon: Camera, 
       label: language === 'fr' ? 'Photographie' : 'Photography',
       description: language === 'fr' ? 'Souvenir de la ceremonie' : 'Ceremony memories',
-      priceRange: '200 - 500 €',
-      basePrice: 350
+      basePriceXAF: 100000
     },
     { 
       id: 'memorial', 
       icon: Heart, 
       label: language === 'fr' ? 'Memorial Milele' : 'Milele Memorial',
       description: language === 'fr' ? 'Memorial numerique eternel' : 'Eternal digital memorial',
-      priceRange: language === 'fr' ? 'Gratuit - 99 €/an' : 'Free - 99 €/year',
-      basePrice: 0
+      basePriceXAF: 0
     },
   ]
 
@@ -117,7 +109,7 @@ export default function SimulatorPage() {
     selectedServices.forEach(serviceId => {
       const service = services.find(s => s.id === serviceId)
       if (service) {
-        let price = service.basePrice
+        let price = service.basePriceXAF
         if (['catering', 'flowers'].includes(serviceId)) {
           price *= guestMultiplier
         }
@@ -184,7 +176,7 @@ export default function SimulatorPage() {
                   {language === 'fr' ? 'Estimation totale' : 'Total Estimate'}
                 </p>
                 <p className="text-4xl font-bold text-primary">
-                  {estimate.toLocaleString()} €
+                  {formatPrice(estimate)}
                 </p>
                 <p className="text-xs text-muted-foreground mt-2">
                   {language === 'fr' 
@@ -206,7 +198,9 @@ export default function SimulatorPage() {
                           <service.icon className="w-5 h-5 text-primary" />
                           <span className="text-sm">{service.label}</span>
                         </div>
-                        <span className="text-sm text-muted-foreground">{service.priceRange}</span>
+                        <span className="text-sm text-muted-foreground">
+                          {service.basePriceXAF > 0 ? formatPrice(service.basePriceXAF) : (language === 'fr' ? 'Gratuit' : 'Free')}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -372,7 +366,9 @@ export default function SimulatorPage() {
                         <service.icon className="w-4 h-4 text-primary flex-shrink-0" />
                         <span className="font-medium text-sm truncate">{service.label}</span>
                       </div>
-                      <p className="text-xs text-muted-foreground mt-1">{service.priceRange}</p>
+                      <p className="text-xs text-muted-foreground mt-1">
+                        {service.basePriceXAF > 0 ? formatPrice(service.basePriceXAF) : (language === 'fr' ? 'Gratuit' : 'Free')}
+                      </p>
                     </div>
                   </div>
                 ))}
