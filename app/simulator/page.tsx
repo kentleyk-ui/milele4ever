@@ -309,7 +309,7 @@ export default function SimulatorPage() {
               <RadioGroup value={ceremonyType} onValueChange={(v) => setCeremonyType(v as CeremonyType)} className="space-y-3">
                 {[
                   { value: 'religious', label: language === 'fr' ? 'Ceremonie religieuse' : 'Religious ceremony', desc: language === 'fr' ? 'Eglise, mosquee, synagogue...' : 'Church, mosque, synagogue...' },
-                  { value: 'civil', label: language === 'fr' ? 'Ceremonie civile' : 'Civil ceremony', desc: language === 'fr' ? 'Salle de reception ou crematorium' : 'Reception hall or crematorium' },
+                  { value: 'civil', label: language === 'fr' ? 'Ceremonie civile' : 'Civil ceremony', desc: language === 'fr' ? 'Salle de reception' : 'Reception hall' },
                   { value: 'intimate', label: language === 'fr' ? 'Ceremonie intime' : 'Intimate ceremony', desc: language === 'fr' ? 'Petit comite, famille proche' : 'Small group, close family' },
                   { value: 'none', label: language === 'fr' ? 'Sans ceremonie' : 'No ceremony', desc: language === 'fr' ? 'Organisation simplifiee' : 'Simplified organization' },
                 ].map(option => (
