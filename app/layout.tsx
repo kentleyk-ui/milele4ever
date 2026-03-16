@@ -4,6 +4,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import { I18nProvider } from '@/lib/i18n/context'
 import { FeedbackButton } from '@/components/feedback-button'
+import { Chatbot } from '@/components/chatbot'
 import './globals.css'
 import './animations.css'
 
@@ -76,6 +77,7 @@ export default function RootLayout({
         >
           <I18nProvider>
             {children}
+            <Chatbot />
             <FeedbackButton />
           </I18nProvider>
         </ThemeProvider>

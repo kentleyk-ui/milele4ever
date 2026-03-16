@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { TreePine, Heart, MousePointerClick, ChevronDown } from "lucide-react"
+import { TreePine, Heart, MousePointerClick, ChevronDown, Calculator } from "lucide-react"
 import { useI18n } from "@/lib/i18n/context"
 
 export function Hero() {
@@ -52,14 +52,14 @@ export function Hero() {
           </Button>
         </div>
         
-        {/* Lien temporaire pour presentation */}
+        {/* Simulator button */}
         <div className="pt-4 stagger-item" style={{ animationDelay: '800ms' }}>
-          <Link 
-            href="/app/services/new" 
-            className="text-sm text-primary underline underline-offset-4 hover:text-primary/80 transition-colors focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded"
-          >
-            {t('services.title')} (Demo)
-          </Link>
+          <Button size="lg" variant="ghost" className="gap-2 text-primary hover:text-primary/80" asChild>
+            <Link href="/simulator">
+              <Calculator className="w-5 h-5" />
+              {t('simulator.cta', 'Simuler mes besoins')}
+            </Link>
+          </Button>
         </div>
       </div>
 
