@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { I18nProvider } from '@/lib/i18n/context'
 import { FeedbackButton } from '@/components/feedback-button'
 import './globals.css'
+import './animations.css'
 
 const dmSans = DM_Sans({ 
   subsets: ["latin"],
@@ -64,6 +65,9 @@ export default function RootLayout({
   return (
     <html lang="fr" suppressHydrationWarning>
       <body className={`${dmSans.variable} ${playfair.variable} font-sans antialiased`}>
+        <a href="#main-content" className="skip-to-content">
+          Aller au contenu principal
+        </a>
         <ThemeProvider
           attribute="class"
           defaultTheme="light"
