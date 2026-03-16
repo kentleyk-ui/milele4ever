@@ -4,12 +4,13 @@ import React, { createContext, useContext, useEffect, useState } from 'react'
 import type { Language } from './translations'
 import { getTranslation } from './translations'
 
-export type Currency = 'XAF' | 'EUR' | 'USD'
+export type Currency = 'CAD' | 'XAF' | 'EUR' | 'USD'
 
 export const currencyConfig: Record<Currency, { symbol: string; name: string; rate: number }> = {
+  CAD: { symbol: 'CAD $', name: 'Dollar canadien', rate: 0.00225 },
   XAF: { symbol: 'FCFA', name: 'Franc CFA', rate: 1 },
   EUR: { symbol: '€', name: 'Euro', rate: 0.00152 },
-  USD: { symbol: '$', name: 'US Dollar', rate: 0.00165 },
+  USD: { symbol: 'USD $', name: 'US Dollar', rate: 0.00165 },
 }
 
 type I18nContextType = {
@@ -25,7 +26,7 @@ const I18nContext = createContext<I18nContextType | undefined>(undefined)
 
 export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>('fr')
-  const [currency, setCurrencyState] = useState<Currency>('XAF')
+  const [currency, setCurrencyState] = useState<Currency>('CAD')
 
   useEffect(() => {
     // Load language from localStorage on client side
@@ -89,9 +90,9 @@ export function useI18n() {
       language: 'fr' as Language,
       setLanguage: () => {},
       t: (key: string, defaultValue?: string) => getTranslation('fr', key, defaultValue),
-      currency: 'XAF' as Currency,
+      currency: 'CAD' as Currency,
       setCurrency: () => {},
-      formatPrice: (amountInXAF: number) => `${amountInXAF.toLocaleString('fr-FR')} FCFA`,
+      formatPrice: (amountInXAF: number) => `${Math.round(amountInXAF * 0.00225).toLocaleString('fr-FR')} CAD $`,
     }
   }
   

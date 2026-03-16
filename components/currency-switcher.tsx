@@ -13,7 +13,7 @@ import { Coins } from 'lucide-react'
 export function CurrencySwitcher() {
   const { currency, setCurrency } = useI18n()
 
-  const currencies: Currency[] = ['XAF', 'EUR', 'USD']
+  const currencies: Currency[] = ['CAD', 'XAF', 'EUR', 'USD']
 
   return (
     <DropdownMenu>
@@ -23,7 +23,7 @@ export function CurrencySwitcher() {
           <span className="text-xs font-medium">{currencyConfig[currency].symbol}</span>
         </Button>
       </DropdownMenuTrigger>
-      <DropdownMenuContent align="end" className="min-w-[140px]">
+      <DropdownMenuContent align="end" className="min-w-[160px]">
         {currencies.map((curr) => (
           <DropdownMenuItem
             key={curr}
