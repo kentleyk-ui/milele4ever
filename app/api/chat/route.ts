@@ -48,13 +48,21 @@ Règles de conversation:
 Tu peux aussi expliquer la signification de "Milele" - qui signifie "pour toujours" ou "éternité" en Swahili.`
 
 export async function POST(req: Request) {
-  const { messages }: { messages: UIMessage[] } = await req.json()
+  try {
+    const { messages }: { messages: UIMessage[] } = await req.json()
 
-  const result = streamText({
-    model: 'openai/gpt-4o-mini',
-    system: MILELE_SYSTEM_PROMPT,
-    messages: await convertToModelMessages(messages),
-  })
+    const result = streamText({
+      model: 'openai/gpt-4o-mini',
+      system: MILELE_SYSTEM_PROMPT,
+      messages: await convertToModelMessages(messages),
+    })
 
-  return result.toUIMessageStreamResponse()
+    return result.toUIMessageStreamResponse()
+  } catch (error) {
+    console.error('[v0] Chat API error:', error)
+    return new Response(JSON.stringify({ error: 'Une erreur est survenue' }), { 
+      status: 500,
+      headers: { 'Content-Type': 'application/json' }
+    })
+  }
 }
