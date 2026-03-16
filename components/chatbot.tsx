@@ -4,9 +4,37 @@ import { useState, useRef, useEffect } from 'react'
 import { useChat } from '@ai-sdk/react'
 import { DefaultChatTransport } from 'ai'
 import { Button } from '@/components/ui/button'
-import { MessageCircle, X, Send, Bot, User, Loader2 } from 'lucide-react'
+import { MessageCircle, X, Send, User, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { useI18n } from '@/lib/i18n/context'
+
+// Custom Angel Icon for Malaïka
+function AngelIcon({ className }: { className?: string }) {
+  return (
+    <svg 
+      xmlns="http://www.w3.org/2000/svg" 
+      viewBox="0 0 24 24" 
+      fill="none" 
+      stroke="currentColor" 
+      strokeWidth="2" 
+      strokeLinecap="round" 
+      strokeLinejoin="round"
+      className={className}
+    >
+      {/* Halo */}
+      <ellipse cx="12" cy="5" rx="3" ry="1" />
+      {/* Head */}
+      <circle cx="12" cy="9" r="2.5" />
+      {/* Body */}
+      <path d="M12 11.5v4" />
+      {/* Wings */}
+      <path d="M8 13c-2-1-3 0-3 2s2 2 4 1" />
+      <path d="M16 13c2-1 3 0 3 2s-2 2-4 1" />
+      {/* Robe */}
+      <path d="M9 19l3-3.5 3 3.5" />
+    </svg>
+  )
+}
 
 export function Chatbot() {
   const { t, language } = useI18n()
@@ -76,7 +104,7 @@ export function Chatbot() {
           {/* Header */}
           <div className="flex items-center gap-3 p-4 border-b border-border bg-muted/30">
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-              <Bot className="w-5 h-5 text-primary" />
+              <AngelIcon className="w-5 h-5 text-primary" />
             </div>
             <div className="flex-1">
               <h3 id="chatbot-title" className="font-semibold text-sm">
@@ -106,7 +134,7 @@ export function Chatbot() {
               <div className="space-y-4">
                 <div className="flex gap-3">
                   <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                    <Bot className="w-4 h-4 text-primary" />
+                    <AngelIcon className="w-4 h-4 text-primary" />
                   </div>
                   <div className="bg-muted rounded-2xl rounded-tl-sm p-3 max-w-[85%]">
                     <p className="text-sm">
@@ -155,7 +183,7 @@ export function Chatbot() {
                   )}>
                     {message.role === 'user' 
                       ? <User className="w-4 h-4" />
-                      : <Bot className="w-4 h-4 text-primary" />
+                      : <AngelIcon className="w-4 h-4 text-primary" />
                     }
                   </div>
                   <div className={cn(
@@ -183,7 +211,7 @@ export function Chatbot() {
             {isLoading && messages.length > 0 && messages[messages.length - 1]?.role === 'user' && (
               <div className="flex gap-3">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                  <Bot className="w-4 h-4 text-primary" />
+                  <AngelIcon className="w-4 h-4 text-primary" />
                 </div>
                 <div className="bg-muted rounded-2xl rounded-tl-sm p-3">
                   <Loader2 className="w-4 h-4 animate-spin text-muted-foreground" />
