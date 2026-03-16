@@ -1,0 +1,120 @@
+/* Skip to content link for accessibility */
+.skip-to-content {
+  position: absolute;
+  top: -2.5rem;
+  left: 1rem;
+  z-index: 100;
+  background-color: var(--primary);
+  color: var(--primary-foreground);
+  padding: 0.5rem 1rem;
+  border-radius: 0.375rem;
+  font-weight: 500;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+  top: 1rem;
+}
+
+/* Quote/Citation styling */
+.quote-highlight {
+  position: relative;
+  padding: 0.75rem 1rem 0.75rem 1rem;
+  border-left: 4px solid oklch(0.50 0.15 150 / 0.6);
+  background-color: oklch(0.50 0.15 150 / 0.05);
+  border-radius: 0 0.5rem 0.5rem 0;
+}
+
+/* Card hover animations */
+.card-hover {
+  transition: all 0.3s ease-out;
+}
+
+.card-hover:hover {
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  transform: translateY(-4px);
+}
+
+/* Icon animations */
+.icon-pulse {
+  animation: icon-pulse 2s ease-in-out infinite;
+}
+
+@keyframes icon-pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.1); }
+}
+
+.icon-float {
+  animation: icon-float 3s ease-in-out infinite;
+}
+
+@keyframes icon-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Stagger animation for lists */
+.stagger-item {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: stagger-in 0.5s ease-out forwards;
+}
+
+@keyframes stagger-in {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Button ripple effect */
+.btn-ripple {
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-ripple::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-color: rgb(255 255 255 / 0.2);
+  transform: scale(0);
+  border-radius: 9999px;
+  transition: transform 0.5s ease-out, opacity 0.3s ease-out;
+}
+
+.btn-ripple:active::after {
+  transform: scale(1.5);
+  opacity: 0;
+  transition: transform 0s, opacity 0s;
+}
+
+/* Scroll indicator animation */
+.scroll-indicator {
+  animation: scroll-bounce 2s ease-in-out infinite;
+}
+
+@keyframes scroll-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(8px); }
+}
+
+/* Respect reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  .icon-pulse,
+  .icon-float,
+  .stagger-item,
+  .scroll-indicator {
+    animation: none;
+  }
+  
+  .card-hover:hover {
+    transform: none;
+  }
+  
+  .stagger-item {
+    opacity: 1;
+    transform: none;
+  }
+}
