@@ -80,11 +80,11 @@ export function Chatbot() {
             </div>
             <div className="flex-1">
               <h3 id="chatbot-title" className="font-semibold text-sm">
-                {t('chatbot.title', 'Assistant Milele')}
+                Malaïka
               </h3>
               <p className="text-xs text-muted-foreground">
                 {isLoading 
-                  ? t('chatbot.typing', 'En train d\'écrire...')
+                  ? t('chatbot.typing', 'En train d\'ecrire...')
                   : t('chatbot.online', 'En ligne')
                 }
               </p>
@@ -111,8 +111,8 @@ export function Chatbot() {
                   <div className="bg-muted rounded-2xl rounded-tl-sm p-3 max-w-[85%]">
                     <p className="text-sm">
                       {language === 'fr' 
-                        ? "Bonjour! Je suis l'assistant Milele. Je suis là pour vous aider à comprendre nos services et vous accompagner dans cette période difficile. Comment puis-je vous aider?"
-                        : "Hello! I'm the Milele assistant. I'm here to help you understand our services and support you during this difficult time. How can I help you?"
+                        ? "Bonjour! Je suis Malaïka, votre assistante Milele. Mon nom signifie \"ange\" en Swahili. Je suis la pour vous accompagner et repondre a vos questions sur nos services. Comment puis-je vous aider?"
+                        : "Hello! I'm Malaïka, your Milele assistant. My name means \"angel\" in Swahili. I'm here to support you and answer your questions about our services. How can I help you?"
                       }
                     </p>
                   </div>
@@ -121,7 +121,7 @@ export function Chatbot() {
                 {/* Suggested Questions */}
                 <div className="space-y-2">
                   <p className="text-xs text-muted-foreground px-2">
-                    {t('chatbot.suggestions', 'Questions fréquentes:')}
+                    {t('chatbot.suggestions', 'Questions frequentes:')}
                   </p>
                   <div className="flex flex-wrap gap-2">
                     {suggestedQuestions.map((question, index) => (

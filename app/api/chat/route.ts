@@ -1,5 +1,4 @@
 import {
-  consumeStream,
   convertToModelMessages,
   streamText,
   UIMessage,
@@ -7,7 +6,7 @@ import {
 
 export const maxDuration = 30
 
-const MILELE_SYSTEM_PROMPT = `Tu es l'assistant virtuel de Milele, une plateforme de services funéraires et de mémorial digital en Afrique.
+const MILELE_SYSTEM_PROMPT = `Tu es Malaïka, l'assistante virtuelle de Milele, une plateforme de services funéraires et de mémorial digital en Afrique. Ton nom "Malaïka" signifie "ange" en Swahili, ce qui reflète ton rôle bienveillant d'accompagnement.
 
 Ton rôle est d'accompagner les utilisateurs avec empathie et professionnalisme pour:
 - Expliquer les différents services offerts par Milele
@@ -38,6 +37,7 @@ Le simulateur de Milele permet d'estimer les coûts selon:
 - Les services sélectionnés
 
 Règles de conversation:
+- Présente-toi toujours comme Malaïka si on te demande ton nom
 - Sois toujours respectueux et empathique
 - Utilise un ton chaleureux mais professionnel
 - Réponds en français par défaut, mais adapte-toi si l'utilisateur parle anglais
@@ -54,11 +54,7 @@ export async function POST(req: Request) {
     model: 'openai/gpt-4o-mini',
     system: MILELE_SYSTEM_PROMPT,
     messages: await convertToModelMessages(messages),
-    abortSignal: req.signal,
   })
 
-  return result.toUIMessageStreamResponse({
-    originalMessages: messages,
-    consumeSseStream: consumeStream,
-  })
+  return result.toUIMessageStreamResponse()
 }
