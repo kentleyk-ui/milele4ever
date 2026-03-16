@@ -9,6 +9,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@ai-sdk/react": "^3.0.118",
     "@hookform/resolvers": "^3.9.1",
     "@radix-ui/react-accordion": "1.2.12",
     "@radix-ui/react-alert-dialog": "1.1.15",
@@ -41,6 +42,7 @@
     "@supabase/supabase-js": "^2.49.4",
     "@vercel/analytics": "1.6.1",
     "@vercel/blob": "^2.3.1",
+    "ai": "^6.0.116",
     "autoprefixer": "^10.4.20",
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
