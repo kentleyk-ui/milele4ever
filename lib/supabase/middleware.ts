@@ -15,31 +15,44 @@ export async function updateSession(request: NextRequest) {
           return request.cookies.getAll()
         },
         setAll(cookiesToSet) {
-          cookiesToSet.forEach(({ name, value }) =>
-            request.cookies.set(name, value),
-          )
+          cookiesToSet.forEach(({ name, value }) => request.cookies.set(name, value))
           supabaseResponse = NextResponse.next({
             request,
           })
           cookiesToSet.forEach(({ name, value, options }) =>
-            supabaseResponse.cookies.set(name, value, options),
+            supabaseResponse.cookies.set(name, value, options)
           )
         },
       },
-    },
+    }
   )
+
+  // Do not run code between createServerClient and
+  // supabase.auth.getUser(). A simple mistake could make it very hard to debug
+  // issues with users being randomly logged out.
 
   const {
     data: { user },
   } = await supabase.auth.getUser()
 
-  // Redirect to login if accessing protected routes without authentication
+  // Protected routes - redirect to login if not authenticated
   if (
-    request.nextUrl.pathname.startsWith('/app') &&
-    !user
+    !user &&
+    request.nextUrl.pathname.startsWith('/app')
   ) {
     const url = request.nextUrl.clone()
     url.pathname = '/auth/login'
+    return NextResponse.redirect(url)
+  }
+
+  // If user is logged in and tries to access auth pages, redirect to app
+  if (
+    user &&
+    (request.nextUrl.pathname.startsWith('/auth/login') ||
+      request.nextUrl.pathname.startsWith('/auth/sign-up'))
+  ) {
+    const url = request.nextUrl.clone()
+    url.pathname = '/app'
     return NextResponse.redirect(url)
   }
 
