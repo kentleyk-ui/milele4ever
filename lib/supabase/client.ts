@@ -1,3 +1,6 @@
+// lib/supabase/client.ts
+"use client"
+
 import { createBrowserClient } from '@supabase/ssr'
 
 export function createClient() {
@@ -5,7 +8,9 @@ export function createClient() {
   const key = process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY
 
   if (!url || !key) {
-    throw new Error('Supabase URL and Key are not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables.')
+    throw new Error(
+      'Supabase URL and Key are not configured. Please set NEXT_PUBLIC_SUPABASE_URL and NEXT_PUBLIC_SUPABASE_ANON_KEY environment variables.'
+    )
   }
 
   return createBrowserClient(url, key)
