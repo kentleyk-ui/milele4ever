@@ -42,6 +42,9 @@ export function LandingHeader() {
           </Link>
         </div>
         <nav className="flex items-center gap-1 sm:gap-2">
+          <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex">
+            <Link href="/about">{t('landing.about', 'A propos')}</Link>
+          </Button>
           <CurrencySwitcher />
           <LanguageSwitcher />
           <ThemeToggle />
