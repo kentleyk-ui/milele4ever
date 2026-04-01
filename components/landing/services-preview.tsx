@@ -28,21 +28,33 @@ export function ServicesPreview() {
           </p>
         </div>
         
-        {/* Bento Grid Layout */}
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 auto-rows-[minmax(120px,auto)]">
+        {/* Bento Grid Layout - 6 colonnes avec disposition esthétique */}
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 auto-rows-[minmax(140px,auto)]">
           {services.map((service, index) => {
             let gridSpan = ''
-            // Salon funeraire à gauche (index 0)
+            // Salon funeraire à gauche (index 0) - 2 rangées
             if (index === 0) {
-              gridSpan = 'md:col-span-1 md:row-span-2 md:col-start-1'
+              gridSpan = 'md:col-span-1 md:row-span-2 md:col-start-1 md:row-start-1'
             }
-            // Amis poilus à droite (index 5)
+            // Fleuriste (index 1) - rangée 1, colonnes 2-3
+            else if (index === 1) {
+              gridSpan = 'md:col-span-2 md:row-span-1 md:col-start-2 md:row-start-1'
+            }
+            // Traiteur (index 2) - rangée 2, colonnes 2-3
+            else if (index === 2) {
+              gridSpan = 'md:col-span-2 md:row-span-1 md:col-start-2 md:row-start-2'
+            }
+            // Notaire (index 3) - rangée 1, colonnes 4-5
+            else if (index === 3) {
+              gridSpan = 'md:col-span-2 md:row-span-1 md:col-start-4 md:row-start-1'
+            }
+            // Transport (index 4) - rangée 2, colonnes 4-5
+            else if (index === 4) {
+              gridSpan = 'md:col-span-2 md:row-span-1 md:col-start-4 md:row-start-2'
+            }
+            // Compagnons à poils à droite (index 5) - 2 rangées
             else if (index === 5) {
-              gridSpan = 'md:col-span-1 md:row-span-2 md:col-start-6'
-            }
-            // Les autres au centre
-            else {
-              gridSpan = ''
+              gridSpan = 'md:col-span-1 md:row-span-2 md:col-start-6 md:row-start-1'
             }
 
             return (
