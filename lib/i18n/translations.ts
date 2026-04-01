@@ -21,7 +21,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Hero section
     'hero.heading': 'Milele means "forever" in Swahili.',
     'hero.paragraph1': 'Everyone is master of their life. We shape it in our image, with the tools and choices we hold dear, to leave behind the legacy we truly wish to pass on.',
-    'hero.paragraph2': 'At Milele, we honor this profound freedom. Our mission is to watch over the legacy you have chosen: to secure it with the greatest care, to preserve it over time and ensure its continuity, so that it soars serenely into eternity.',
+    'hero.paragraph2': 'Aïon and Aeternum: two ancient words that trace the complete journey of the soul. Aïon: the sacred time of our earthly life, where we freely sculpt our story and the legacy we wish to leave behind. Aeternum: the luminous eternity where everything that has been loved continues to live forever. At Milele, we accompany this passage with care: we protect your Aïon and ensure that your legacy serenely joins Aeternum.',
     'hero.closing': 'Milele — Because what truly matters must last forever.',
     'hero.button': 'Get Started',
     'hero.explore': 'Explore Memorials',
@@ -194,7 +194,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Hero section
     'hero.heading': 'Milele signifie « pour toujours » en swahili.',
     'hero.paragraph1': 'Chacun est maître de sa vie. Nous la façonnons à notre image, avec les outils et les choix qui nous tiennent à cœur, pour laisser derrière nous l\'héritage que nous désirons vraiment transmettre.',
-    'hero.paragraph2': 'Chez Milele, nous honorons cette liberté profonde. Notre mission est de veiller sur cet héritage que vous avez choisi : le sécuriser avec le plus grand soin, le préserver dans le temps et assurer sa continuité, pour qu\'il s\'envole sereinement vers l\'éternité.',
+    'hero.paragraph2': 'Aïon et Aeternum : deux mots anciens qui dessinent le voyage complet de l\'âme. Aïon : le temps sacré de notre vie terrestre, où nous sculptons librement notre histoire et l\'héritage que nous désirons laisser. Aeternum : l\'éternité lumineuse où tout ce qui a été aimé continue de vivre pour toujours. Chez Milele, nous accompagnons avec soin ce passage : nous protégeons votre Aïon et veillons à ce que votre héritage rejoigne sereinement l\'Aeternum.',
     'hero.closing': 'Milele — Parce que ce qui compte vraiment doit durer pour toujours.',
     'hero.button': 'Commencer',
     'hero.explore': 'Explorer les Mémoriaux',
@@ -367,7 +367,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Hero section
     'hero.heading': 'Milele significa "para siempre" en swahili.',
     'hero.paragraph1': 'Cada uno es dueño de su vida. La moldeamos a nuestra imagen, con las herramientas y elecciones que nos importan, para dejar atrás el legado que realmente deseamos transmitir.',
-    'hero.paragraph2': 'En Milele, honramos esta libertad profunda. Nuestra misión es velar por el legado que has elegido: asegurarlo con el mayor cuidado, preservarlo en el tiempo y garantizar su continuidad, para que vuele serenamente hacia la eternidad.',
+    'hero.paragraph2': 'Aïon y Aeternum: dos palabras antiguas que trazan el viaje completo del alma. Aïon: el tiempo sagrado de nuestra vida terrestre, donde esculpimos libremente nuestra historia y el legado que deseamos dejar. Aeternum: la eternidad luminosa donde todo lo que ha sido amado continúa viviendo para siempre. En Milele, acompañamos con cuidado este paso: protegemos tu Aïon y aseguramos que tu legado se une serenamente a Aeternum.',
     'hero.closing': 'Milele — Porque lo que realmente importa debe durar para siempre.',
     'hero.button': 'Comenzar',
     'hero.explore': 'Explorar Memoriales',
@@ -540,7 +540,7 @@ export const translations: Record<Language, Record<string, string>> = {
     // Hero section
     'hero.heading': 'Milele inamaanisha "milele" kwa Kiswahili.',
     'hero.paragraph1': 'Kila mtu ni bwana wa maisha yake. Tunayaunda kwa sura yetu, na zana na chaguzi zinazotupendeza, ili kuacha urithi ambao kweli tunataka kupitisha.',
-    'hero.paragraph2': 'Katika Milele, tunaheshimu uhuru huu wa kina. Dhamira yetu ni kulinda urithi uliouchagua: kuulinda kwa uangalifu mkubwa, kuuhifadhi kwa wakati na kuhakikisha uendeleo wake, ili upae kwa utulivu kuelekea milele.',
+    'hero.paragraph2': 'Aïon na Aeternum: maneno mawili ya kale ambayo yanatoa picha ya safari kamili ya roho. Aïon: wakati mtakatifu wa maisha yetu ya ardhi, ambapo tunakunga hadithi yetu kwa uhuru na urithi tunataka kuacha. Aeternum: milele inayozaa ambapo kila kitu kilicho-pendezwa kinaendelea kuishi milele. Katika Milele, tunaanzia safari hii kwa uangalifu: tunalinda Aïon yako na tunahakikisha urithi wako unajiunga kwa utulivu na Aeternum.',
     'hero.closing': 'Milele — Kwa sababu kinachohusika kweli lazima kidumu milele.',
     'hero.button': 'Anza',
     'hero.explore': 'Chunguza Makumbusho',
