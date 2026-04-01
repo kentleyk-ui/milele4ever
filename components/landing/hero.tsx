@@ -34,16 +34,55 @@ export function Hero() {
 
         {/* Titre principal — "Milele" seul, élégant */}
         <div className="flex flex-col items-center gap-4">
-          {/* Ligne décorative au-dessus */}
-          <div className="flex items-center gap-4 w-full max-w-xs justify-center">
+          {/* Ligne décorative au-dessus avec symbole infini SVG */}
+          <div className="flex items-center gap-4 w-full max-w-sm justify-center">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/40 to-primary/60" />
-            <span className="text-6xl text-primary/70">∞</span>
+            <svg
+              className="infinity-symbol"
+              width="120"
+              height="40"
+              viewBox="0 0 120 40"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-label="Symbole infini"
+            >
+              {/* Cercle gauche */}
+              <ellipse
+                cx="30"
+                cy="20"
+                rx="18"
+                ry="14"
+                stroke="currentColor"
+                strokeWidth="3"
+                fill="none"
+                className="text-primary/70"
+              />
+              {/* Cercle droit */}
+              <ellipse
+                cx="90"
+                cy="20"
+                rx="18"
+                ry="14"
+                stroke="currentColor"
+                strokeWidth="3"
+                fill="none"
+                className="text-primary/70"
+              />
+              {/* Lignes de croisement au centre */}
+              <path
+                d="M48 20 C55 10, 65 10, 72 20 C65 30, 55 30, 48 20"
+                stroke="currentColor"
+                strokeWidth="3"
+                fill="none"
+                className="text-primary/70"
+              />
+            </svg>
             <div className="h-px flex-1 bg-gradient-to-l from-transparent via-primary/40 to-primary/60" />
           </div>
 
           <h1
             id="hero-title"
-            className="font-serif text-7xl sm:text-8xl md:text-9xl font-bold tracking-tight text-primary leading-none"
+            className="font-serif text-7xl sm:text-8xl md:text-9xl font-black tracking-tight leading-none milele-title-shadow"
             style={{ letterSpacing: '-0.02em' }}
           >
             Milele

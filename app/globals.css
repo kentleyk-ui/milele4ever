@@ -215,7 +215,52 @@ html {
   color: oklch(0.20 0.025 45);
 }
 
-/* Titre Milele en vert foncé */
+/* Titre Milele en vert foncé avec effet de relief et ombre dynamique */
 #hero-title {
   color: var(--bold-green);
+}
+
+.milele-title-shadow {
+  text-shadow:
+    1px 1px 0 oklch(0.40 0.12 150 / 0.3),
+    2px 2px 0 oklch(0.38 0.10 150 / 0.25),
+    3px 3px 0 oklch(0.36 0.08 150 / 0.2),
+    4px 4px 8px oklch(0.32 0.14 150 / 0.3),
+    0 0 40px oklch(0.44 0.16 150 / 0.15);
+  animation: title-shadow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes title-shadow-pulse {
+  0%, 100% {
+    text-shadow:
+      1px 1px 0 oklch(0.40 0.12 150 / 0.3),
+      2px 2px 0 oklch(0.38 0.10 150 / 0.25),
+      3px 3px 0 oklch(0.36 0.08 150 / 0.2),
+      4px 4px 8px oklch(0.32 0.14 150 / 0.3),
+      0 0 40px oklch(0.44 0.16 150 / 0.15);
+  }
+  50% {
+    text-shadow:
+      1px 1px 0 oklch(0.40 0.12 150 / 0.35),
+      2px 2px 0 oklch(0.38 0.10 150 / 0.3),
+      3px 3px 0 oklch(0.36 0.08 150 / 0.25),
+      5px 5px 12px oklch(0.32 0.14 150 / 0.4),
+      0 0 60px oklch(0.44 0.16 150 / 0.25);
+  }
+}
+
+/* Symbole infini avec animation subtile */
+.infinity-symbol {
+  animation: infinity-glow 3s ease-in-out infinite;
+}
+
+@keyframes infinity-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px oklch(0.44 0.16 150 / 0.3));
+    opacity: 0.7;
+  }
+  50% {
+    filter: drop-shadow(0 0 12px oklch(0.44 0.16 150 / 0.5));
+    opacity: 0.9;
+  }
 }
