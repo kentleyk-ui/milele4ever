@@ -1,16 +1,19 @@
 import { createClient } from "@/lib/supabase/server"
 import { redirect } from "next/navigation"
+import { cookies } from "next/headers"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Heart, Users, MessageSquare, Calendar, Plus, ArrowRight, Flame, BookOpen } from "lucide-react"
 import Link from "next/link"
-import { getTranslation } from "@/lib/i18n/translations"
+import { getTranslation, type Language } from "@/lib/i18n/translations"
 
 export const dynamic = 'force-dynamic'
 
 export default async function DashboardPage() {
-  const t = (key: string) => getTranslation('fr', key)
+  const cookieStore = await cookies()
+  const lang = (cookieStore.get('language')?.value as Language) || 'fr'
+  const t = (key: string) => getTranslation(lang, key)
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 

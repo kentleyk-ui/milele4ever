@@ -45,6 +45,8 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
     setLanguageState(lang)
     if (typeof window !== 'undefined') {
       localStorage.setItem('language', lang)
+      // Also set cookie for server-side access
+      document.cookie = `language=${lang};path=/;max-age=31536000;SameSite=Lax`
     }
   }
 

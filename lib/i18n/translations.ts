@@ -170,6 +170,13 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.back': 'Back',
     'common.save': 'Save',
     'common.cancel': 'Cancel',
+    
+    // PWA
+    'pwa.installTitle': 'Install Milele',
+    'pwa.installDescription': 'Add Milele to your home screen for quick access',
+    'pwa.install': 'Install',
+    'pwa.later': 'Later',
+    'pwa.iosInstructions': 'Tap the Share button, then "Add to Home Screen"',
     'common.delete': 'Delete',
     'common.edit': 'Edit',
     'common.loading': 'Loading...',
@@ -353,6 +360,13 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.back': 'Retour',
     'common.save': 'Enregistrer',
     'common.cancel': 'Annuler',
+    
+    // PWA
+    'pwa.installTitle': 'Installer Milele',
+    'pwa.installDescription': 'Ajoutez Milele a votre ecran d\'accueil pour un acces rapide',
+    'pwa.install': 'Installer',
+    'pwa.later': 'Plus tard',
+    'pwa.iosInstructions': 'Appuyez sur Partager, puis "Sur l\'ecran d\'accueil"',
     'common.delete': 'Supprimer',
     'common.edit': 'Modifier',
     'common.loading': 'Chargement...',
@@ -526,6 +540,13 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.back': 'Volver',
     'common.save': 'Guardar',
     'common.cancel': 'Cancelar',
+    
+    // PWA
+    'pwa.installTitle': 'Instalar Milele',
+    'pwa.installDescription': 'Agrega Milele a tu pantalla de inicio para acceso rapido',
+    'pwa.install': 'Instalar',
+    'pwa.later': 'Mas tarde',
+    'pwa.iosInstructions': 'Toca Compartir, luego "Agregar a pantalla de inicio"',
     'common.delete': 'Eliminar',
     'common.edit': 'Editar',
     'common.loading': 'Cargando...',
@@ -699,6 +720,13 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.back': 'Rudi',
     'common.save': 'Hifadhi',
     'common.cancel': 'Ghairi',
+    
+    // PWA
+    'pwa.installTitle': 'Sakinisha Milele',
+    'pwa.installDescription': 'Ongeza Milele kwenye skrini yako kuu kwa ufikiaji wa haraka',
+    'pwa.install': 'Sakinisha',
+    'pwa.later': 'Baadaye',
+    'pwa.iosInstructions': 'Bofya Shiriki, kisha "Ongeza kwenye Skrini ya Nyumbani"',
     'common.delete': 'Futa',
     'common.edit': 'Hariri',
     'common.loading': 'Inapakia...',
