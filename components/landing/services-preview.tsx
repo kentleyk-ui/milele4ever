@@ -28,33 +28,33 @@ export function ServicesPreview() {
           </p>
         </div>
         
-        {/* Bento Grid Layout - 6 colonnes avec disposition esthétique */}
-        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 auto-rows-[minmax(140px,auto)]">
+        {/* Bento Grid Layout - 8 colonnes : extrémités larges, milieu compact */}
+        <div className="grid grid-cols-1 md:grid-cols-8 gap-4 auto-rows-[minmax(110px,auto)]">
           {services.map((service, index) => {
             let gridSpan = ''
-            // Salon funeraire à gauche (index 0) - 2 rangées
+            // Salon funeraire à gauche (index 0) - colonne 1, 3 rangées, plus grand
             if (index === 0) {
-              gridSpan = 'md:col-span-1 md:row-span-2 md:col-start-1 md:row-start-1'
+              gridSpan = 'md:col-span-1 md:row-span-3 md:col-start-1 md:row-start-1'
             }
-            // Fleuriste (index 1) - rangée 1, colonnes 2-3
+            // Fleuriste (index 1) - rangée 1, colonnes 2-4
             else if (index === 1) {
-              gridSpan = 'md:col-span-2 md:row-span-1 md:col-start-2 md:row-start-1'
+              gridSpan = 'md:col-span-3 md:row-span-1 md:col-start-2 md:row-start-1'
             }
-            // Traiteur (index 2) - rangée 2, colonnes 2-3
+            // Traiteur (index 2) - rangée 2, colonnes 2-4
             else if (index === 2) {
-              gridSpan = 'md:col-span-2 md:row-span-1 md:col-start-2 md:row-start-2'
+              gridSpan = 'md:col-span-3 md:row-span-1 md:col-start-2 md:row-start-2'
             }
-            // Notaire (index 3) - rangée 1, colonnes 4-5
+            // Notaire (index 3) - rangée 1, colonnes 5-7
             else if (index === 3) {
-              gridSpan = 'md:col-span-2 md:row-span-1 md:col-start-4 md:row-start-1'
+              gridSpan = 'md:col-span-3 md:row-span-1 md:col-start-5 md:row-start-1'
             }
-            // Transport (index 4) - rangée 2, colonnes 4-5
+            // Transport (index 4) - rangée 2, colonnes 5-7
             else if (index === 4) {
-              gridSpan = 'md:col-span-2 md:row-span-1 md:col-start-4 md:row-start-2'
+              gridSpan = 'md:col-span-3 md:row-span-1 md:col-start-5 md:row-start-2'
             }
-            // Compagnons à poils à droite (index 5) - 2 rangées
+            // Compagnons à poils à droite (index 5) - colonne 8, 3 rangées, plus grand
             else if (index === 5) {
-              gridSpan = 'md:col-span-1 md:row-span-2 md:col-start-6 md:row-start-1'
+              gridSpan = 'md:col-span-1 md:row-span-3 md:col-start-8 md:row-start-1'
             }
 
             return (
