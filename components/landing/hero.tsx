@@ -36,7 +36,7 @@ export function Hero() {
           {/* Ligne décorative au-dessus */}
           <div className="flex items-center gap-4 w-full max-w-xs justify-center">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/40 to-primary/60" />
-            <span className="text-xs font-medium text-primary/70 uppercase tracking-[0.25em]">est. 2025</span>
+            <span className="text-2xl text-primary/70">∞</span>
             <div className="h-px flex-1 bg-gradient-to-l from-transparent via-primary/40 to-primary/60" />
           </div>
 
