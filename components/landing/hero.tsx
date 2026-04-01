@@ -34,47 +34,105 @@ export function Hero() {
 
         {/* Titre principal — "Milele" seul, élégant */}
         <div className="flex flex-col items-center gap-4">
-          {/* Ligne décorative au-dessus avec symbole infini SVG */}
-          <div className="flex items-center gap-4 w-full max-w-sm justify-center">
+          {/* Symbole infini 3D ruban vert */}
+          <div className="flex items-center gap-4 w-full max-w-lg justify-center">
             <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/40 to-primary/60" />
             <svg
               className="infinity-symbol"
-              width="120"
-              height="40"
-              viewBox="0 0 120 40"
+              width="200"
+              height="72"
+              viewBox="0 0 200 72"
               fill="none"
               xmlns="http://www.w3.org/2000/svg"
-              aria-label="Symbole infini"
+              aria-label="Symbole infini éternel"
             >
-              {/* Cercle gauche */}
-              <ellipse
-                cx="30"
-                cy="20"
-                rx="18"
-                ry="14"
-                stroke="currentColor"
-                strokeWidth="3"
-                fill="none"
-                className="text-primary/70"
-              />
-              {/* Cercle droit */}
-              <ellipse
-                cx="90"
-                cy="20"
-                rx="18"
-                ry="14"
-                stroke="currentColor"
-                strokeWidth="3"
-                fill="none"
-                className="text-primary/70"
-              />
-              {/* Lignes de croisement au centre */}
+              <defs>
+                {/* Dégradés verts pour l'effet 3D */}
+                <linearGradient id="g-ribbon-top" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%"   stopColor="#166534" stopOpacity="0.95" />
+                  <stop offset="25%"  stopColor="#16a34a" stopOpacity="1" />
+                  <stop offset="50%"  stopColor="#4ade80" stopOpacity="1" />
+                  <stop offset="75%"  stopColor="#16a34a" stopOpacity="1" />
+                  <stop offset="100%" stopColor="#166534" stopOpacity="0.95" />
+                </linearGradient>
+                <linearGradient id="g-ribbon-bot" x1="0%" y1="0%" x2="100%" y2="0%">
+                  <stop offset="0%"   stopColor="#14532d" stopOpacity="0.9" />
+                  <stop offset="25%"  stopColor="#15803d" stopOpacity="0.95" />
+                  <stop offset="50%"  stopColor="#22c55e" stopOpacity="0.9" />
+                  <stop offset="75%"  stopColor="#15803d" stopOpacity="0.95" />
+                  <stop offset="100%" stopColor="#14532d" stopOpacity="0.9" />
+                </linearGradient>
+                <linearGradient id="g-ribbon-mid" x1="0%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%"   stopColor="#4ade80" stopOpacity="1" />
+                  <stop offset="50%"  stopColor="#166534" stopOpacity="0.6" />
+                  <stop offset="100%" stopColor="#4ade80" stopOpacity="1" />
+                </linearGradient>
+                <linearGradient id="g-shine-left" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%"   stopColor="#bbf7d0" stopOpacity="0.8" />
+                  <stop offset="60%"  stopColor="#16a34a" stopOpacity="0.2" />
+                </linearGradient>
+                <linearGradient id="g-shine-right" x1="100%" y1="0%" x2="0%" y2="100%">
+                  <stop offset="0%"   stopColor="#bbf7d0" stopOpacity="0.8" />
+                  <stop offset="60%"  stopColor="#16a34a" stopOpacity="0.2" />
+                </linearGradient>
+                <filter id="f-glow">
+                  <feGaussianBlur stdDeviation="2.5" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+
+              {/* Ombre portée */}
               <path
-                d="M48 20 C55 10, 65 10, 72 20 C65 30, 55 30, 48 20"
-                stroke="currentColor"
-                strokeWidth="3"
+                d="M100 36 C88 56, 62 68, 44 62 C20 54, 14 38, 14 36 C14 34, 20 18, 44 10 C62 4, 88 16, 100 36 C112 56, 138 68, 156 62 C180 54, 186 38, 186 36 C186 34, 180 18, 156 10 C138 4, 112 16, 100 36 Z"
+                fill="#14532d"
+                opacity="0.18"
+                transform="translate(2, 5)"
+              />
+
+              {/* Corps principal bas du ruban (ombre) */}
+              <path
+                d="M100 36 C88 54, 64 66, 44 60 C22 52, 16 38, 16 36 C16 34, 22 20, 44 12 C64 6, 88 18, 100 36 C112 54, 136 66, 156 60 C178 52, 184 38, 184 36 C184 34, 178 20, 156 12 C136 6, 112 18, 100 36 Z"
+                fill="url(#g-ribbon-bot)"
+                filter="url(#f-glow)"
+              />
+
+              {/* Corps principal haut du ruban (lumière) */}
+              <path
+                d="M100 36 C90 18, 66 6, 46 12 C24 20, 18 34, 18 36 C18 30, 24 16, 46 10 C68 4, 92 18, 100 36 C108 18, 132 4, 154 10 C176 16, 182 30, 182 36 C182 34, 176 20, 154 12 C132 6, 108 18, 100 36 Z"
+                fill="url(#g-ribbon-top)"
+              />
+
+              {/* Reflet brillant boucle gauche */}
+              <path
+                d="M56 16 C48 14, 30 18, 24 28 C20 34, 22 24, 34 17 C42 12, 52 13, 56 16 Z"
+                fill="url(#g-shine-left)"
+                opacity="0.85"
+              />
+
+              {/* Reflet brillant boucle droite */}
+              <path
+                d="M144 16 C152 14, 170 18, 176 28 C180 34, 178 24, 166 17 C158 12, 148 13, 144 16 Z"
+                fill="url(#g-shine-right)"
+                opacity="0.85"
+              />
+
+              {/* Torsion centrale — couche de profondeur */}
+              <path
+                d="M92 28 C96 32, 100 36, 104 28 C106 24, 100 36, 96 44 C94 40, 92 36, 92 28 Z"
+                fill="url(#g-ribbon-mid)"
+                opacity="0.7"
+              />
+
+              {/* Contour fin pour définir les bords */}
+              <path
+                d="M100 36 C88 54, 64 66, 44 60 C22 52, 16 38, 16 36 C16 34, 22 20, 44 12 C64 6, 88 18, 100 36 C112 54, 136 66, 156 60 C178 52, 184 38, 184 36 C184 34, 178 20, 156 12 C136 6, 112 18, 100 36 Z"
+                stroke="#15803d"
+                strokeWidth="0.8"
                 fill="none"
-                className="text-primary/70"
+                opacity="0.5"
               />
             </svg>
             <div className="h-px flex-1 bg-gradient-to-l from-transparent via-primary/40 to-primary/60" />
