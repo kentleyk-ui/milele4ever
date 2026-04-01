@@ -5,6 +5,7 @@ import { ThemeProvider } from '@/components/theme-provider'
 import { I18nProvider } from '@/lib/i18n/context'
 import { FeedbackButton } from '@/components/feedback-button'
 import { Chatbot } from '@/components/chatbot'
+import { PWAInstall } from '@/components/pwa-install'
 import './globals.css'
 import './animations.css'
 
@@ -79,6 +80,7 @@ export default function RootLayout({
             {children}
             <Chatbot />
             <FeedbackButton />
+            <PWAInstall />
           </I18nProvider>
         </ThemeProvider>
         <Analytics />

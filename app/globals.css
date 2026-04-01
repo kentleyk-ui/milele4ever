@@ -6,6 +6,8 @@
 :root {
   /* Milele - Richer sage green with warm sand tones */
   --background: oklch(0.96 0.015 90);
+  /* Vert foncé éclatant pour les textes gras en mode clair */
+  --bold-green: oklch(0.32 0.14 150);
   --foreground: oklch(0.20 0.025 45);
   --card: oklch(0.98 0.012 85);
   --card-foreground: oklch(0.20 0.025 45);
@@ -79,6 +81,30 @@
   --font-sans: 'DM Sans', 'DM Sans Fallback', system-ui, sans-serif;
   --font-serif: 'Playfair Display', 'Playfair Display Fallback', Georgia, serif;
   --font-mono: 'Geist Mono', 'Geist Mono Fallback';
+  
+  /* Milele Custom Colors - Sage Green Palette */
+  --color-sage-50: oklch(0.97 0.01 150);
+  --color-sage-100: oklch(0.94 0.02 150);
+  --color-sage-200: oklch(0.88 0.04 150);
+  --color-sage-300: oklch(0.78 0.07 150);
+  --color-sage-400: oklch(0.65 0.11 150);
+  --color-sage-500: oklch(0.55 0.13 150);
+  --color-sage-600: oklch(0.48 0.12 150);
+  --color-sage-700: oklch(0.40 0.10 150);
+  --color-sage-800: oklch(0.32 0.08 150);
+  --color-sage-900: oklch(0.25 0.06 150);
+  
+  /* Milele Custom Colors - Gold/Warm Palette */
+  --color-gold-50: oklch(0.98 0.02 85);
+  --color-gold-100: oklch(0.95 0.04 85);
+  --color-gold-200: oklch(0.90 0.08 85);
+  --color-gold-300: oklch(0.82 0.12 80);
+  --color-gold-400: oklch(0.72 0.14 75);
+  --color-gold-500: oklch(0.65 0.15 70);
+  --color-gold-600: oklch(0.55 0.14 65);
+  --color-gold-700: oklch(0.45 0.12 60);
+  --color-gold-800: oklch(0.38 0.10 55);
+  --color-gold-900: oklch(0.30 0.08 50);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --color-card: var(--card);
@@ -123,5 +149,228 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  /* Tous les textes gras en vert foncé éclatant en mode clair */
+  :root strong,
+  :root b {
+    color: var(--bold-green);
+  }
+  /* En mode sombre on garde la couleur primaire */
+  .dark strong,
+  .dark b {
+    color: var(--primary);
+  }
+}
+
+/* Custom animations for Hero */
+@keyframes fade-in {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.animate-fade-in {
+  animation: fade-in 0.6s ease-out forwards;
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+.bg-gradient-radial {
+  background: radial-gradient(circle, var(--tw-gradient-from) 0%, var(--tw-gradient-to) 70%);
+}
+
+/* Smooth scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Selection color */
+::selection {
+  background-color: oklch(0.50 0.15 150 / 0.2);
+  color: oklch(0.20 0.025 45);
+}
+
+/* Titre Milele en vert foncé avec effet de relief et ombre dynamique */
+#hero-title {
+  color: var(--bold-green);
+}
+
+.milele-title-shadow {
+  text-shadow:
+    1px 1px 0 oklch(0.40 0.12 150 / 0.3),
+    2px 2px 0 oklch(0.38 0.10 150 / 0.25),
+    3px 3px 0 oklch(0.36 0.08 150 / 0.2),
+    4px 4px 8px oklch(0.32 0.14 150 / 0.3),
+    0 0 40px oklch(0.44 0.16 150 / 0.15);
+  animation: title-shadow-pulse 4s ease-in-out infinite;
+}
+
+@keyframes title-shadow-pulse {
+  0%, 100% {
+    text-shadow:
+      1px 1px 0 oklch(0.40 0.12 150 / 0.3),
+      2px 2px 0 oklch(0.38 0.10 150 / 0.25),
+      3px 3px 0 oklch(0.36 0.08 150 / 0.2),
+      4px 4px 8px oklch(0.32 0.14 150 / 0.3),
+      0 0 40px oklch(0.44 0.16 150 / 0.15);
+  }
+  50% {
+    text-shadow:
+      1px 1px 0 oklch(0.40 0.12 150 / 0.35),
+      2px 2px 0 oklch(0.38 0.10 150 / 0.3),
+      3px 3px 0 oklch(0.36 0.08 150 / 0.25),
+      5px 5px 12px oklch(0.32 0.14 150 / 0.4),
+      0 0 60px oklch(0.44 0.16 150 / 0.25);
+  }
+}
+
+/* Symbole infini avec animation subtile */
+.infinity-symbol {
+  animation: infinity-glow 3s ease-in-out infinite;
+}
+
+@keyframes infinity-glow {
+  0%, 100% {
+    filter: drop-shadow(0 0 4px oklch(0.44 0.16 150 / 0.3));
+    opacity: 0.7;
+  }
+  50% {
+    filter: drop-shadow(0 0 12px oklch(0.44 0.16 150 / 0.5));
+    opacity: 0.9;
+  }
+}
+
+/* Logo coeur avec effet subtil */
+.heart-logo-glow {
+  filter: drop-shadow(0 0 2px rgba(74, 222, 128, 0.3));
+  animation: heart-beat-glow 2.5s ease-in-out infinite;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.heart-logo-glow:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 3px rgba(74, 222, 128, 0.4)) drop-shadow(0 0 6px rgba(22, 163, 74, 0.25));
+}
+
+@keyframes heart-beat-glow {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 1px rgba(74, 222, 128, 0.25));
+  }
+  15% {
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 2px rgba(74, 222, 128, 0.35)) drop-shadow(0 0 4px rgba(22, 163, 74, 0.2));
+  }
+  30% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 1px rgba(74, 222, 128, 0.25));
+  }
+  45% {
+    transform: scale(1.04);
+    filter: drop-shadow(0 0 2px rgba(74, 222, 128, 0.3));
+  }
+  60% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 1px rgba(74, 222, 128, 0.25));
+  }
+}
+
+/* Animation ange Malaika */
+.angel-animated {
+  filter: drop-shadow(0 2px 4px rgba(22, 163, 74, 0.15));
+}
+
+.angel-animated .angel-wing-left {
+  animation: wing-flutter-left 3s ease-in-out infinite;
+  transform-origin: right center;
+}
+
+.angel-animated .angel-wing-right {
+  animation: wing-flutter-right 3s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+.angel-animated .angel-halo {
+  animation: halo-glow 2s ease-in-out infinite;
+}
+
+.angel-animated .angel-sparkle-1 {
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.angel-animated .angel-sparkle-2 {
+  animation: sparkle 1.5s ease-in-out infinite 0.3s;
+}
+
+.angel-animated .angel-sparkle-3 {
+  animation: sparkle 1.5s ease-in-out infinite 0.6s;
+}
+
+.angel-animated .angel-sparkle-4 {
+  animation: sparkle 1.5s ease-in-out infinite 0.9s;
+}
+
+@keyframes wing-flutter-left {
+  0%, 100% {
+    transform: rotate(0deg) scaleX(1);
+  }
+  50% {
+    transform: rotate(-5deg) scaleX(1.05);
+  }
+}
+
+@keyframes wing-flutter-right {
+  0%, 100% {
+    transform: rotate(0deg) scaleX(1);
+  }
+  50% {
+    transform: rotate(5deg) scaleX(1.05);
+  }
+}
+
+@keyframes halo-glow {
+  0%, 100% {
+    opacity: 0.7;
+    filter: drop-shadow(0 0 2px rgba(253, 224, 71, 0.5));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(253, 224, 71, 0.8));
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
   }
 }

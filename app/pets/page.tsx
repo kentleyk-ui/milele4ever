@@ -37,7 +37,7 @@ export default function PetsPage() {
                 <PawPrint className="h-6 w-6 text-primary" />
               </div>
               <h1 className="font-serif text-xl md:text-2xl font-bold text-foreground">
-                Pour nos amis poilus
+                Pour nos compagnons à Poils
               </h1>
             </div>
             

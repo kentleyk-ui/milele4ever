@@ -1,10 +1,12 @@
 import { createClient } from '@/lib/supabase/server'
 import { AppHeader } from '@/components/app/app-header'
 import { FeedContent } from '@/components/app/feed-content'
+import { getTranslation } from '@/lib/i18n/translations'
 
 export const dynamic = 'force-dynamic'
 
 export default async function FeedPage() {
+  const title = getTranslation('fr', 'app.feed')
   const supabase = await createClient()
   const { data: { user } } = await supabase.auth.getUser()
 
@@ -34,7 +36,7 @@ export default async function FeedPage() {
 
   return (
     <>
-      <AppHeader title="Fil d'actualité" />
+      <AppHeader title={title} />
       <FeedContent posts={transformedPosts} recentMemorials={recentMemorials || []} />
     </>
   )

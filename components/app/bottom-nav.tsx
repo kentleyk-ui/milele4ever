@@ -4,6 +4,81 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { useI18n } from '@/lib/i18n/context'
+import { parseHtmlInText } from '@/lib/i18n/parse-html'
+
+function MalaikaIcon({ active }: { active: boolean }) {
+  const color = active ? 'var(--color-primary)' : 'currentColor'
+  return (
+    <svg
+      width="26"
+      height="26"
+      viewBox="0 0 26 26"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+      aria-hidden="true"
+    >
+      {/* Aile gauche */}
+      <path
+        d="M4 12 C2 9, 2 5, 5 4 C8 3, 11 6, 11 10"
+        stroke={color}
+        strokeWidth="1.3"
+        strokeLinecap="round"
+        fill="none"
+        opacity="0.85"
+      />
+      <path
+        d="M3 15 C1 12, 1.5 7, 5 6 C7 5.5, 9.5 7, 10 10"
+        stroke={color}
+        strokeWidth="1"
+        strokeLinecap="round"
+        fill="none"
+        opacity="0.5"
+      />
+      {/* Aile droite */}
+      <path
+        d="M22 12 C24 9, 24 5, 21 4 C18 3, 15 6, 15 10"
+        stroke={color}
+        strokeWidth="1.3"
+        strokeLinecap="round"
+        fill="none"
+        opacity="0.85"
+      />
+      <path
+        d="M23 15 C25 12, 24.5 7, 21 6 C19 5.5, 16.5 7, 16 10"
+        stroke={color}
+        strokeWidth="1"
+        strokeLinecap="round"
+        fill="none"
+        opacity="0.5"
+      />
+      {/* Auréole */}
+      <ellipse
+        cx="13"
+        cy="6.5"
+        rx="4.5"
+        ry="1.5"
+        stroke={active ? '#fbbf24' : color}
+        strokeWidth="1.2"
+        fill="none"
+        opacity={active ? '0.9' : '0.5'}
+      />
+      {/* Tête */}
+      <circle cx="13" cy="12" r="3.5" stroke={color} strokeWidth="1.3" fill="none" />
+      {/* Corps / robe */}
+      <path
+        d="M10 15.5 C9 18, 8.5 21, 9 23 L13 24 L17 23 C17.5 21, 17 18, 16 15.5"
+        stroke={color}
+        strokeWidth="1.3"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        fill="none"
+      />
+      {/* Mains */}
+      <path d="M10 18 C8.5 17.5, 7.5 18.5, 8 19.5" stroke={color} strokeWidth="1" strokeLinecap="round" fill="none" opacity="0.7" />
+      <path d="M16 18 C17.5 17.5, 18.5 18.5, 18 19.5" stroke={color} strokeWidth="1" strokeLinecap="round" fill="none" opacity="0.7" />
+    </svg>
+  )
+}
 
 export function BottomNav() {
   const pathname = usePathname()
@@ -22,6 +97,7 @@ export function BottomNav() {
     {
       href: '/app/memorials',
       label: t('app.memorials'),
+      labelWithHtml: parseHtmlInText(t('app.memorials')),
       icon: (active: boolean) => (
         <svg className={cn("w-6 h-6", active ? "text-primary" : "text-muted-foreground")} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
@@ -55,6 +131,11 @@ export function BottomNav() {
         </svg>
       ),
     },
+    {
+      href: '/malaika',
+      label: 'Malaika',
+      icon: (active: boolean) => <MalaikaIcon active={active} />,
+    },
   ]
 
   return (
@@ -72,7 +153,7 @@ export function BottomNav() {
               )}
             >
               {item.icon(isActive)}
-              <span className="text-[10px] font-medium">{item.label}</span>
+              <span className="text-[10px] font-medium">{item.labelWithHtml || item.label}</span>
             </Link>
           )
         })}

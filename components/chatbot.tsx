@@ -43,7 +43,16 @@ export function Chatbot() {
   const messagesEndRef = useRef<HTMLDivElement>(null)
   
   const { messages, sendMessage, status } = useChat({
-    transport: new DefaultChatTransport({ api: '/api/chat' }),
+    transport: new DefaultChatTransport({ 
+      api: '/api/malaika',
+      prepareSendMessagesRequest: ({ id, messages }) => ({
+        body: {
+          messages,
+          id,
+          language,
+        },
+      }),
+    }),
   })
 
   const isLoading = status === 'streaming' || status === 'submitted'
