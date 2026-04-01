@@ -4,6 +4,7 @@ import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { useI18n } from '@/lib/i18n/context'
+import { parseHtmlInText } from '@/lib/i18n/parse-html'
 
 export function BottomNav() {
   const pathname = usePathname()
@@ -22,6 +23,7 @@ export function BottomNav() {
     {
       href: '/app/memorials',
       label: t('app.memorials'),
+      labelWithHtml: parseHtmlInText(t('app.memorials')),
       icon: (active: boolean) => (
         <svg className={cn("w-6 h-6", active ? "text-primary" : "text-muted-foreground")} fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
           <path strokeLinecap="round" strokeLinejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12Z" />
@@ -72,7 +74,7 @@ export function BottomNav() {
               )}
             >
               {item.icon(isActive)}
-              <span className="text-[10px] font-medium">{item.label}</span>
+              <span className="text-[10px] font-medium">{item.labelWithHtml || item.label}</span>
             </Link>
           )
         })}

@@ -4,6 +4,7 @@ import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, ChevronDown } from "lucide-react"
 import { useI18n } from "@/lib/i18n/context"
+import { parseHtmlInText } from "@/lib/i18n/parse-html"
 import { useEffect, useState } from "react"
 
 export function Hero() {
@@ -84,7 +85,7 @@ export function Hero() {
             className="text-base px-8 py-6 hover:bg-primary/5 transition-all duration-300" 
             asChild
           >
-            <Link href="/app/memorials">{t('hero.explore')}</Link>
+            <Link href="/app/memorials">{parseHtmlInText(t('hero.explore'))}</Link>
           </Button>
         </div>
       </div>
