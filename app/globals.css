@@ -265,37 +265,112 @@ html {
   }
 }
 
-/* Logo coeur avec effet lumineux dynamique */
+/* Logo coeur avec effet subtil */
 .heart-logo-glow {
-  filter: drop-shadow(0 0 4px #4ade80) drop-shadow(0 0 8px #16a34a);
-  animation: heart-beat-glow 2s ease-in-out infinite;
+  filter: drop-shadow(0 0 2px rgba(74, 222, 128, 0.3));
+  animation: heart-beat-glow 2.5s ease-in-out infinite;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 
 .heart-logo-glow:hover {
-  transform: scale(1.15);
-  filter: drop-shadow(0 0 6px #4ade80) drop-shadow(0 0 12px #16a34a) drop-shadow(0 0 18px #22c55e);
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 3px rgba(74, 222, 128, 0.4)) drop-shadow(0 0 6px rgba(22, 163, 74, 0.25));
 }
 
 @keyframes heart-beat-glow {
   0%, 100% {
     transform: scale(1);
-    filter: drop-shadow(0 0 3px #4ade80) drop-shadow(0 0 6px #16a34a);
+    filter: drop-shadow(0 0 1px rgba(74, 222, 128, 0.25));
   }
   15% {
-    transform: scale(1.12);
-    filter: drop-shadow(0 0 5px #4ade80) drop-shadow(0 0 10px #16a34a) drop-shadow(0 0 15px #22c55e);
+    transform: scale(1.06);
+    filter: drop-shadow(0 0 2px rgba(74, 222, 128, 0.35)) drop-shadow(0 0 4px rgba(22, 163, 74, 0.2));
   }
   30% {
     transform: scale(1);
-    filter: drop-shadow(0 0 3px #4ade80) drop-shadow(0 0 6px #16a34a);
+    filter: drop-shadow(0 0 1px rgba(74, 222, 128, 0.25));
   }
   45% {
-    transform: scale(1.08);
-    filter: drop-shadow(0 0 4px #4ade80) drop-shadow(0 0 8px #16a34a) drop-shadow(0 0 12px #22c55e);
+    transform: scale(1.04);
+    filter: drop-shadow(0 0 2px rgba(74, 222, 128, 0.3));
   }
   60% {
     transform: scale(1);
-    filter: drop-shadow(0 0 3px #4ade80) drop-shadow(0 0 6px #16a34a);
+    filter: drop-shadow(0 0 1px rgba(74, 222, 128, 0.25));
+  }
+}
+
+/* Animation ange Malaika */
+.angel-animated {
+  filter: drop-shadow(0 2px 4px rgba(22, 163, 74, 0.15));
+}
+
+.angel-animated .angel-wing-left {
+  animation: wing-flutter-left 3s ease-in-out infinite;
+  transform-origin: right center;
+}
+
+.angel-animated .angel-wing-right {
+  animation: wing-flutter-right 3s ease-in-out infinite;
+  transform-origin: left center;
+}
+
+.angel-animated .angel-halo {
+  animation: halo-glow 2s ease-in-out infinite;
+}
+
+.angel-animated .angel-sparkle-1 {
+  animation: sparkle 1.5s ease-in-out infinite;
+}
+
+.angel-animated .angel-sparkle-2 {
+  animation: sparkle 1.5s ease-in-out infinite 0.3s;
+}
+
+.angel-animated .angel-sparkle-3 {
+  animation: sparkle 1.5s ease-in-out infinite 0.6s;
+}
+
+.angel-animated .angel-sparkle-4 {
+  animation: sparkle 1.5s ease-in-out infinite 0.9s;
+}
+
+@keyframes wing-flutter-left {
+  0%, 100% {
+    transform: rotate(0deg) scaleX(1);
+  }
+  50% {
+    transform: rotate(-5deg) scaleX(1.05);
+  }
+}
+
+@keyframes wing-flutter-right {
+  0%, 100% {
+    transform: rotate(0deg) scaleX(1);
+  }
+  50% {
+    transform: rotate(5deg) scaleX(1.05);
+  }
+}
+
+@keyframes halo-glow {
+  0%, 100% {
+    opacity: 0.7;
+    filter: drop-shadow(0 0 2px rgba(253, 224, 71, 0.5));
+  }
+  50% {
+    opacity: 1;
+    filter: drop-shadow(0 0 6px rgba(253, 224, 71, 0.8));
+  }
+}
+
+@keyframes sparkle {
+  0%, 100% {
+    opacity: 0.3;
+    transform: scale(0.8);
+  }
+  50% {
+    opacity: 1;
+    transform: scale(1.2);
   }
 }
