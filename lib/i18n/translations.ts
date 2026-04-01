@@ -1,4 +1,11 @@
-export type Language = 'en' | 'fr'
+export type Language = 'en' | 'fr' | 'es' | 'sw'
+
+export const languageNames: Record<Language, string> = {
+  en: 'English',
+  fr: 'Français',
+  es: 'Español',
+  sw: 'Kiswahili',
+}
 
 export const translations: Record<Language, Record<string, string>> = {
   en: {
@@ -41,6 +48,21 @@ export const translations: Record<Language, Record<string, string>> = {
     'services.pets': 'Our Furry Friends',
     'services.petsDesc': 'Funeral services for pets',
     
+    // Services page
+    'services.title': 'Our Services',
+    'services.memorial': 'Digital Memorial',
+    'services.memorialDesc': 'Create a personalized space to celebrate a life',
+    'services.flowers': 'Virtual Flowers',
+    'services.flowersDesc': 'Send virtual flowers and candles of remembrance',
+    'services.photos': 'Photo Gallery',
+    'services.photosDesc': 'Share and organize precious photographs',
+    'services.stories': 'Share Stories',
+    'services.storiesDesc': 'Let family and friends share their memories',
+    'services.timeline': 'Timeline',
+    'services.timelineDesc': 'Document important milestones in life',
+    'services.family': 'Family Tree',
+    'services.familyDesc': 'Connect and honor family relationships',
+    
     // Footer
     'footer.tagline': 'Forever in our hearts. With respect and dignity.',
     'footer.copyright': 'Product Owner - Kent Ley_CEO © {year} Milele. All rights reserved.',
@@ -58,6 +80,9 @@ export const translations: Record<Language, Record<string, string>> = {
     'auth.haveAccount': 'Already have an account?',
     'auth.error': 'Error signing in. Please check your credentials.',
     'auth.success': 'Welcome! Check your email to confirm your account.',
+    'auth.forgotPassword': 'Forgot password?',
+    'auth.resetPassword': 'Reset Password',
+    'auth.resetSent': 'Password reset email sent',
     
     // App
     'app.feed': 'Feed',
@@ -72,6 +97,35 @@ export const translations: Record<Language, Record<string, string>> = {
     'app.recentMemorials': 'Recent Memorials',
     'app.noMessages': 'No messages yet',
     'app.noNotifications': 'You are all caught up',
+    'app.createMemorial': 'Create Memorial',
+    'app.viewAll': 'View All',
+    'app.search': 'Search',
+    'app.settings': 'Settings',
+    'app.profile': 'Profile',
+    'app.logout': 'Log Out',
+    
+    // Memorial
+    'memorial.title': 'Memorial',
+    'memorial.inMemoryOf': 'In Memory of',
+    'memorial.born': 'Born',
+    'memorial.passed': 'Passed',
+    'memorial.biography': 'Biography',
+    'memorial.tributes': 'Tributes',
+    'memorial.photos': 'Photos',
+    'memorial.timeline': 'Life Timeline',
+    'memorial.family': 'Family',
+    'memorial.addTribute': 'Add Tribute',
+    'memorial.addPhoto': 'Add Photo',
+    'memorial.share': 'Share Memorial',
+    'memorial.lightCandle': 'Light a Candle',
+    'memorial.sendFlowers': 'Send Flowers',
+    
+    // Malaika
+    'malaika.title': 'Malaika',
+    'malaika.subtitle': 'Your compassionate companion',
+    'malaika.greeting': 'Hello, I am Malaika, your guide through this difficult time. How can I help you today?',
+    'malaika.placeholder': 'Type your message...',
+    'malaika.send': 'Send',
     
     // Pets
     'pets.title': 'Our Friends',
@@ -95,6 +149,13 @@ export const translations: Record<Language, Record<string, string>> = {
     'feedback.emailFrom': 'From',
     'feedback.anonymous': 'Anonymous',
 
+    // Simulator
+    'simulator.title': 'Service Simulator',
+    'simulator.subtitle': 'Estimate your needs and budget',
+    'simulator.cta': 'Simulate my needs',
+    'simulator.results': 'Estimated Results',
+    'simulator.total': 'Total Estimate',
+    
     // Common
     'common.back': 'Back',
     'common.save': 'Save',
@@ -104,7 +165,22 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.loading': 'Loading...',
     'common.error': 'An error occurred',
     'common.success': 'Success!',
+    'common.confirm': 'Confirm',
+    'common.close': 'Close',
+    'common.next': 'Next',
+    'common.previous': 'Previous',
+    'common.submit': 'Submit',
+    'common.language': 'Language',
+    'common.currency': 'Currency',
+    
+    // About
+    'about.title': 'About Milele',
+    'about.mission': 'Our Mission',
+    'about.missionText': 'To help families preserve and celebrate the memory of their loved ones with dignity and care.',
+    'about.vision': 'Our Vision',
+    'about.visionText': 'A world where every life is remembered and celebrated forever.',
   },
+  
   fr: {
     // Landing page
     'landing.title': 'Milele',
@@ -177,6 +253,9 @@ export const translations: Record<Language, Record<string, string>> = {
     'auth.haveAccount': 'Vous avez déjà un compte?',
     'auth.error': 'Erreur de connexion. Veuillez vérifier vos identifiants.',
     'auth.success': 'Bienvenue! Vérifiez votre email pour confirmer votre compte.',
+    'auth.forgotPassword': 'Mot de passe oublié?',
+    'auth.resetPassword': 'Réinitialiser le mot de passe',
+    'auth.resetSent': 'Email de réinitialisation envoyé',
     
     // App
     'app.feed': 'Fil d\'actualité',
@@ -191,6 +270,35 @@ export const translations: Record<Language, Record<string, string>> = {
     'app.recentMemorials': 'Mémoriaux Récents',
     'app.noMessages': 'Pas de messages encore',
     'app.noNotifications': 'Vous êtes à jour',
+    'app.createMemorial': 'Créer un Mémorial',
+    'app.viewAll': 'Voir Tout',
+    'app.search': 'Rechercher',
+    'app.settings': 'Paramètres',
+    'app.profile': 'Profil',
+    'app.logout': 'Déconnexion',
+    
+    // Memorial
+    'memorial.title': 'Mémorial',
+    'memorial.inMemoryOf': 'En Mémoire de',
+    'memorial.born': 'Né(e)',
+    'memorial.passed': 'Décédé(e)',
+    'memorial.biography': 'Biographie',
+    'memorial.tributes': 'Hommages',
+    'memorial.photos': 'Photos',
+    'memorial.timeline': 'Chronologie de Vie',
+    'memorial.family': 'Famille',
+    'memorial.addTribute': 'Ajouter un Hommage',
+    'memorial.addPhoto': 'Ajouter une Photo',
+    'memorial.share': 'Partager le Mémorial',
+    'memorial.lightCandle': 'Allumer une Bougie',
+    'memorial.sendFlowers': 'Envoyer des Fleurs',
+    
+    // Malaika
+    'malaika.title': 'Malaika',
+    'malaika.subtitle': 'Votre compagnon bienveillant',
+    'malaika.greeting': 'Bonjour, je suis Malaika, votre guide pendant cette période difficile. Comment puis-je vous aider aujourd\'hui?',
+    'malaika.placeholder': 'Écrivez votre message...',
+    'malaika.send': 'Envoyer',
     
     // Pets
     'pets.title': 'Nos Amis',
@@ -214,6 +322,13 @@ export const translations: Record<Language, Record<string, string>> = {
     'feedback.emailFrom': 'De la part de',
     'feedback.anonymous': 'Anonyme',
 
+    // Simulator
+    'simulator.title': 'Simulateur de Services',
+    'simulator.subtitle': 'Estimez vos besoins et votre budget',
+    'simulator.cta': 'Simuler mes besoins',
+    'simulator.results': 'Résultats Estimés',
+    'simulator.total': 'Estimation Totale',
+    
     // Common
     'common.back': 'Retour',
     'common.save': 'Enregistrer',
@@ -223,6 +338,366 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.loading': 'Chargement...',
     'common.error': 'Une erreur est survenue',
     'common.success': 'Succès!',
+    'common.confirm': 'Confirmer',
+    'common.close': 'Fermer',
+    'common.next': 'Suivant',
+    'common.previous': 'Précédent',
+    'common.submit': 'Soumettre',
+    'common.language': 'Langue',
+    'common.currency': 'Devise',
+    
+    // About
+    'about.title': 'À Propos de Milele',
+    'about.mission': 'Notre Mission',
+    'about.missionText': 'Aider les familles à préserver et célébrer la mémoire de leurs proches avec dignité et soin.',
+    'about.vision': 'Notre Vision',
+    'about.visionText': 'Un monde où chaque vie est rappelée et célébrée pour toujours.',
+  },
+  
+  es: {
+    // Landing page
+    'landing.title': 'Milele',
+    'landing.subtitle': 'Crea memoriales digitales significativos para celebrar y recordar a tus seres queridos',
+    'landing.cta': 'Crear Memorial',
+    'landing.login': 'Iniciar Sesión',
+    'landing.features': 'Características',
+    'landing.about': 'Acerca de',
+    'landing.contact': 'Contacto',
+    
+    // Hero section
+    'hero.heading': 'Milele significa "para siempre" en swahili.',
+    'hero.paragraph1': 'Cada uno es dueño de su vida. La moldeamos a nuestra imagen, con las herramientas y elecciones que nos importan, para dejar atrás el legado que realmente deseamos transmitir.',
+    'hero.paragraph2': 'En Milele, honramos esta libertad profunda. Nuestra misión es velar por el legado que has elegido: asegurarlo con el mayor cuidado, preservarlo en el tiempo y garantizar su continuidad, para que vuele serenamente hacia la eternidad.',
+    'hero.closing': 'Milele — Porque lo que realmente importa debe durar para siempre.',
+    'hero.button': 'Comenzar',
+    'hero.explore': 'Explorar Memoriales',
+    'hero.feature1': 'Tu Legado',
+    'hero.feature1Desc': 'Asegura y moldea la herencia que deseas dejar',
+    'hero.feature2': 'Preservado por Siempre',
+    'hero.feature2Desc': 'Asegura que tu memoria vuele serenamente hacia la eternidad',
+    'hero.feature3': 'Control Total',
+    'hero.feature3Desc': 'Toma decisiones que reflejen tus valores más profundos',
+    
+    // Services
+    'services.title': 'Nuestros Servicios',
+    'services.memorial': 'Memorial Digital',
+    'services.memorialDesc': 'Crea un espacio personalizado para celebrar una vida',
+    'services.flowers': 'Flores Virtuales',
+    'services.flowersDesc': 'Envía flores y velas virtuales de conmemoración',
+    'services.photos': 'Galería de Fotos',
+    'services.photosDesc': 'Comparte y organiza fotografías preciosas',
+    'services.stories': 'Compartir Historias',
+    'services.storiesDesc': 'Deja que familia y amigos compartan sus recuerdos',
+    'services.timeline': 'Cronología',
+    'services.timelineDesc': 'Documenta los hitos importantes de la vida',
+    'services.family': 'Árbol Genealógico',
+    'services.familyDesc': 'Conecta y honra las relaciones familiares',
+    
+    // Services preview
+    'services.heading': 'Todos los Servicios en Un Solo Lugar',
+    'services.description': 'Encuentra y contacta fácilmente a todos los proveedores esenciales durante este momento difícil. Para humanos y mascotas por igual.',
+    'services.funeralHome': 'Funerarias',
+    'services.funeralHomeDesc': 'Casas funerarias y crematorios',
+    'services.florists': 'Floristerías',
+    'services.floristsDesc': 'Arreglos florales y coronas',
+    'services.caterers': 'Catering',
+    'services.caterersDesc': 'Recepciones y comidas conmemorativas',
+    'services.notaries': 'Notarios',
+    'services.notariesDesc': 'Servicios legales y sucesión',
+    'services.transport': 'Transporte',
+    'services.transportDesc': 'Servicios de transporte funerario',
+    'services.pets': 'Nuestros Amigos Peludos',
+    'services.petsDesc': 'Servicios funerarios para mascotas',
+    
+    // Footer
+    'footer.tagline': 'Para siempre en nuestros corazones. Con respeto y dignidad.',
+    'footer.copyright': 'Product Owner - Kent Ley_CEO © {year} Milele. Todos los derechos reservados.',
+    
+    // Auth
+    'auth.login': 'Iniciar Sesión',
+    'auth.signup': 'Crear Cuenta',
+    'auth.email': 'Correo Electrónico',
+    'auth.password': 'Contraseña',
+    'auth.confirmPassword': 'Confirmar Contraseña',
+    'auth.fullName': 'Nombre Completo',
+    'auth.signin': 'Iniciar Sesión',
+    'auth.create': 'Crear Cuenta',
+    'auth.noAccount': '¿No tienes cuenta?',
+    'auth.haveAccount': '¿Ya tienes cuenta?',
+    'auth.error': 'Error al iniciar sesión. Por favor verifica tus credenciales.',
+    'auth.success': '¡Bienvenido! Revisa tu correo para confirmar tu cuenta.',
+    'auth.forgotPassword': '¿Olvidaste tu contraseña?',
+    'auth.resetPassword': 'Restablecer Contraseña',
+    'auth.resetSent': 'Correo de restablecimiento enviado',
+    
+    // App
+    'app.feed': 'Inicio',
+    'app.memorials': 'Memoriales',
+    'app.messages': 'Mensajes',
+    'app.notifications': 'Notificaciones',
+    'app.services': 'Servicios',
+    'app.gallery': 'Galería',
+    'app.timeline': 'Cronología',
+    'app.family': 'Familia',
+    'app.welcome': 'Bienvenido a Milele',
+    'app.recentMemorials': 'Memoriales Recientes',
+    'app.noMessages': 'Aún no hay mensajes',
+    'app.noNotifications': 'Estás al día',
+    'app.createMemorial': 'Crear Memorial',
+    'app.viewAll': 'Ver Todo',
+    'app.search': 'Buscar',
+    'app.settings': 'Configuración',
+    'app.profile': 'Perfil',
+    'app.logout': 'Cerrar Sesión',
+    
+    // Memorial
+    'memorial.title': 'Memorial',
+    'memorial.inMemoryOf': 'En Memoria de',
+    'memorial.born': 'Nacido/a',
+    'memorial.passed': 'Fallecido/a',
+    'memorial.biography': 'Biografía',
+    'memorial.tributes': 'Homenajes',
+    'memorial.photos': 'Fotos',
+    'memorial.timeline': 'Cronología de Vida',
+    'memorial.family': 'Familia',
+    'memorial.addTribute': 'Agregar Homenaje',
+    'memorial.addPhoto': 'Agregar Foto',
+    'memorial.share': 'Compartir Memorial',
+    'memorial.lightCandle': 'Encender una Vela',
+    'memorial.sendFlowers': 'Enviar Flores',
+    
+    // Malaika
+    'malaika.title': 'Malaika',
+    'malaika.subtitle': 'Tu compañero compasivo',
+    'malaika.greeting': 'Hola, soy Malaika, tu guía durante este momento difícil. ¿Cómo puedo ayudarte hoy?',
+    'malaika.placeholder': 'Escribe tu mensaje...',
+    'malaika.send': 'Enviar',
+    
+    // Pets
+    'pets.title': 'Nuestros Amigos',
+    'pets.subtitle': 'Conoce al equipo detrás de Milele',
+    'pets.name': 'Sultan',
+    'pets.role': 'Director de Relajación',
+    'pets.bio': 'Un compañero leal que cree en la importancia del descanso y la reflexión.',
+    
+    // Feedback
+    'feedback.title': 'Sugerencias',
+    'feedback.subtitle': 'Tus ideas nos ayudan a mejorar Milele',
+    'feedback.name': 'Tu nombre (opcional)',
+    'feedback.namePlaceholder': 'Anónimo',
+    'feedback.message': 'Tu mensaje',
+    'feedback.messagePlaceholder': 'Comparte tus ideas, sugerencias o comentarios...',
+    'feedback.send': 'Enviar',
+    'feedback.sent': '¡Mensaje enviado!',
+    'feedback.sentDesc': 'Gracias por tu comentario.',
+    'feedback.disclaimer': 'Tu mensaje será enviado al equipo de Milele.',
+    'feedback.emailSubject': 'Sugerencia - Milele',
+    'feedback.emailFrom': 'De',
+    'feedback.anonymous': 'Anónimo',
+
+    // Simulator
+    'simulator.title': 'Simulador de Servicios',
+    'simulator.subtitle': 'Estima tus necesidades y presupuesto',
+    'simulator.cta': 'Simular mis necesidades',
+    'simulator.results': 'Resultados Estimados',
+    'simulator.total': 'Estimación Total',
+    
+    // Common
+    'common.back': 'Volver',
+    'common.save': 'Guardar',
+    'common.cancel': 'Cancelar',
+    'common.delete': 'Eliminar',
+    'common.edit': 'Editar',
+    'common.loading': 'Cargando...',
+    'common.error': 'Ocurrió un error',
+    'common.success': '¡Éxito!',
+    'common.confirm': 'Confirmar',
+    'common.close': 'Cerrar',
+    'common.next': 'Siguiente',
+    'common.previous': 'Anterior',
+    'common.submit': 'Enviar',
+    'common.language': 'Idioma',
+    'common.currency': 'Moneda',
+    
+    // About
+    'about.title': 'Acerca de Milele',
+    'about.mission': 'Nuestra Misión',
+    'about.missionText': 'Ayudar a las familias a preservar y celebrar la memoria de sus seres queridos con dignidad y cuidado.',
+    'about.vision': 'Nuestra Visión',
+    'about.visionText': 'Un mundo donde cada vida es recordada y celebrada para siempre.',
+  },
+  
+  sw: {
+    // Landing page
+    'landing.title': 'Milele',
+    'landing.subtitle': 'Unda ukumbusho wa kidijitali wenye maana ili kusherehekea na kukumbuka wapendwa wako',
+    'landing.cta': 'Unda Ukumbusho',
+    'landing.login': 'Ingia',
+    'landing.features': 'Vipengele',
+    'landing.about': 'Kuhusu',
+    'landing.contact': 'Wasiliana',
+    
+    // Hero section
+    'hero.heading': 'Milele inamaanisha "milele" kwa Kiswahili.',
+    'hero.paragraph1': 'Kila mtu ni bwana wa maisha yake. Tunayaunda kwa sura yetu, na zana na chaguzi zinazotupendeza, ili kuacha urithi ambao kweli tunataka kupitisha.',
+    'hero.paragraph2': 'Katika Milele, tunaheshimu uhuru huu wa kina. Dhamira yetu ni kulinda urithi uliouchagua: kuulinda kwa uangalifu mkubwa, kuuhifadhi kwa wakati na kuhakikisha uendeleo wake, ili upae kwa utulivu kuelekea milele.',
+    'hero.closing': 'Milele — Kwa sababu kinachohusika kweli lazima kidumu milele.',
+    'hero.button': 'Anza',
+    'hero.explore': 'Chunguza Makumbusho',
+    'hero.feature1': 'Urithi Wako',
+    'hero.feature1Desc': 'Linda na uunde urithi unaotaka kuacha',
+    'hero.feature2': 'Umehifadhiwa Milele',
+    'hero.feature2Desc': 'Hakikisha kumbukumbu yako inapaa kwa utulivu kuelekea milele',
+    'hero.feature3': 'Udhibiti Kamili',
+    'hero.feature3Desc': 'Fanya maamuzi yanayoonyesha maadili yako ya ndani',
+    
+    // Services
+    'services.title': 'Huduma Zetu',
+    'services.memorial': 'Ukumbusho wa Kidijitali',
+    'services.memorialDesc': 'Unda nafasi maalum ya kusherehekea maisha',
+    'services.flowers': 'Maua ya Mtandaoni',
+    'services.flowersDesc': 'Tuma maua na mishumaa ya ukumbusho mtandaoni',
+    'services.photos': 'Galeri ya Picha',
+    'services.photosDesc': 'Shiriki na panga picha za thamani',
+    'services.stories': 'Shiriki Hadithi',
+    'services.storiesDesc': 'Waache familia na marafiki washiriki kumbukumbu zao',
+    'services.timeline': 'Ratiba ya Wakati',
+    'services.timelineDesc': 'Andika matukio muhimu ya maisha',
+    'services.family': 'Mti wa Familia',
+    'services.familyDesc': 'Unganisha na heshimu uhusiano wa kifamilia',
+    
+    // Services preview
+    'services.heading': 'Huduma Zote Mahali Pamoja',
+    'services.description': 'Pata na wasiliana na watoa huduma muhimu kwa urahisi wakati huu mgumu. Kwa binadamu na wanyama vilevile.',
+    'services.funeralHome': 'Nyumba za Mazishi',
+    'services.funeralHomeDesc': 'Nyumba za mazishi na krematorio',
+    'services.florists': 'Wauzaji wa Maua',
+    'services.floristsDesc': 'Mapambo ya maua na korona',
+    'services.caterers': 'Wahudumu wa Chakula',
+    'services.caterersDesc': 'Mapokezi na milo ya ukumbusho',
+    'services.notaries': 'Wanotari',
+    'services.notariesDesc': 'Huduma za kisheria na urithi',
+    'services.transport': 'Usafiri',
+    'services.transportDesc': 'Huduma za usafiri wa mazishi',
+    'services.pets': 'Marafiki Wetu Wenye Manyoya',
+    'services.petsDesc': 'Huduma za mazishi kwa wanyama',
+    
+    // Footer
+    'footer.tagline': 'Milele mioyoni mwetu. Kwa heshima na utu.',
+    'footer.copyright': 'Product Owner - Kent Ley_CEO © {year} Milele. Haki zote zimehifadhiwa.',
+    
+    // Auth
+    'auth.login': 'Ingia',
+    'auth.signup': 'Fungua Akaunti',
+    'auth.email': 'Barua pepe',
+    'auth.password': 'Nenosiri',
+    'auth.confirmPassword': 'Thibitisha Nenosiri',
+    'auth.fullName': 'Jina Kamili',
+    'auth.signin': 'Ingia',
+    'auth.create': 'Fungua Akaunti',
+    'auth.noAccount': 'Huna akaunti?',
+    'auth.haveAccount': 'Tayari una akaunti?',
+    'auth.error': 'Hitilafu wakati wa kuingia. Tafadhali angalia taarifa zako.',
+    'auth.success': 'Karibu! Angalia barua pepe yako kuthibitisha akaunti yako.',
+    'auth.forgotPassword': 'Umesahau nenosiri?',
+    'auth.resetPassword': 'Weka Nenosiri Upya',
+    'auth.resetSent': 'Barua pepe ya kuweka upya imetumwa',
+    
+    // App
+    'app.feed': 'Mlisho',
+    'app.memorials': 'Makumbusho',
+    'app.messages': 'Ujumbe',
+    'app.notifications': 'Arifa',
+    'app.services': 'Huduma',
+    'app.gallery': 'Galeri',
+    'app.timeline': 'Ratiba',
+    'app.family': 'Familia',
+    'app.welcome': 'Karibu Milele',
+    'app.recentMemorials': 'Makumbusho ya Hivi Karibuni',
+    'app.noMessages': 'Bado hakuna ujumbe',
+    'app.noNotifications': 'Umekamilika',
+    'app.createMemorial': 'Unda Ukumbusho',
+    'app.viewAll': 'Tazama Yote',
+    'app.search': 'Tafuta',
+    'app.settings': 'Mipangilio',
+    'app.profile': 'Wasifu',
+    'app.logout': 'Ondoka',
+    
+    // Memorial
+    'memorial.title': 'Ukumbusho',
+    'memorial.inMemoryOf': 'Kwa Kumbukumbu ya',
+    'memorial.born': 'Alizaliwa',
+    'memorial.passed': 'Alifariki',
+    'memorial.biography': 'Wasifu',
+    'memorial.tributes': 'Heshima',
+    'memorial.photos': 'Picha',
+    'memorial.timeline': 'Ratiba ya Maisha',
+    'memorial.family': 'Familia',
+    'memorial.addTribute': 'Ongeza Heshima',
+    'memorial.addPhoto': 'Ongeza Picha',
+    'memorial.share': 'Shiriki Ukumbusho',
+    'memorial.lightCandle': 'Washa Mshumaa',
+    'memorial.sendFlowers': 'Tuma Maua',
+    
+    // Malaika
+    'malaika.title': 'Malaika',
+    'malaika.subtitle': 'Rafiki yako mwenye huruma',
+    'malaika.greeting': 'Habari, mimi ni Malaika, mwongozo wako wakati huu mgumu. Nawezaje kukusaidia leo?',
+    'malaika.placeholder': 'Andika ujumbe wako...',
+    'malaika.send': 'Tuma',
+    
+    // Pets
+    'pets.title': 'Marafiki Wetu',
+    'pets.subtitle': 'Kutana na timu nyuma ya Milele',
+    'pets.name': 'Sultan',
+    'pets.role': 'Mkurugenzi wa Kupumzika',
+    'pets.bio': 'Rafiki mwaminifu anayeamini umuhimu wa kupumzika na kutafakari.',
+    
+    // Feedback
+    'feedback.title': 'Mapendekezo',
+    'feedback.subtitle': 'Mawazo yako yanatusaidia kuboresha Milele',
+    'feedback.name': 'Jina lako (si lazima)',
+    'feedback.namePlaceholder': 'Bila jina',
+    'feedback.message': 'Ujumbe wako',
+    'feedback.messagePlaceholder': 'Shiriki mawazo, mapendekezo au maoni yako...',
+    'feedback.send': 'Tuma',
+    'feedback.sent': 'Ujumbe umetumwa!',
+    'feedback.sentDesc': 'Asante kwa maoni yako.',
+    'feedback.disclaimer': 'Ujumbe wako utatumwa kwa timu ya Milele.',
+    'feedback.emailSubject': 'Pendekezo - Milele',
+    'feedback.emailFrom': 'Kutoka',
+    'feedback.anonymous': 'Bila jina',
+
+    // Simulator
+    'simulator.title': 'Kikokotoo cha Huduma',
+    'simulator.subtitle': 'Kadiria mahitaji na bajeti yako',
+    'simulator.cta': 'Kokotoa mahitaji yangu',
+    'simulator.results': 'Matokeo ya Makadirio',
+    'simulator.total': 'Jumla ya Makadirio',
+    
+    // Common
+    'common.back': 'Rudi',
+    'common.save': 'Hifadhi',
+    'common.cancel': 'Ghairi',
+    'common.delete': 'Futa',
+    'common.edit': 'Hariri',
+    'common.loading': 'Inapakia...',
+    'common.error': 'Hitilafu imetokea',
+    'common.success': 'Imefanikiwa!',
+    'common.confirm': 'Thibitisha',
+    'common.close': 'Funga',
+    'common.next': 'Ifuatayo',
+    'common.previous': 'Iliyopita',
+    'common.submit': 'Wasilisha',
+    'common.language': 'Lugha',
+    'common.currency': 'Sarafu',
+    
+    // About
+    'about.title': 'Kuhusu Milele',
+    'about.mission': 'Dhamira Yetu',
+    'about.missionText': 'Kusaidia familia kuhifadhi na kusherehekea kumbukumbu ya wapendwa wao kwa heshima na uangalifu.',
+    'about.vision': 'Maono Yetu',
+    'about.visionText': 'Ulimwengu ambapo kila maisha yanakumbukwa na kusherehekewa milele.',
   },
 }
 

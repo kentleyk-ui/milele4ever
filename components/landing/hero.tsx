@@ -23,9 +23,9 @@ export function Hero() {
     >
       {/* Decorative background elements */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-20 left-10 w-72 h-72 bg-sage-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
-        <div className="absolute bottom-20 right-10 w-96 h-96 bg-gold-500/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-sage-500/3 to-transparent rounded-full" />
+        <div className="absolute top-20 left-10 w-72 h-72 bg-primary/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '4s' }} />
+        <div className="absolute bottom-20 right-10 w-96 h-96 bg-accent/5 rounded-full blur-3xl animate-pulse" style={{ animationDuration: '6s', animationDelay: '2s' }} />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-primary/3 to-transparent rounded-full" />
       </div>
 
       <div className={`max-w-4xl mx-auto space-y-12 relative z-10 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
@@ -34,7 +34,7 @@ export function Hero() {
         <div className="space-y-6">
           <h1 
             id="hero-title" 
-            className="font-serif text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl text-balance text-sage-900"
+            className="font-serif text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl text-balance text-foreground"
           >
             {t('hero.heading')}
           </h1>
@@ -44,23 +44,23 @@ export function Hero() {
         <div className="space-y-8 max-w-3xl mx-auto">
           {/* First paragraph with left border */}
           <div className={`relative transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-sage-400 via-sage-400 to-sage-200 rounded-full" />
-            <p className="text-lg md:text-xl text-sage-800 leading-relaxed pl-6 text-left font-light">
+            <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-primary/70 to-primary/30 rounded-full" />
+            <p className="text-lg md:text-xl text-foreground/90 leading-relaxed pl-6 text-left font-light">
               {t('hero.paragraph1')}
             </p>
           </div>
           
           {/* Second paragraph with different border */}
           <div className={`relative transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-gold-400 via-gold-300 to-gold-200 rounded-full" />
-            <p className="text-lg md:text-xl text-sage-800 leading-relaxed pl-6 text-left font-light">
+            <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-accent via-accent/70 to-accent/30 rounded-full" />
+            <p className="text-lg md:text-xl text-foreground/90 leading-relaxed pl-6 text-left font-light">
               {t('hero.paragraph2')}
             </p>
           </div>
           
           {/* Closing statement - highlighted */}
           <div className={`transition-all duration-700 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <p className="text-lg md:text-xl text-sage-700 leading-relaxed font-serif font-semibold italic">
+            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed font-serif font-semibold italic">
               {t('hero.closing')}
             </p>
           </div>
@@ -70,7 +70,7 @@ export function Hero() {
         <div className={`flex flex-col sm:flex-row gap-4 justify-center pt-8 transition-all duration-700 delay-900 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
           <Button 
             size="lg" 
-            className="text-base px-8 py-6 shadow-lg shadow-sage-600/20 hover:shadow-xl hover:shadow-sage-600/30 transition-all duration-300 hover:-translate-y-0.5 bg-sage-600 hover:bg-sage-700 text-white" 
+            className="text-base px-8 py-6 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:-translate-y-0.5" 
             asChild
           >
             <Link href="/auth/sign-up">
@@ -81,7 +81,7 @@ export function Hero() {
           <Button 
             size="lg" 
             variant="outline" 
-            className="text-base px-8 py-6 hover:bg-sage-50 transition-all duration-300 border-sage-300 text-sage-700" 
+            className="text-base px-8 py-6 hover:bg-primary/5 transition-all duration-300" 
             asChild
           >
             <Link href="/app/memorials">{t('hero.explore')}</Link>
@@ -91,8 +91,7 @@ export function Hero() {
 
       {/* Scroll indicator */}
       <div className={`mt-12 transition-all duration-700 delay-1200 ${isVisible ? 'opacity-100' : 'opacity-0'}`} aria-hidden="true">
-        <div className="flex flex-col items-center gap-2 text-sage-600">
-          <span className="text-xs uppercase tracking-wider">Scroll to discover</span>
+        <div className="flex flex-col items-center gap-2 text-muted-foreground">
           <ChevronDown className="h-5 w-5 animate-bounce" />
         </div>
       </div>
@@ -142,7 +141,7 @@ function FeatureCard({
   
   return (
     <article 
-      className={`group flex flex-col items-center text-center p-8 rounded-2xl bg-white/60 backdrop-blur-sm border border-sage-200 transition-all duration-500 hover:shadow-lg hover:shadow-sage-200/50 hover:-translate-y-1 hover:border-sage-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
+      className={`group flex flex-col items-center text-center p-8 rounded-2xl bg-card/80 backdrop-blur-sm border border-border transition-all duration-500 hover:shadow-lg hover:shadow-primary/10 hover:-translate-y-1 hover:border-primary/30 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}
       tabIndex={0}
       role="article"
       aria-labelledby={`feature-${title.replace(/\s+/g, '-').toLowerCase()}`}
@@ -152,11 +151,11 @@ function FeatureCard({
       </div>
       <h3 
         id={`feature-${title.replace(/\s+/g, '-').toLowerCase()}`} 
-        className="font-serif font-semibold text-lg mb-3 text-sage-900 group-hover:text-sage-700 transition-colors duration-300"
+        className="font-serif font-semibold text-lg mb-3 text-foreground group-hover:text-primary transition-colors duration-300"
       >
         {title}
       </h3>
-      <p className="text-sm text-sage-600 leading-relaxed">{description}</p>
+      <p className="text-sm text-muted-foreground leading-relaxed">{description}</p>
     </article>
   )
 }

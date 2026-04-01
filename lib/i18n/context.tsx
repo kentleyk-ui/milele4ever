@@ -31,7 +31,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   useEffect(() => {
     // Load language from localStorage on client side
     const stored = localStorage.getItem('language') as Language | null
-    if (stored && (stored === 'en' || stored === 'fr')) {
+    if (stored && (stored === 'en' || stored === 'fr' || stored === 'es' || stored === 'sw')) {
       setLanguageState(stored)
     }
     // Load currency from localStorage
