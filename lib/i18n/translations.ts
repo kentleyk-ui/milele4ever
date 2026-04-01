@@ -104,6 +104,16 @@ export const translations: Record<Language, Record<string, string>> = {
     'app.profile': 'Profile',
     'app.logout': 'Log Out',
     
+    // Dashboard
+    'dashboard.overview': 'Overview',
+    'dashboard.myMemorials': 'My Memorials',
+    'dashboard.messages': 'Messages',
+    'dashboard.journal': 'Journal',
+    'dashboard.calendar': 'Calendar',
+    'dashboard.heritage': 'Heritage',
+    'dashboard.notifications': 'Notifications',
+    'dashboard.settings': 'Settings',
+    
     // Memorial
     'memorial.title': 'Memorial',
     'memorial.inMemoryOf': 'In Memory of',
@@ -276,6 +286,16 @@ export const translations: Record<Language, Record<string, string>> = {
     'app.settings': 'Paramètres',
     'app.profile': 'Profil',
     'app.logout': 'Déconnexion',
+    
+    // Dashboard
+    'dashboard.overview': 'Aperçu',
+    'dashboard.myMemorials': 'Mes Mémoriaux',
+    'dashboard.messages': 'Messages',
+    'dashboard.journal': 'Journal',
+    'dashboard.calendar': 'Calendrier',
+    'dashboard.heritage': 'Héritage',
+    'dashboard.notifications': 'Notifications',
+    'dashboard.settings': 'Paramètres',
     
     // Memorial
     'memorial.title': 'Mémorial',
