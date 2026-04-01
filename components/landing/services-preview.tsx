@@ -29,38 +29,54 @@ export function ServicesPreview() {
         </div>
         
         {/* Bento Grid Layout */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 auto-rows-[minmax(120px,auto)]">
-          {services.map((service, index) => (
-            <Link
-              key={service.label}
-              href={service.href}
-              className={`
-                group flex flex-col items-center justify-center p-6 rounded-xl bg-background border 
-                card-hover stagger-item
-                focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2
-                ${service.featured ? 'md:col-span-2 md:row-span-2' : ''}
-              `}
-              style={{ animationDelay: `${200 + index * 100}ms` }}
-              aria-label={`${service.label}: ${service.description}`}
-            >
-              <div className={`
-                rounded-full bg-gradient-to-br from-primary/20 to-primary/5 
-                flex items-center justify-center text-primary mb-4
-                group-hover:scale-110 transition-transform duration-300
-                ${service.featured ? 'h-16 w-16' : 'h-12 w-12'}
-              `}>
-                <service.icon className={service.featured ? 'h-8 w-8 icon-pulse' : 'h-6 w-6'} />
-              </div>
-              <span className={`font-medium text-center ${service.featured ? 'text-lg' : 'text-sm'}`}>
-                {service.label}
-              </span>
-              {service.featured && (
-                <p className="text-sm text-muted-foreground mt-2 text-center max-w-[200px]">
-                  {service.description}
-                </p>
-              )}
-            </Link>
-          ))}
+        <div className="grid grid-cols-1 md:grid-cols-6 gap-4 auto-rows-[minmax(120px,auto)]">
+          {services.map((service, index) => {
+            let gridSpan = ''
+            // Salon funeraire à gauche (index 0)
+            if (index === 0) {
+              gridSpan = 'md:col-span-1 md:row-span-2 md:col-start-1'
+            }
+            // Amis poilus à droite (index 5)
+            else if (index === 5) {
+              gridSpan = 'md:col-span-1 md:row-span-2 md:col-start-6'
+            }
+            // Les autres au centre
+            else {
+              gridSpan = ''
+            }
+
+            return (
+              <Link
+                key={service.label}
+                href={service.href}
+                className={`
+                  group flex flex-col items-center justify-center p-6 rounded-xl bg-background border 
+                  card-hover stagger-item
+                  focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2
+                  ${gridSpan}
+                `}
+                style={{ animationDelay: `${200 + index * 100}ms` }}
+                aria-label={`${service.label}: ${service.description}`}
+              >
+                <div className={`
+                  rounded-full bg-gradient-to-br from-primary/20 to-primary/5 
+                  flex items-center justify-center text-primary mb-4
+                  group-hover:scale-110 transition-transform duration-300
+                  ${service.featured ? 'h-16 w-16' : 'h-12 w-12'}
+                `}>
+                  <service.icon className={service.featured ? 'h-8 w-8 icon-pulse' : 'h-6 w-6'} />
+                </div>
+                <span className={`font-medium text-center ${service.featured ? 'text-lg' : 'text-sm'}`}>
+                  {service.label}
+                </span>
+                {service.featured && (
+                  <p className="text-sm text-muted-foreground mt-2 text-center max-w-[200px]">
+                    {service.description}
+                  </p>
+                )}
+              </Link>
+            )
+          })}
         </div>
       </div>
     </section>

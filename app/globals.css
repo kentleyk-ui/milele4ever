@@ -214,3 +214,8 @@ html {
   background-color: oklch(0.50 0.15 150 / 0.2);
   color: oklch(0.20 0.025 45);
 }
+
+/* Titre Milele en vert foncé */
+#hero-title {
+  color: var(--bold-green);
+}
