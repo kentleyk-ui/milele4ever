@@ -264,3 +264,38 @@ html {
     opacity: 0.9;
   }
 }
+
+/* Logo coeur avec effet lumineux dynamique */
+.heart-logo-glow {
+  filter: drop-shadow(0 0 8px #4ade80) drop-shadow(0 0 16px #16a34a);
+  animation: heart-beat-glow 2s ease-in-out infinite;
+  transition: transform 0.3s ease, filter 0.3s ease;
+}
+
+.heart-logo-glow:hover {
+  transform: scale(1.15);
+  filter: drop-shadow(0 0 12px #4ade80) drop-shadow(0 0 24px #16a34a) drop-shadow(0 0 36px #22c55e);
+}
+
+@keyframes heart-beat-glow {
+  0%, 100% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px #4ade80) drop-shadow(0 0 12px #16a34a);
+  }
+  15% {
+    transform: scale(1.12);
+    filter: drop-shadow(0 0 10px #4ade80) drop-shadow(0 0 20px #16a34a) drop-shadow(0 0 30px #22c55e);
+  }
+  30% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px #4ade80) drop-shadow(0 0 12px #16a34a);
+  }
+  45% {
+    transform: scale(1.08);
+    filter: drop-shadow(0 0 8px #4ade80) drop-shadow(0 0 16px #16a34a) drop-shadow(0 0 24px #22c55e);
+  }
+  60% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 6px #4ade80) drop-shadow(0 0 12px #16a34a);
+  }
+}
