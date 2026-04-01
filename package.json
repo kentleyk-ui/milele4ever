@@ -2,6 +2,9 @@
   "name": "milele4ever",
   "version": "0.1.0",
   "private": true,
+  "pnpm": {
+    "onlyBuiltDependencies": ["sharp"]
+  },
   "scripts": {
     "dev": "next dev",
     "build": "next build",
