@@ -16,7 +16,7 @@ export function parseHtmlInText(text: string): React.ReactNode {
         if (part.startsWith('<strong>') && part.endsWith('</strong>')) {
           const content = part.slice(8, -9) // Remove <strong> and </strong>
           return (
-            <strong key={index} className="font-bold">
+            <strong key={index}>
               {content}
             </strong>
           )

@@ -1,5 +1,6 @@
 'use client'
 
+import React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, ChevronDown } from "lucide-react"
@@ -73,11 +74,11 @@ export function Hero() {
             </p>
           </div>
           
-          {/* Second paragraph with different border */}
+          {/* Second paragraph — Aïon et Aeternum en gras vert */}
           <div className={`relative transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-accent via-accent/70 to-accent/30 rounded-full" />
             <p className="text-lg md:text-xl text-foreground/90 leading-relaxed pl-6 text-left font-light">
-              {t('hero.paragraph2')}
+              {highlightWords(t('hero.paragraph2'), ['Aïon', 'Aeternum'])}
             </p>
           </div>
           
@@ -141,6 +142,24 @@ export function Hero() {
         />
       </div>
     </section>
+  )
+}
+
+/**
+ * Met en gras et en vert foncé les mots spécifiés dans un texte
+ */
+function highlightWords(text: string, words: string[]): React.ReactNode {
+  if (!text) return text
+  const pattern = new RegExp(`(${words.join('|')})`, 'g')
+  const parts = text.split(pattern)
+  return (
+    <>
+      {parts.map((part, i) =>
+        words.includes(part)
+          ? <strong key={i}>{part}</strong>
+          : <span key={i}>{part}</span>
+      )}
+    </>
   )
 }
 

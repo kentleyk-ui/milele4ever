@@ -6,6 +6,8 @@
 :root {
   /* Milele - Richer sage green with warm sand tones */
   --background: oklch(0.96 0.015 90);
+  /* Vert foncé éclatant pour les textes gras en mode clair */
+  --bold-green: oklch(0.32 0.14 150);
   --foreground: oklch(0.20 0.025 45);
   --card: oklch(0.98 0.012 85);
   --card-foreground: oklch(0.20 0.025 45);
@@ -147,6 +149,16 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+  /* Tous les textes gras en vert foncé éclatant en mode clair */
+  :root strong,
+  :root b {
+    color: var(--bold-green);
+  }
+  /* En mode sombre on garde la couleur primaire */
+  .dark strong,
+  .dark b {
+    color: var(--primary);
   }
 }
 
