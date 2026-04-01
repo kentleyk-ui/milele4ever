@@ -233,7 +233,7 @@ export const translations: Record<Language, Record<string, string>> = {
     'services.notariesDesc': 'Services juridiques et succession',
     'services.transport': 'Transport',
     'services.transportDesc': 'Services de transport funéraire',
-    'services.pets': 'Pour nos Amis Poilus',
+    'services.pets': 'Pour nos compagnons à Poils',
     'services.petsDesc': 'Services funéraires pour animaux',
     
     // Footer
