@@ -155,7 +155,7 @@ export function PublicMemorialView({ memorial, currentUserId }: PublicMemorialVi
                 Allumer une bougie
               </Button>
               {!currentUserId && (
-                <Button variant="outline" asChild>
+                <Button variant="outline">
                   <Link href="/auth/login">Se connecter</Link>
                 </Button>
               )}
@@ -413,7 +413,7 @@ export function PublicMemorialView({ memorial, currentUserId }: PublicMemorialVi
           <p className="text-muted-foreground mb-6 max-w-md mx-auto">
             Milele vous permet d&apos;honorer et de célébrer la vie de vos proches pour l&apos;éternité.
           </p>
-          <Button asChild size="lg">
+          <Button size="lg">
             <Link href="/auth/sign-up">Créer un mémorial</Link>
           </Button>
         </div>

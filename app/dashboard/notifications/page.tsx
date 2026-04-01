@@ -63,7 +63,7 @@ export default function NotificationsPage() {
             <Check className="h-4 w-4" />
             Tout marquer comme lu
           </Button>
-          <Button variant="ghost" size="icon" asChild>
+          <Button variant="ghost" size="icon">
             <Link href="/dashboard/settings">
               <Settings className="h-4 w-4" />
             </Link>

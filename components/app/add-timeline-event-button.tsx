@@ -90,7 +90,7 @@ export function AddTimelineEventButton({ memorialId }: AddTimelineEventButtonPro
 
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
+      <DialogTrigger>
         <Button size="icon" variant="ghost">
           <Plus className="h-5 w-5" />
         </Button>

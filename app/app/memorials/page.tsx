@@ -39,11 +39,9 @@ export default async function MemorialsPage() {
               Honorez la memoire de vos proches
             </p>
           </div>
-          <Button asChild>
-            <Link href="/app/memorials/new">
-              <Plus className="h-4 w-4 mr-2" />
-              Creer
-            </Link>
+          <Button render={<Link href="/app/memorials/new" />}>
+            <Plus className="h-4 w-4 mr-2" />
+            Creer
           </Button>
         </div>
 

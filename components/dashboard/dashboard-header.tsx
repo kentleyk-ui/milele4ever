@@ -61,7 +61,7 @@ export function DashboardHeader({ user, profile }: DashboardHeaderProps) {
 
       {/* Mobile Menu */}
       <Sheet open={open} onOpenChange={setOpen}>
-        <SheetTrigger asChild>
+        <SheetTrigger>
           <Button variant="ghost" size="icon" className="text-white">
             <Menu className="h-6 w-6" />
           </Button>

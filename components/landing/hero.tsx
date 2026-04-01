@@ -192,8 +192,7 @@ export function Hero() {
           <Button 
             size="lg" 
             className="text-base px-8 py-6 shadow-lg shadow-primary/20 hover:shadow-xl hover:shadow-primary/30 transition-all duration-300 hover:-translate-y-0.5" 
-            asChild
-          >
+            >
             <Link href="/auth/sign-up">
               {t('hero.button')}
               <ArrowRight className="ml-2 h-5 w-5" />
@@ -203,8 +202,7 @@ export function Hero() {
             size="lg" 
             variant="outline" 
             className="text-base px-8 py-6 hover:bg-primary/5 transition-all duration-300" 
-            asChild
-          >
+            >
             <Link href="/app/memorials">{parseHtmlInText(t('hero.explore'))}</Link>
           </Button>
         </div>

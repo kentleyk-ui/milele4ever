@@ -41,7 +41,7 @@ export default async function DashboardMemorialsPage() {
             Gérez vos espaces de mémoire et d&apos;hommage
           </p>
         </div>
-        <Button asChild className="gap-2">
+        <Button className="gap-2">
           <Link href="/app/memorials/new">
             <Plus className="h-4 w-4" />
             Créer un mémorial
@@ -130,7 +130,7 @@ export default async function DashboardMemorialsPage() {
           <p className="text-muted-foreground mb-6 max-w-md mx-auto">
             Créez un espace de mémoire pour honorer et célébrer la vie de vos proches.
           </p>
-          <Button asChild>
+          <Button>
             <Link href="/app/memorials/new">
               <Plus className="h-4 w-4 mr-2" />
               Créer mon premier mémorial

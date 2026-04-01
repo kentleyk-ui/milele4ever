@@ -39,7 +39,7 @@ export function LandingHeader() {
       <div className="container flex h-16 max-w-screen-2xl items-center justify-between px-4">
         <div className="flex items-center gap-3">
           {!isHomePage && (
-            <Button variant="ghost" size="icon" asChild className="h-9 w-9">
+            <Button variant="ghost" size="icon" className="h-9 w-9">
               <Link href="/" aria-label={t('common.back', 'Retour')}>
                 <Home className="h-5 w-5" />
               </Link>
@@ -67,7 +67,7 @@ export function LandingHeader() {
           </Link>
         </div>
         <nav className="flex items-center gap-1 sm:gap-2">
-          <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex">
+          <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
             <Link href="/about">{t('landing.about', 'A propos')}</Link>
           </Button>
           <CurrencySwitcher />
@@ -75,7 +75,7 @@ export function LandingHeader() {
           <ThemeToggle />
           {!loading && (
             user ? (
-              <Button size="sm" asChild className="gap-2">
+              <Button size="sm" className="gap-2">
                 <Link href="/dashboard">
                   <LayoutDashboard className="h-4 w-4" />
                   <span className="hidden sm:inline">Dashboard</span>
@@ -83,10 +83,10 @@ export function LandingHeader() {
               </Button>
             ) : (
               <>
-                <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex">
+                <Button variant="ghost" size="sm" className="hidden sm:inline-flex">
                   <Link href="/auth/login">{t('landing.login')}</Link>
                 </Button>
-                <Button size="sm" asChild>
+                <Button size="sm">
                   <Link href="/auth/sign-up">{t('auth.signup')}</Link>
                 </Button>
               </>
