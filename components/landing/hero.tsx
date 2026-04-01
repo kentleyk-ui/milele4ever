@@ -29,21 +29,43 @@ export function Hero() {
         <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-gradient-radial from-primary/3 to-transparent rounded-full" />
       </div>
 
-      <div className={`max-w-4xl mx-auto space-y-12 relative z-10 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
-        
-        {/* Main Title */}
-        <div className="space-y-6">
-          <h1 
-            id="hero-title" 
-            className="font-serif text-5xl font-bold tracking-tight sm:text-6xl md:text-7xl text-balance text-foreground"
+      <div className={`max-w-4xl mx-auto space-y-10 relative z-10 transition-all duration-1000 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-8'}`}>
+
+        {/* Titre principal — "Milele" seul, élégant */}
+        <div className="flex flex-col items-center gap-4">
+          {/* Ligne décorative au-dessus */}
+          <div className="flex items-center gap-4 w-full max-w-xs justify-center">
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent via-primary/40 to-primary/60" />
+            <span className="text-xs font-medium text-primary/70 uppercase tracking-[0.25em]">est. 2025</span>
+            <div className="h-px flex-1 bg-gradient-to-l from-transparent via-primary/40 to-primary/60" />
+          </div>
+
+          <h1
+            id="hero-title"
+            className="font-serif text-7xl sm:text-8xl md:text-9xl font-bold tracking-tight text-foreground leading-none"
+            style={{ letterSpacing: '-0.02em' }}
           >
-            {t('hero.heading')}
+            Milele
           </h1>
+
+          {/* Ligne décorative sous le titre */}
+          <div className="flex items-center gap-3 w-full max-w-sm justify-center">
+            <div className="h-px flex-1 bg-gradient-to-r from-transparent to-primary/30" />
+            <div className="h-1.5 w-1.5 rounded-full bg-primary/50" />
+            <div className="h-px flex-1 bg-gradient-to-l from-transparent to-primary/30" />
+          </div>
         </div>
-        
-        {/* Main paragraphs with elegant styling */}
+
+        {/* Main paragraphs */}
         <div className="space-y-8 max-w-3xl mx-auto">
-          {/* First paragraph with left border */}
+          {/* Phrase de définition — même taille que le texte, en gras */}
+          <div className={`transition-all duration-700 delay-200 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <p className="text-lg md:text-xl text-foreground font-bold text-center leading-relaxed">
+              {t('hero.heading')}
+            </p>
+          </div>
+
+          {/* Premier paragraphe avec bordure gauche */}
           <div className={`relative transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-primary/70 to-primary/30 rounded-full" />
             <p className="text-lg md:text-xl text-foreground/90 leading-relaxed pl-6 text-left font-light">
