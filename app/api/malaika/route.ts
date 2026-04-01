@@ -13,6 +13,19 @@ const groq = createGroq({
 
 export const maxDuration = 30
 
+// Helper function to extract text content from a UIMessage
+function extractMessageContent(message: any): string {
+  if (typeof message.content === 'string') {
+    return message.content
+  } else if (Array.isArray(message.content)) {
+    const textContent = message.content.find((c: any) => 'text' in c)
+    if (textContent && 'text' in textContent) {
+      return textContent.text as string
+    }
+  }
+  return ''
+}
+
 const MALAIKA_SYSTEM_PROMPT = `You are Malaika, a compassionate and supportive AI assistant for Milele, a digital memorial and funeral services platform. Your name means "Angel" in Swahili.
 
 Your role is to:
@@ -85,8 +98,10 @@ Use this context to provide more personalized and relevant responses about their
 
           // Create new conversation if needed
           if (!activeConversationId) {
-            const firstUserMessage = messages.find(m => m.role === 'user')
-            const title = firstUserMessage?.content?.toString().slice(0, 50) || 'Nouvelle conversation'
+            // Get the first user message from the original UI messages
+            const firstUIMessage = messages.find(m => m.role === 'user')
+            const messageText = firstUIMessage ? extractMessageContent(firstUIMessage as any) : ''
+            const title = messageText.slice(0, 50) || 'Nouvelle conversation'
             
             const { data: newConvo } = await supabase
               .from('malaika_conversations')
@@ -109,7 +124,7 @@ Use this context to provide more personalized and relevant responses about their
                 {
                   conversation_id: activeConversationId,
                   role: 'user',
-                  content: lastUserMessage.content?.toString() || ''
+                  content: extractMessageContent(lastUserMessage as any)
                 },
                 {
                   conversation_id: activeConversationId,

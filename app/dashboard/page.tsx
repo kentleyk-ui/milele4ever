@@ -34,17 +34,20 @@ export default async function DashboardPage() {
     .order("created_at", { ascending: false })
     .limit(5)
 
+  // Fetch conversation IDs for the user
+  const { data: userConversations } = await supabase
+    .from("conversation_participants")
+    .select("conversation_id")
+    .eq("user_id", user.id)
+
+  const conversationIds = userConversations?.map(c => c.conversation_id) || []
+
   // Fetch unread messages count
   const { count: unreadMessages } = await supabase
     .from("messages")
     .select("*", { count: "exact", head: true })
     .eq("is_read", false)
-    .in("conversation_id", 
-      supabase
-        .from("conversation_participants")
-        .select("conversation_id")
-        .eq("user_id", user.id)
-    )
+    .in("conversation_id", conversationIds)
 
   // Fetch upcoming events
   const today = new Date().toISOString().split('T')[0]
@@ -88,7 +91,7 @@ export default async function DashboardPage() {
             Bienvenue dans votre espace Milele
           </p>
         </div>
-        <Button asChild className="gap-2">
+        <Button className="gap-2">
           <Link href="/app/memorials/new">
             <Plus className="h-4 w-4" />
             Créer un mémorial
@@ -124,7 +127,7 @@ export default async function DashboardPage() {
               <CardTitle className="text-lg">Mes mémoriaux</CardTitle>
               <CardDescription>Vos espaces de mémoire</CardDescription>
             </div>
-            <Button variant="ghost" size="sm" asChild>
+            <Button variant="ghost" size="sm">
               <Link href="/dashboard/memorials" className="gap-1">
                 Voir tout <ArrowRight className="h-4 w-4" />
               </Link>
@@ -162,7 +165,7 @@ export default async function DashboardPage() {
               <div className="text-center py-8">
                 <Heart className="h-12 w-12 text-muted-foreground/50 mx-auto mb-3" />
                 <p className="text-muted-foreground mb-4">Aucun mémorial créé</p>
-                <Button asChild size="sm">
+                <Button size="sm">
                   <Link href="/app/memorials/new">Créer mon premier mémorial</Link>
                 </Button>
               </div>
@@ -179,7 +182,7 @@ export default async function DashboardPage() {
                 <CardTitle className="text-lg">Notifications</CardTitle>
                 <CardDescription>Activité récente</CardDescription>
               </div>
-              <Button variant="ghost" size="sm" asChild>
+              <Button variant="ghost" size="sm">
                 <Link href="/dashboard/notifications" className="gap-1">
                   Voir tout <ArrowRight className="h-4 w-4" />
                 </Link>
@@ -213,7 +216,7 @@ export default async function DashboardPage() {
                 <CardTitle className="text-lg">Événements à venir</CardTitle>
                 <CardDescription>Anniversaires et dates importantes</CardDescription>
               </div>
-              <Button variant="ghost" size="sm" asChild>
+              <Button variant="ghost" size="sm">
                 <Link href="/dashboard/calendar" className="gap-1">
                   Calendrier <ArrowRight className="h-4 w-4" />
                 </Link>
@@ -259,7 +262,7 @@ export default async function DashboardPage() {
                 Malaika, votre guide spirituel, est là pour vous accompagner dans vos démarches.
               </p>
             </div>
-            <Button asChild className="gap-2 bg-primary hover:bg-primary/90">
+            <Button className="gap-2 bg-primary hover:bg-primary/90">
               <Link href="/malaika">
                 <span className="text-yellow-300">✦</span>
                 Parler à Malaika

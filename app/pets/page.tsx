@@ -21,7 +21,7 @@ export default function PetsPage() {
       <div className="relative z-10 flex-1 flex flex-col">
         {/* Header */}
         <header className="p-4">
-          <Button variant="ghost" size="sm" asChild>
+          <Button variant="ghost" size="sm">
             <Link href="/" className="gap-2">
               <ArrowLeft className="h-4 w-4" />
               Retour
@@ -59,7 +59,7 @@ export default function PetsPage() {
             </div>
           </div>
           
-          <Button asChild size="sm" className="mt-auto">
+          <Button size="sm" className="mt-auto">
             <Link href="/">
               Retourner a l{"'"}accueil
             </Link>

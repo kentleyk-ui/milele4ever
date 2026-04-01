@@ -25,7 +25,7 @@ export default async function AuthErrorPage({
           )}
         </div>
 
-        <Button asChild className="w-full h-11">
+        <Button className="w-full h-11">
           <Link href="/auth/login">Retour a la connexion</Link>
         </Button>
       </div>

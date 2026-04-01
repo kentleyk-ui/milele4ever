@@ -100,7 +100,7 @@ export function MemorialDetail({ memorial, currentUserId, isMember, userRole }: 
         showBack 
         actions={
           canEdit ? (
-            <Button variant="ghost" size="icon" asChild>
+            <Button variant="ghost" size="icon">
               <Link href={`/app/memorials/${memorial.id}/edit`}>
                 <Edit className="h-4 w-4" />
               </Link>
@@ -280,7 +280,7 @@ export function MemorialDetail({ memorial, currentUserId, isMember, userRole }: 
               <div className="text-center py-8">
                 <p className="text-muted-foreground mb-4">Aucun evenement dans la timeline</p>
                 {canEdit && (
-                  <Button variant="outline" asChild>
+                  <Button variant="outline">
                     <Link href={`/app/memorials/${memorial.id}/timeline`}>
                       Ajouter un evenement
                     </Link>

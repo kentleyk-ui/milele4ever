@@ -1,5 +1,5 @@
 import type { Metadata, Viewport } from 'next'
-import { DM_Sans, Playfair_Display } from 'next/font/google'
+import { DM_Sans, Playfair_Display, Geist } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import { I18nProvider } from '@/lib/i18n/context'
@@ -8,6 +8,9 @@ import { Chatbot } from '@/components/chatbot'
 import { PWAInstall } from '@/components/pwa-install'
 import './globals.css'
 import './animations.css'
+import { cn } from "@/lib/utils";
+
+const geist = Geist({subsets:['latin'],variable:'--font-sans'});
 
 const dmSans = DM_Sans({ 
   subsets: ["latin"],
@@ -65,7 +68,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="fr" suppressHydrationWarning>
+    <html lang="fr" suppressHydrationWarning className={cn("font-sans", geist.variable)}>
       <body className={`${dmSans.variable} ${playfair.variable} font-sans antialiased`}>
         <a href="#main-content" className="skip-to-content">
           Aller au contenu principal

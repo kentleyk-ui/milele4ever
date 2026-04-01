@@ -202,7 +202,7 @@ export default function MalaikaPage() {
       {/* Header */}
       <header className="sticky top-0 z-50 border-b border-border/60 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/80">
         <div className="container flex h-16 items-center gap-4 px-4">
-          <Button variant="ghost" size="icon" asChild>
+          <Button variant="ghost" size="icon">
             <Link href="/app">
               <ArrowLeft className="h-5 w-5" />
               <span className="sr-only">{t('common.back')}</span>

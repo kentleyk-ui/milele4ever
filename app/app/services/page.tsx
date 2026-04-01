@@ -78,18 +78,14 @@ export default async function ServicesPage({
                     style={{ width: `${((draftRequest.current_step || 1) / 11) * 100}%` }}
                   />
                 </div>
-                <Button asChild className="w-full">
-                  <Link href="/app/services/new">
-                    Continuer ma demande
-                  </Link>
+                <Button render={<Link href="/app/services/new" />} className="w-full">
+                  Continuer ma demande
                 </Button>
               </div>
             ) : (
-              <Button asChild className="w-full">
-                <Link href="/app/services/new">
-                  <Plus className="w-4 h-4 mr-2" />
-                  Nouvelle demande de service
-                </Link>
+              <Button render={<Link href="/app/services/new" />} className="w-full">
+                <Plus className="w-4 h-4 mr-2" />
+                Nouvelle demande de service
               </Button>
             )}
           </CardContent>

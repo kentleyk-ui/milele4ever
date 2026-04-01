@@ -99,7 +99,7 @@ export default function MileleBookPage() {
               Malaika
             </Link>
           </nav>
-          <Button asChild variant="default" size="sm">
+          <Button variant="default" size="sm">
             <Link href="/auth/login">Connexion</Link>
           </Button>
         </div>

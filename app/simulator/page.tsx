@@ -238,7 +238,7 @@ export default function SimulatorPage() {
 
               {/* Actions */}
               <div className="flex flex-col gap-3 pt-4">
-                <Button asChild className="w-full">
+                <Button className="w-full">
                   <Link href="/auth/sign-up">
                     {language === 'fr' ? 'Creer mon compte' : 'Create my account'}
                     <ArrowRight className="w-4 h-4 ml-2" />
