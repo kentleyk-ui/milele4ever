@@ -1,5 +1,6 @@
 'use client'
 
+import { useEffect, useState } from "react"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { Button } from "@/components/ui/button"
@@ -7,12 +8,31 @@ import { ThemeToggle } from "@/components/theme-toggle"
 import { LanguageSwitcher } from "@/components/language-switcher"
 import { CurrencySwitcher } from "@/components/currency-switcher"
 import { useI18n } from "@/lib/i18n/context"
-import { Home } from "lucide-react"
+import { Home, LayoutDashboard } from "lucide-react"
+import { createClient } from "@/lib/supabase/client"
+import type { User } from "@supabase/supabase-js"
 
 export function LandingHeader() {
   const { t } = useI18n()
   const pathname = usePathname()
   const isHomePage = pathname === '/'
+  const [user, setUser] = useState<User | null>(null)
+  const [loading, setLoading] = useState(true)
+
+  useEffect(() => {
+    const supabase = createClient()
+    
+    supabase.auth.getUser().then(({ data: { user } }) => {
+      setUser(user)
+      setLoading(false)
+    })
+
+    const { data: { subscription } } = supabase.auth.onAuthStateChange((_event, session) => {
+      setUser(session?.user || null)
+    })
+
+    return () => subscription.unsubscribe()
+  }, [])
   
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
@@ -53,12 +73,25 @@ export function LandingHeader() {
           <CurrencySwitcher />
           <LanguageSwitcher />
           <ThemeToggle />
-          <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex">
-            <Link href="/auth/login">{t('landing.login')}</Link>
-          </Button>
-          <Button size="sm" asChild>
-            <Link href="/auth/sign-up">{t('auth.signup')}</Link>
-          </Button>
+          {!loading && (
+            user ? (
+              <Button size="sm" asChild className="gap-2">
+                <Link href="/dashboard">
+                  <LayoutDashboard className="h-4 w-4" />
+                  <span className="hidden sm:inline">Dashboard</span>
+                </Link>
+              </Button>
+            ) : (
+              <>
+                <Button variant="ghost" size="sm" asChild className="hidden sm:inline-flex">
+                  <Link href="/auth/login">{t('landing.login')}</Link>
+                </Button>
+                <Button size="sm" asChild>
+                  <Link href="/auth/sign-up">{t('auth.signup')}</Link>
+                </Button>
+              </>
+            )
+          )}
         </nav>
       </div>
     </header>
