@@ -4,12 +4,18 @@ import React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { ArrowRight, ChevronDown } from "lucide-react"
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { useI18n } from "@/lib/i18n/context"
 import { parseHtmlInText } from "@/lib/i18n/parse-html"
 import { useEffect, useState } from "react"
 
 export function Hero() {
-  const { t } = useI18n()
+  const { t, language } = useI18n()
   const [isVisible, setIsVisible] = useState(false)
   
   useEffect(() => {
@@ -171,11 +177,11 @@ export function Hero() {
             </p>
           </div>
           
-          {/* Second paragraph — Aïon et Aeternum en gras vert */}
+          {/* Second paragraph — Aïon et Aeternum en gras vert avec tooltips */}
           <div className={`relative transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-accent via-accent/70 to-accent/30 rounded-full" />
             <p className="text-lg md:text-xl text-foreground/90 leading-relaxed pl-6 text-left font-light">
-              {highlightWords(t('hero.paragraph2'), ['Aïon', 'Aeternum'])}
+              <HighlightedText text={t('hero.paragraph2')} words={['Aïon', 'Aeternum']} lang={language} />
             </p>
           </div>
           
@@ -241,7 +247,50 @@ export function Hero() {
 }
 
 /**
- * Met en gras et en vert foncé les mots spécifiés dans un texte
+ * Definitions des termes Aion et Aeternum
+ */
+const definitions: Record<string, { fr: string; en: string }> = {
+  'Aïon': {
+    fr: 'Le temps sacre de notre vie terrestre, ou nous sculptons librement notre histoire et l\'heritage que nous desirons laisser.',
+    en: 'The sacred time of our earthly life, where we freely sculpt our story and the legacy we wish to leave behind.',
+  },
+  'Aeternum': {
+    fr: 'L\'eternite lumineuse ou tout ce qui a ete aime continue de vivre pour toujours.',
+    en: 'The luminous eternity where everything that has been loved continues to live forever.',
+  },
+}
+
+/**
+ * Met en gras et en vert fonce les mots specifies dans un texte avec tooltip
+ */
+function HighlightedText({ text, words, lang }: { text: string; words: string[]; lang: string }): React.ReactNode {
+  if (!text) return text
+  const pattern = new RegExp(`(${words.join('|')})`, 'g')
+  const parts = text.split(pattern)
+  return (
+    <TooltipProvider delayDuration={200}>
+      {parts.map((part, i) =>
+        words.includes(part) && definitions[part] ? (
+          <Tooltip key={i}>
+            <TooltipTrigger asChild>
+              <strong className="cursor-help underline decoration-dotted underline-offset-4 hover:text-primary transition-colors">
+                {part}
+              </strong>
+            </TooltipTrigger>
+            <TooltipContent side="top" className="max-w-xs text-sm">
+              <p>{lang === 'fr' ? definitions[part].fr : definitions[part].en}</p>
+            </TooltipContent>
+          </Tooltip>
+        ) : (
+          <span key={i}>{part}</span>
+        )
+      )}
+    </TooltipProvider>
+  )
+}
+
+/**
+ * Met en gras et en vert fonce les mots specifies dans un texte (sans tooltip)
  */
 function highlightWords(text: string, words: string[]): React.ReactNode {
   if (!text) return text

@@ -75,10 +75,11 @@ export function LandingHeader() {
           <ThemeToggle />
           {!loading && (
             user ? (
-              <Button size="sm" className="gap-2">
-                <Link href="/dashboard">
+              <Button size="sm" className="gap-2 bg-primary hover:bg-primary/90 text-primary-foreground shadow-md hover:shadow-lg transition-all">
+                <Link href="/dashboard" className="flex items-center gap-2">
                   <LayoutDashboard className="h-4 w-4" />
-                  <span className="hidden sm:inline">Dashboard</span>
+                  <span className="hidden sm:inline">{t('dashboard.myAion', 'Mon Aion')}</span>
+                  <span className="sm:hidden">Aion</span>
                 </Link>
               </Button>
             ) : (

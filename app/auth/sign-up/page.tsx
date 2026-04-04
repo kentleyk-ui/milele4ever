@@ -74,22 +74,20 @@ export default function SignUpPage() {
         <form onSubmit={handleSignUp} className="space-y-4">
           <div className="grid grid-cols-2 gap-4">
             <div className="space-y-2">
-              <Label htmlFor="firstName">{t('auth.fullName')}</Label>
+              <Label htmlFor="firstName">{t('auth.firstName')}</Label>
               <Input
                 id="firstName"
                 type="text"
-                placeholder="Jean"
                 value={firstName}
                 onChange={(e) => setFirstName(e.target.value)}
                 className="h-11"
               />
             </div>
             <div className="space-y-2">
-              <Label htmlFor="lastName">{t('auth.fullName')}</Label>
+              <Label htmlFor="lastName">{t('auth.lastName')}</Label>
               <Input
                 id="lastName"
                 type="text"
-                placeholder="Dupont"
                 value={lastName}
                 onChange={(e) => setLastName(e.target.value)}
                 className="h-11"
@@ -101,7 +99,6 @@ export default function SignUpPage() {
             <Input
               id="email"
               type="email"
-              placeholder="vous@exemple.com"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               className="h-11"
@@ -112,7 +109,6 @@ export default function SignUpPage() {
             <Input
               id="password"
               type="password"
-              placeholder="••••••••"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               className="h-11"
@@ -123,7 +119,6 @@ export default function SignUpPage() {
             <Input
               id="repeatPassword"
               type="password"
-              placeholder="••••••••"
               value={repeatPassword}
               onChange={(e) => setRepeatPassword(e.target.value)}
               className="h-11"
