@@ -73,6 +73,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'auth.email': 'Email',
     'auth.password': 'Password',
     'auth.confirmPassword': 'Confirm Password',
+    'auth.firstName': 'First Name',
+    'auth.lastName': 'Last Name',
     'auth.fullName': 'Full Name',
     'auth.signin': 'Sign In',
     'auth.create': 'Create Account',
@@ -106,6 +108,7 @@ export const translations: Record<Language, Record<string, string>> = {
     
     // Dashboard
     'dashboard.overview': 'Overview',
+    'dashboard.myAion': 'My Aion',
     'dashboard.myMemorials': 'My Memorials',
     'dashboard.messages': 'Messages',
     'dashboard.journal': 'Journal',
@@ -263,6 +266,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'auth.email': 'Email',
     'auth.password': 'Mot de Passe',
     'auth.confirmPassword': 'Confirmer le Mot de Passe',
+    'auth.firstName': 'Prenom',
+    'auth.lastName': 'Nom de famille',
     'auth.fullName': 'Nom Complet',
     'auth.signin': 'Se Connecter',
     'auth.create': 'Créer un Compte',
@@ -295,8 +300,9 @@ export const translations: Record<Language, Record<string, string>> = {
     'app.logout': 'Déconnexion',
     
     // Dashboard
-    'dashboard.overview': 'Aperçu',
-    'dashboard.myMemorials': 'Mes Mémoriaux',
+    'dashboard.overview': 'Apercu',
+    'dashboard.myAion': 'Mon Aion',
+    'dashboard.myMemorials': 'Mes Memoriaux',
     'dashboard.messages': 'Messages',
     'dashboard.journal': 'Journal',
     'dashboard.calendar': 'Calendrier',
