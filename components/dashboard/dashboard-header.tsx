@@ -17,8 +17,7 @@ import {
   Heart,
   Calendar,
   FileText,
-  Sparkles,
-  Home
+  Sparkles
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"

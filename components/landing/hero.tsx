@@ -3,13 +3,13 @@
 import React from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
-import { ArrowRight, ChevronDown, X } from "lucide-react"
+import { ArrowRight, ChevronDown } from "lucide-react"
 import {
-  Popover,
-  PopoverContent,
-  PopoverTrigger,
-} from "@/components/ui/popover"
-import { X } from "lucide-react"
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip"
 import { useI18n } from "@/lib/i18n/context"
 import { parseHtmlInText } from "@/lib/i18n/parse-html"
 import { useEffect, useState } from "react"
@@ -247,77 +247,45 @@ export function Hero() {
 }
 
 /**
- * Definitions detaillees des termes Aion et Aeternum
+ * Definitions des termes Aion et Aeternum
  */
-const definitions: Record<string, { fr: { title: string; subtitle: string; body: string; origin: string }; en: { title: string; subtitle: string; body: string; origin: string } }> = {
+const definitions: Record<string, { fr: string; en: string }> = {
   'Aïon': {
-    fr: {
-      title: 'Aïon',
-      subtitle: 'Le Temps Sacre de la Vie',
-      body: 'Dans la philosophie grecque, Aïon represente le temps cyclique et sacre — non pas le temps qui passe, mais le temps qui appartient. C\'est l\'espace de vie ou chaque moment vecu, chaque souvenir partage et chaque lien cree forme l\'heritage que nous laissons aux generations futures.',
-      origin: 'Du grec ancien αἰών — vie, eternite, generation',
-    },
-    en: {
-      title: 'Aïon',
-      subtitle: 'The Sacred Time of Life',
-      body: 'In Greek philosophy, Aion represents cyclical and sacred time — not time that passes, but time that belongs. It is the living space where every moment experienced, every shared memory and every bond created forms the legacy we leave to future generations.',
-      origin: 'From ancient Greek αἰών — life, eternity, generation',
-    },
+    fr: 'Le temps sacre de notre vie terrestre, ou nous sculptons librement notre histoire et l\'heritage que nous desirons laisser.',
+    en: 'The sacred time of our earthly life, where we freely sculpt our story and the legacy we wish to leave behind.',
   },
   'Aeternum': {
-    fr: {
-      title: 'Aeternum',
-      subtitle: 'L\'Eternite Lumineuse',
-      body: 'Aeternum est le sanctuaire numerique ou la memoire de ceux que nous aimons demeure vivante pour toujours. C\'est un lieu hors du temps ou les souvenirs, les voix, les images et les histoires transcendent la mort et continuent de rayonner pour ceux qui viennent apres nous.',
-      origin: 'Du latin aeternum — eternel, sans fin, infini',
-    },
-    en: {
-      title: 'Aeternum',
-      subtitle: 'The Luminous Eternity',
-      body: 'Aeternum is the digital sanctuary where the memory of those we love remains alive forever. It is a place beyond time where memories, voices, images and stories transcend death and continue to shine for those who come after us.',
-      origin: 'From Latin aeternum — eternal, endless, infinite',
-    },
+    fr: 'L\'eternite lumineuse ou tout ce qui a ete aime continue de vivre pour toujours.',
+    en: 'The luminous eternity where everything that has been loved continues to live forever.',
   },
 }
 
 /**
- * Met en gras les mots specifies avec un popover au clic
+ * Met en gras et en vert fonce les mots specifies dans un texte avec tooltip
  */
 function HighlightedText({ text, words, lang }: { text: string; words: string[]; lang: string }): React.ReactNode {
   if (!text) return text
   const pattern = new RegExp(`(${words.join('|')})`, 'g')
   const parts = text.split(pattern)
   return (
-    <>
-      {parts.map((part, i) => {
-        const def = definitions[part]
-        if (!words.includes(part) || !def) return <span key={i}>{part}</span>
-        const content = lang === 'fr' ? def.fr : def.en
-        return (
-          <Popover key={i}>
-            <PopoverTrigger asChild>
-              <strong className="cursor-pointer text-primary underline decoration-dotted underline-offset-4 hover:opacity-80 transition-opacity">
+    <TooltipProvider delayDuration={200}>
+      {parts.map((part, i) =>
+        words.includes(part) && definitions[part] ? (
+          <Tooltip key={i}>
+            <TooltipTrigger asChild>
+              <strong className="cursor-help underline decoration-dotted underline-offset-4 hover:text-primary transition-colors">
                 {part}
               </strong>
-            </PopoverTrigger>
-            <PopoverContent side="top" className="space-y-3">
-              <div className="flex items-start justify-between gap-2">
-                <div>
-                  <h4 className="font-serif font-bold text-lg text-foreground">{content.title}</h4>
-                  <p className="text-xs font-medium text-primary uppercase tracking-wider">{content.subtitle}</p>
-                </div>
-                <div className="h-8 w-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
-                  <span className="text-primary text-xs font-bold">∞</span>
-                </div>
-              </div>
-              <div className="h-px bg-border" />
-              <p className="text-sm text-muted-foreground leading-relaxed">{content.body}</p>
-              <p className="text-xs text-muted-foreground/60 italic border-l-2 border-primary/30 pl-2">{content.origin}</p>
-            </PopoverContent>
-          </Popover>
+            </TooltipTrigger>
+            <TooltipContent side="top" className="max-w-xs text-sm">
+              <p>{lang === 'fr' ? definitions[part].fr : definitions[part].en}</p>
+            </TooltipContent>
+          </Tooltip>
+        ) : (
+          <span key={i}>{part}</span>
         )
-      })}
-    </>
+      )}
+    </TooltipProvider>
   )
 }
 
