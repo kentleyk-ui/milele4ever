@@ -260,8 +260,44 @@ function highlightFirstWord(text: string): React.ReactNode {
 
 /**
   * Met en gras et en vert foncé les mots spécifiés dans un texte
+  * Les definitions "Aïon:" et "Aeternum:" commencent sur une nouvelle ligne
   */
   function highlightWords(text: string, words: string[]): React.ReactNode {
+  if (!text) return text
+  
+  // Pattern pour detecter "Aïon :" ou "Aeternum :" suivi de leur definition
+  const definitionPattern = /(Aïon\s*:\s*)([^.]+\.)\s*(Aeternum\s*:\s*)([^.]+\.)/
+  const match = text.match(definitionPattern)
+  
+  if (match) {
+    const beforeDefinitions = text.substring(0, match.index)
+    const afterDefinitions = text.substring((match.index || 0) + match[0].length)
+    
+    return (
+      <>
+        {beforeDefinitions && <span>{highlightSimpleWords(beforeDefinitions, words)}</span>}
+        <br /><br />
+        <strong className="text-primary">{match[1].trim()}</strong>
+        <br />
+        <span>{match[2].trim()}</span>
+        <br /><br />
+        <strong className="text-accent">{match[3].trim()}</strong>
+        <br />
+        <span>{match[4].trim()}</span>
+        {afterDefinitions && (
+          <>
+            <br /><br />
+            <span>{highlightSimpleWords(afterDefinitions, words)}</span>
+          </>
+        )}
+      </>
+    )
+  }
+  
+  return highlightSimpleWords(text, words)
+}
+
+function highlightSimpleWords(text: string, words: string[]): React.ReactNode {
   if (!text) return text
   const pattern = new RegExp(`(${words.join('|')})`, 'g')
   const parts = text.split(pattern)
@@ -269,7 +305,7 @@ function highlightFirstWord(text: string): React.ReactNode {
     <>
       {parts.map((part, i) =>
         words.includes(part)
-          ? <strong key={i}>{part}</strong>
+          ? <strong key={i} className="text-primary">{part}</strong>
           : <span key={i}>{part}</span>
       )}
     </>
