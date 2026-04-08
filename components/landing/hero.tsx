@@ -241,63 +241,88 @@ export function Hero() {
 }
 
 /**
- * Met en gras le premier mot (avant le retour a la ligne) dans un texte
+ * Met en gras et en vert les mots Aion et Aeternum avec tooltip
+ * et affiche leurs definitions sur des lignes separees
  */
-function highlightFirstWord(text: string): React.ReactNode {
-  if (!text) return text
-  const newlineIndex = text.indexOf('\n')
-  if (newlineIndex === -1) return text
-  const firstPart = text.substring(0, newlineIndex)
-  const rest = text.substring(newlineIndex + 1)
-  return (
-    <>
-      <strong className="text-primary text-lg">{firstPart}</strong>
-      {'\n'}
-      <span className="text-base">{rest}</span>
-    </>
-  )
-}
-
-/**
-  * Met en gras et en vert foncé les mots spécifiés dans un texte
-  * Les definitions "Aïon:" et "Aeternum:" commencent sur une nouvelle ligne
-  */
-  function highlightWords(text: string, words: string[]): React.ReactNode {
+function highlightWords(text: string, words: string[]): React.ReactNode {
   if (!text) return text
   
-  // Pattern pour detecter "Aïon :" ou "Aeternum :" suivi de leur definition
-  const definitionPattern = /(Aïon\s*:\s*)([^.]+\.)\s*(Aeternum\s*:\s*)([^.]+\.)/
-  const match = text.match(definitionPattern)
+  // Definitions pour les tooltips
+  const definitions: Record<string, string> = {
+    'Aïon': 'Temps sacré de la vie terrestre',
+    'Aeternum': 'Éternité lumineuse'
+  }
   
-  if (match) {
-    const beforeDefinitions = text.substring(0, match.index)
-    const afterDefinitions = text.substring((match.index || 0) + match[0].length)
+  // Pattern pour detecter "Aïon : definition. Aeternum : definition."
+  const aionPattern = /Aïon\s*:\s*([^.]+\.)/
+  const aeternumPattern = /Aeternum\s*:\s*([^.]+\.)/
+  
+  const aionMatch = text.match(aionPattern)
+  const aeternumMatch = text.match(aeternumPattern)
+  
+  if (aionMatch && aeternumMatch) {
+    // Trouver le texte avant les definitions
+    const aionIndex = text.indexOf('Aïon :') !== -1 ? text.indexOf('Aïon :') : text.indexOf('Aïon:')
+    const beforeDefs = text.substring(0, aionIndex).trim()
+    
+    // Trouver le texte apres les definitions
+    const aeternumEnd = text.indexOf(aeternumMatch[0]) + aeternumMatch[0].length
+    const afterDefs = text.substring(aeternumEnd).trim()
     
     return (
-      <>
-        {beforeDefinitions && <span>{highlightSimpleWords(beforeDefinitions, words)}</span>}
-        <br /><br />
-        <strong className="text-primary">{match[1].trim()}</strong>
-        <br />
-        <span>{match[2].trim()}</span>
-        <br /><br />
-        <strong className="text-accent">{match[3].trim()}</strong>
-        <br />
-        <span>{match[4].trim()}</span>
-        {afterDefinitions && (
-          <>
-            <br /><br />
-            <span>{highlightSimpleWords(afterDefinitions, words)}</span>
-          </>
+      <span className="block">
+        {/* Texte introductif avec Aion et Aeternum en gras vert */}
+        <span>{highlightSimpleWords(beforeDefs, words, definitions)}</span>
+        
+        {/* Definition de Aion sur nouvelle ligne */}
+        <span className="block mt-4 pl-4 border-l-2 border-primary/40">
+          <strong className="text-primary font-semibold">Aïon :</strong>
+          <br />
+          <span className="text-foreground/80">{aionMatch[1].trim()}</span>
+        </span>
+        
+        {/* Definition de Aeternum sur nouvelle ligne */}
+        <span className="block mt-4 pl-4 border-l-2 border-accent/40">
+          <strong className="text-accent font-semibold">Aeternum :</strong>
+          <br />
+          <span className="text-foreground/80">{aeternumMatch[1].trim()}</span>
+        </span>
+        
+        {/* Texte de conclusion */}
+        {afterDefs && (
+          <span className="block mt-4">{highlightSimpleWords(afterDefs, words, definitions)}</span>
         )}
-      </>
+      </span>
     )
   }
   
-  return highlightSimpleWords(text, words)
+  return highlightSimpleWords(text, words, definitions)
 }
 
-function highlightSimpleWords(text: string, words: string[]): React.ReactNode {
+function HighlightedWord({ word, definition }: { word: string; definition: string }) {
+  const [showTooltip, setShowTooltip] = useState(false)
+  
+  return (
+    <span 
+      className="relative inline-block"
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+      onClick={() => setShowTooltip(!showTooltip)}
+      onTouchStart={() => setShowTooltip(!showTooltip)}
+    >
+      <strong className="text-primary cursor-help underline decoration-dotted decoration-primary/50 underline-offset-2">
+        {word}
+      </strong>
+      <span 
+        className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-card border border-border rounded-lg text-sm text-foreground transition-opacity duration-200 whitespace-nowrap shadow-lg z-50 ${showTooltip ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+      >
+        {definition}
+      </span>
+    </span>
+  )
+}
+
+function highlightSimpleWords(text: string, words: string[], definitions: Record<string, string>): React.ReactNode {
   if (!text) return text
   const pattern = new RegExp(`(${words.join('|')})`, 'g')
   const parts = text.split(pattern)
@@ -305,7 +330,7 @@ function highlightSimpleWords(text: string, words: string[]): React.ReactNode {
     <>
       {parts.map((part, i) =>
         words.includes(part)
-          ? <strong key={i} className="text-primary">{part}</strong>
+          ? <HighlightedWord key={i} word={part} definition={definitions[part] || part} />
           : <span key={i}>{part}</span>
       )}
     </>
