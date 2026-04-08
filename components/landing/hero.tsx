@@ -241,81 +241,72 @@ export function Hero() {
 }
 
 /**
- * Met en gras et en vert les mots Aion et Aeternum avec tooltip
- * et affiche leurs definitions sur des lignes separees
+ * Met en gras et en vert les mots Aion et Aeternum avec tooltip contenant la definition complete
  */
 function highlightWords(text: string, words: string[]): React.ReactNode {
   if (!text) return text
   
-  // Definitions pour les tooltips
-  const definitions: Record<string, string> = {
-    'Aïon': 'Temps sacré de la vie terrestre',
-    'Aeternum': 'Éternité lumineuse'
-  }
-  
-  // Pattern pour detecter "Aïon : definition. Aeternum : definition."
+  // Extraire les definitions completes du texte
   const aionPattern = /Aïon\s*:\s*([^.]+\.)/
   const aeternumPattern = /Aeternum\s*:\s*([^.]+\.)/
   
   const aionMatch = text.match(aionPattern)
   const aeternumMatch = text.match(aeternumPattern)
   
-  if (aionMatch && aeternumMatch) {
-    // Trouver le texte avant les definitions
-    const aionIndex = text.indexOf('Aïon :') !== -1 ? text.indexOf('Aïon :') : text.indexOf('Aïon:')
-    const beforeDefs = text.substring(0, aionIndex).trim()
-    
-    // Trouver le texte apres les definitions
+  // Definitions completes pour les tooltips
+  const definitions: Record<string, string> = {
+    'Aïon': aionMatch ? aionMatch[1].trim() : 'Le temps sacré de notre vie terrestre',
+    'Aeternum': aeternumMatch ? aeternumMatch[1].trim() : 'L\'éternité lumineuse'
+  }
+  
+  // Texte introductif (avant "Aïon :")
+  const aionIndex = text.indexOf('Aïon :') !== -1 ? text.indexOf('Aïon :') : text.indexOf('Aïon:')
+  const introText = aionIndex > 0 ? text.substring(0, aionIndex).trim() : ''
+  
+  // Texte de conclusion (apres la definition d'Aeternum)
+  let conclusionText = ''
+  if (aeternumMatch) {
     const aeternumEnd = text.indexOf(aeternumMatch[0]) + aeternumMatch[0].length
-    const afterDefs = text.substring(aeternumEnd).trim()
-    
+    conclusionText = text.substring(aeternumEnd).trim()
+  }
+  
+  // Si on a trouve les definitions, afficher intro + conclusion avec tooltips
+  if (aionMatch && aeternumMatch && introText) {
     return (
-      <span className="block">
-        {/* Texte introductif avec Aion et Aeternum en gras vert */}
-        <span>{highlightSimpleWords(beforeDefs, words, definitions)}</span>
-        
-        {/* Definition de Aion sur nouvelle ligne */}
-        <span className="block mt-4 pl-4 border-l-2 border-primary/40">
-          <strong className="text-primary font-semibold">Aïon :</strong>
-          <br />
-          <span className="text-foreground/80">{aionMatch[1].trim()}</span>
-        </span>
-        
-        {/* Definition de Aeternum sur nouvelle ligne */}
-        <span className="block mt-4 pl-4 border-l-2 border-accent/40">
-          <strong className="text-accent font-semibold">Aeternum :</strong>
-          <br />
-          <span className="text-foreground/80">{aeternumMatch[1].trim()}</span>
-        </span>
-        
-        {/* Texte de conclusion */}
-        {afterDefs && (
-          <span className="block mt-4">{highlightSimpleWords(afterDefs, words, definitions)}</span>
-        )}
+      <span>
+        {highlightSimpleWords(introText, words, definitions)}
+        {conclusionText && <span> {highlightSimpleWords(conclusionText, words, definitions)}</span>}
       </span>
     )
   }
   
+  // Sinon, afficher le texte complet avec tooltips
   return highlightSimpleWords(text, words, definitions)
 }
 
 function HighlightedWord({ word, definition }: { word: string; definition: string }) {
   const [showTooltip, setShowTooltip] = useState(false)
   
+  const handleInteraction = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault()
+    setShowTooltip(!showTooltip)
+  }
+  
   return (
     <span 
       className="relative inline-block"
       onMouseEnter={() => setShowTooltip(true)}
       onMouseLeave={() => setShowTooltip(false)}
-      onClick={() => setShowTooltip(!showTooltip)}
-      onTouchStart={() => setShowTooltip(!showTooltip)}
+      onClick={handleInteraction}
+      onTouchEnd={handleInteraction}
     >
       <strong className="text-primary cursor-help underline decoration-dotted decoration-primary/50 underline-offset-2">
         {word}
       </strong>
       <span 
-        className={`absolute bottom-full left-1/2 -translate-x-1/2 mb-2 px-3 py-1.5 bg-card border border-border rounded-lg text-sm text-foreground transition-opacity duration-200 whitespace-nowrap shadow-lg z-50 ${showTooltip ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
+        className={`absolute bottom-full left-0 md:left-1/2 md:-translate-x-1/2 mb-2 px-4 py-2 bg-card border border-primary/30 rounded-lg text-sm text-foreground transition-opacity duration-200 shadow-xl z-50 w-64 md:w-80 text-left leading-relaxed ${showTooltip ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
       >
+        <strong className="text-primary block mb-1">{word}</strong>
         {definition}
       </span>
     </span>
