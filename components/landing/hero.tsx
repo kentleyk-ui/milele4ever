@@ -274,12 +274,10 @@ export function Hero() {
 
 /** Retourne le texte avant la premiere definition (ex: "Aïon et Aeternum : deux mots…") */
 function highlightIntro(text: string, words: string[]): React.ReactNode {
-  const aionIdx = findWordIndex(text, 'Aïon')
-  // L'intro s'arrete avant la premiere occurrence de "Aïon :" (definition)
-  // On cherche "Aïon :" ou "Aïon:" qui commence une definition
   const defStart = findDefinitionStart(text, 'Aïon')
   const intro = defStart > 0 ? text.substring(0, defStart).trim() : text
-  return inlineHighlight(intro, words)
+  // Les definitions ne sont pas disponibles dans l'intro, donc on passe un objet vide
+  return inlineHighlight(intro, words, {})
 }
 
 /** Retourne la phrase de conclusion (apres la definition d'Aeternum) */
@@ -288,7 +286,12 @@ function highlightConclusion(text: string, words: string[]): React.ReactNode {
   const m = text.match(aeternumDef)
   if (!m || m.index === undefined) return null
   const conclusion = text.substring(m.index + m[0].length).trim()
-  return conclusion ? inlineHighlight(conclusion, words) : null
+  // Extraire les definitions pour les passer au highlight
+  const definitions: Record<string, string> = {
+    'Aïon': extractDefinition(text, 'Aïon'),
+    'Aeternum': extractDefinition(text, 'Aeternum')
+  }
+  return conclusion ? inlineHighlight(conclusion, words, definitions) : null
 }
 
 /** Extrait la definition complete d'un terme (le texte apres "Terme : " jusqu'au prochain ".") */
@@ -307,29 +310,22 @@ function extractDefinitionSuffix(text: string, word: string): string {
 
 function findDefinitionStart(text: string, word: string): number {
   // Cherche "Aïon :" ou "Aïon:" precede d'un espace ou en debut
-  const pattern = new RegExp(`(?<![\\w])${word}\\s*[:\\u00a0]`)
+  const pattern = new RegExp(`(?<!\\w)${word}\\s*[:\\u00a0]`)
   const m = text.match(pattern)
   if (!m || m.index === undefined) return -1
   return m.index
 }
 
-function findWordIndex(text: string, word: string): number {
-  return text.indexOf(word)
-}
-
 /** Remplace les mots cles par des <HighlightedWord> dans un texte plat */
-function inlineHighlight(text: string, words: string[]): React.ReactNode {
+function inlineHighlight(text: string, words: string[], definitions: Record<string, string> = {}): React.ReactNode {
   if (!text) return null
-  // Utilise les definitions extraites depuis le paragraph2 — on passe les definitions vides ici
-  // car inlineHighlight est utilise pour intro/conclusion ou les mots n'ont pas de def locale
-  const definitions: Record<string, string> = {}
   const pattern = new RegExp(`(${words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'g')
   const parts = text.split(pattern)
   return (
     <>
       {parts.map((part, i) =>
         words.includes(part)
-          ? <HighlightedWord key={i} word={part} definition={definitions[part] || part} />
+          ? <HighlightedWord key={i} word={part} definition={definitions[part] || ''} />
           : part
       )}
     </>
