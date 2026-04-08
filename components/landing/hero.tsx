@@ -241,9 +241,27 @@ export function Hero() {
 }
 
 /**
- * Met en gras et en vert foncé les mots spécifiés dans un texte
+ * Met en gras le premier mot (avant le retour a la ligne) dans un texte
  */
-function highlightWords(text: string, words: string[]): React.ReactNode {
+function highlightFirstWord(text: string): React.ReactNode {
+  if (!text) return text
+  const newlineIndex = text.indexOf('\n')
+  if (newlineIndex === -1) return text
+  const firstPart = text.substring(0, newlineIndex)
+  const rest = text.substring(newlineIndex + 1)
+  return (
+    <>
+      <strong className="text-primary text-lg">{firstPart}</strong>
+      {'\n'}
+      <span className="text-base">{rest}</span>
+    </>
+  )
+}
+
+/**
+  * Met en gras et en vert foncé les mots spécifiés dans un texte
+  */
+  function highlightWords(text: string, words: string[]): React.ReactNode {
   if (!text) return text
   const pattern = new RegExp(`(${words.join('|')})`, 'g')
   const parts = text.split(pattern)
