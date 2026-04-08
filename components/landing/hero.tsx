@@ -166,22 +166,52 @@ export function Hero() {
           {/* Premier paragraphe avec bordure gauche */}
           <div className={`relative transition-all duration-700 delay-300 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-primary/70 to-primary/30 rounded-full" />
-            <p className="text-lg md:text-xl text-foreground/90 leading-relaxed pl-6 text-left font-light">
+            <p className="text-lg md:text-xl text-foreground/90 leading-relaxed pl-6 text-justify font-light">
               {t('hero.paragraph1')}
             </p>
           </div>
           
-          {/* Second paragraph — Aïon et Aeternum en gras vert */}
-          <div className={`relative transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+          {/* Phrase intro Aïon & Aeternum */}
+          <div className={`relative transition-all duration-700 delay-400 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
             <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-accent via-accent/70 to-accent/30 rounded-full" />
-            <p className="text-lg md:text-xl text-foreground/90 leading-relaxed pl-6 text-left font-light">
-              {highlightWords(t('hero.paragraph2'), ['Aïon', 'Aeternum'])}
+            <p className="text-lg md:text-xl text-foreground/90 leading-relaxed pl-6 text-justify font-light">
+              {highlightIntro(t('hero.paragraph2'), ['Aïon', 'Aeternum'])}
             </p>
           </div>
-          
-          {/* Closing statement - highlighted */}
-          <div className={`transition-all duration-700 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
-            <p className="text-lg md:text-xl text-muted-foreground leading-relaxed font-serif font-semibold italic">
+
+          {/* Définition Aïon — debut de ligne */}
+          <div className={`transition-all duration-700 delay-500 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <p className="text-lg md:text-xl text-foreground/90 leading-relaxed text-justify font-light">
+              <HighlightedWord
+                word="Aïon"
+                definition={extractDefinition(t('hero.paragraph2'), 'Aïon')}
+              />
+              {extractDefinitionSuffix(t('hero.paragraph2'), 'Aïon')}
+            </p>
+          </div>
+
+          {/* Définition Aeternum — debut de ligne */}
+          <div className={`transition-all duration-700 delay-600 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <p className="text-lg md:text-xl text-foreground/90 leading-relaxed text-justify font-light">
+              <HighlightedWord
+                word="Aeternum"
+                definition={extractDefinition(t('hero.paragraph2'), 'Aeternum')}
+              />
+              {extractDefinitionSuffix(t('hero.paragraph2'), 'Aeternum')}
+            </p>
+          </div>
+
+          {/* Phrase de conclusion avec Aïon & Aeternum cliquables */}
+          <div className={`relative transition-all duration-700 delay-700 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <div className="absolute -left-4 top-0 bottom-0 w-1 bg-gradient-to-b from-primary via-primary/70 to-primary/30 rounded-full" />
+            <p className="text-lg md:text-xl text-foreground/90 leading-relaxed pl-6 text-justify font-light">
+              {highlightConclusion(t('hero.paragraph2'), ['Aïon', 'Aeternum'])}
+            </p>
+          </div>
+
+          {/* Closing statement */}
+          <div className={`transition-all duration-700 delay-800 ${isVisible ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-4'}`}>
+            <p className="text-lg md:text-xl text-foreground leading-relaxed font-serif font-bold italic text-center underline underline-offset-4 decoration-primary/50">
               {t('hero.closing')}
             </p>
           </div>
@@ -240,91 +270,110 @@ export function Hero() {
   )
 }
 
-/**
- * Met en gras et en vert les mots Aion et Aeternum avec tooltip contenant la definition complete
- */
-function highlightWords(text: string, words: string[]): React.ReactNode {
-  if (!text) return text
-  
-  // Extraire les definitions completes du texte
-  const aionPattern = /Aïon\s*:\s*([^.]+\.)/
-  const aeternumPattern = /Aeternum\s*:\s*([^.]+\.)/
-  
-  const aionMatch = text.match(aionPattern)
-  const aeternumMatch = text.match(aeternumPattern)
-  
-  // Definitions completes pour les tooltips
-  const definitions: Record<string, string> = {
-    'Aïon': aionMatch ? aionMatch[1].trim() : 'Le temps sacré de notre vie terrestre',
-    'Aeternum': aeternumMatch ? aeternumMatch[1].trim() : 'L\'éternité lumineuse'
-  }
-  
-  // Texte introductif (avant "Aïon :")
-  const aionIndex = text.indexOf('Aïon :') !== -1 ? text.indexOf('Aïon :') : text.indexOf('Aïon:')
-  const introText = aionIndex > 0 ? text.substring(0, aionIndex).trim() : ''
-  
-  // Texte de conclusion (apres la definition d'Aeternum)
-  let conclusionText = ''
-  if (aeternumMatch) {
-    const aeternumEnd = text.indexOf(aeternumMatch[0]) + aeternumMatch[0].length
-    conclusionText = text.substring(aeternumEnd).trim()
-  }
-  
-  // Si on a trouve les definitions, afficher intro + conclusion avec tooltips
-  if (aionMatch && aeternumMatch && introText) {
-    return (
-      <span>
-        {highlightSimpleWords(introText, words, definitions)}
-        {conclusionText && <span> {highlightSimpleWords(conclusionText, words, definitions)}</span>}
-      </span>
-    )
-  }
-  
-  // Sinon, afficher le texte complet avec tooltips
-  return highlightSimpleWords(text, words, definitions)
+// ─── Helpers pour parser le paragraph2 ───────────────────────────────────────
+
+/** Retourne le texte avant la premiere definition (ex: "Aïon et Aeternum : deux mots…") */
+function highlightIntro(text: string, words: string[]): React.ReactNode {
+  const aionIdx = findWordIndex(text, 'Aïon')
+  // L'intro s'arrete avant la premiere occurrence de "Aïon :" (definition)
+  // On cherche "Aïon :" ou "Aïon:" qui commence une definition
+  const defStart = findDefinitionStart(text, 'Aïon')
+  const intro = defStart > 0 ? text.substring(0, defStart).trim() : text
+  return inlineHighlight(intro, words)
 }
 
-function HighlightedWord({ word, definition }: { word: string; definition: string }) {
-  const [showTooltip, setShowTooltip] = useState(false)
-  
-  const handleInteraction = (e: React.MouseEvent | React.TouchEvent) => {
-    e.preventDefault()
-    setShowTooltip(!showTooltip)
-  }
-  
-  return (
-    <span 
-      className="relative inline-block"
-      onMouseEnter={() => setShowTooltip(true)}
-      onMouseLeave={() => setShowTooltip(false)}
-      onClick={handleInteraction}
-      onTouchEnd={handleInteraction}
-    >
-      <strong className="text-primary cursor-help underline decoration-dotted decoration-primary/50 underline-offset-2">
-        {word}
-      </strong>
-      <span 
-        className={`absolute bottom-full left-0 md:left-1/2 md:-translate-x-1/2 mb-2 px-4 py-2 bg-card border border-primary/30 rounded-lg text-sm text-foreground transition-opacity duration-200 shadow-xl z-50 w-64 md:w-80 text-left leading-relaxed ${showTooltip ? 'opacity-100' : 'opacity-0 pointer-events-none'}`}
-      >
-        <strong className="text-primary block mb-1">{word}</strong>
-        {definition}
-      </span>
-    </span>
-  )
+/** Retourne la phrase de conclusion (apres la definition d'Aeternum) */
+function highlightConclusion(text: string, words: string[]): React.ReactNode {
+  const aeternumDef = /Aeternum\s*[:\u00a0]\s*[^.]+\./
+  const m = text.match(aeternumDef)
+  if (!m || m.index === undefined) return null
+  const conclusion = text.substring(m.index + m[0].length).trim()
+  return conclusion ? inlineHighlight(conclusion, words) : null
 }
 
-function highlightSimpleWords(text: string, words: string[], definitions: Record<string, string>): React.ReactNode {
-  if (!text) return text
-  const pattern = new RegExp(`(${words.join('|')})`, 'g')
+/** Extrait la definition complete d'un terme (le texte apres "Terme : " jusqu'au prochain ".") */
+function extractDefinition(text: string, word: string): string {
+  const pattern = new RegExp(`${word}\\s*[:\\u00a0]\\s*([^.]+\\.)`)
+  const m = text.match(pattern)
+  return m ? m[1].trim() : ''
+}
+
+/** Retourne ": definition complete" sans le mot lui-meme, pour affichage inline */
+function extractDefinitionSuffix(text: string, word: string): string {
+  const pattern = new RegExp(`${word}(\\s*[:\\u00a0]\\s*[^.]+\\.)`)
+  const m = text.match(pattern)
+  return m ? m[1] : ''
+}
+
+function findDefinitionStart(text: string, word: string): number {
+  // Cherche "Aïon :" ou "Aïon:" precede d'un espace ou en debut
+  const pattern = new RegExp(`(?<![\\w])${word}\\s*[:\\u00a0]`)
+  const m = text.match(pattern)
+  if (!m || m.index === undefined) return -1
+  return m.index
+}
+
+function findWordIndex(text: string, word: string): number {
+  return text.indexOf(word)
+}
+
+/** Remplace les mots cles par des <HighlightedWord> dans un texte plat */
+function inlineHighlight(text: string, words: string[]): React.ReactNode {
+  if (!text) return null
+  // Utilise les definitions extraites depuis le paragraph2 — on passe les definitions vides ici
+  // car inlineHighlight est utilise pour intro/conclusion ou les mots n'ont pas de def locale
+  const definitions: Record<string, string> = {}
+  const pattern = new RegExp(`(${words.map(w => w.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')).join('|')})`, 'g')
   const parts = text.split(pattern)
   return (
     <>
       {parts.map((part, i) =>
         words.includes(part)
           ? <HighlightedWord key={i} word={part} definition={definitions[part] || part} />
-          : <span key={i}>{part}</span>
+          : part
       )}
     </>
+  )
+}
+
+// ─── Composant tooltip ────────────────────────────────────────────────────────
+
+function HighlightedWord({ word, definition }: { word: string; definition: string }) {
+  const [showTooltip, setShowTooltip] = useState(false)
+
+  const toggle = (e: React.MouseEvent | React.TouchEvent) => {
+    e.preventDefault()
+    setShowTooltip(v => !v)
+  }
+
+  return (
+    <span
+      className="relative inline-block"
+      onMouseEnter={() => setShowTooltip(true)}
+      onMouseLeave={() => setShowTooltip(false)}
+      onClick={toggle}
+      onTouchEnd={toggle}
+    >
+      <strong className="text-primary cursor-help font-semibold underline decoration-dotted decoration-primary/60 underline-offset-4">
+        {word}
+      </strong>
+      {definition && (
+        <span
+          className={`
+            absolute bottom-full left-0 mb-2 z-50
+            w-72 sm:w-80
+            px-4 py-3 rounded-xl
+            bg-card border border-primary/30 shadow-2xl
+            text-sm text-foreground text-left leading-relaxed
+            transition-all duration-200
+            ${showTooltip ? 'opacity-100 translate-y-0 pointer-events-auto' : 'opacity-0 translate-y-1 pointer-events-none'}
+          `}
+        >
+          <strong className="text-primary block mb-1 text-base">{word}</strong>
+          {definition}
+        </span>
+      )}
+    </span>
   )
 }
 
