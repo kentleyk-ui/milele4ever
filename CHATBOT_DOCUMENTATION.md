@@ -113,7 +113,7 @@ Response: Stream SSE avec support consumeSseStream
 |---------|------|-------------|
 | `id` | UUID | Clé primaire |
 | `user_id` | UUID | Référence vers `profiles(id)` |
-| `title` | TEXT | Titre auto-généré (50 premiers caractères du premier message) |
+| `title` | TEXT | Titre auto-généré (`.slice(0, 50)` sur le texte du premier message utilisateur) |
 | `memorial_id` | UUID | Référence optionnelle vers un mémorial |
 | `created_at` | TIMESTAMPTZ | Date de création |
 | `updated_at` | TIMESTAMPTZ | Date de mise à jour (trigger automatique) |
@@ -159,7 +159,7 @@ GROQ_API_KEY=your_groq_api_key_here
 
 - **Fournisseur :** Groq
 - **Modèle :** `llama-3.3-70b-versatile`
-- **Timeout :** 30 secondes (`maxDuration = 30`)
+- **Timeout :** 30 secondes (`export const maxDuration = 30` — en secondes, configuré via Next.js route segment config)
 - **SDK :** `@ai-sdk/groq` + `ai` (Vercel AI SDK)
 
 ## Internationalisation
