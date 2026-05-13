@@ -73,8 +73,9 @@ export default async function MessagesPage() {
     .order("full_name")
 
   // Helper function to transform Supabase array joins to single objects
-  const transformProfile = (profiles: unknown) => 
-    Array.isArray(profiles) ? profiles[0] || null : profiles
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const transformProfile = (profiles: any) => 
+    Array.isArray(profiles) ? profiles[0] ?? null : profiles ?? null
 
   // Transform conversations data - Supabase returns joins as arrays
   const transformedConversations = conversationsWithMessages.map(conv => {

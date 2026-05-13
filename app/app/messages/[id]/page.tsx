@@ -63,8 +63,9 @@ export default async function ChatPage({ params }: ChatPageProps) {
     .eq("is_read", false)
 
   // Helper function to transform Supabase array joins to single objects
-  const transformProfile = (profiles: unknown) => 
-    Array.isArray(profiles) ? profiles[0] || null : profiles
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const transformProfile = (profiles: any) => 
+    Array.isArray(profiles) ? profiles[0] ?? null : profiles ?? null
 
   // Get the conversation object - Supabase returns joins as arrays
   const conversation = Array.isArray(participation.conversations) 

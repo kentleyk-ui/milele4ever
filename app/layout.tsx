@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from 'next'
 import { DM_Sans, Playfair_Display, Geist } from 'next/font/google'
 import { Analytics } from '@vercel/analytics/next'
+import { SpeedInsights } from '@vercel/speed-insights/next'
 import { ThemeProvider } from '@/components/theme-provider'
 import { I18nProvider } from '@/lib/i18n/context'
 import { FeedbackButton } from '@/components/feedback-button'
@@ -87,6 +88,7 @@ export default function RootLayout({
           </I18nProvider>
         </ThemeProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )

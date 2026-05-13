@@ -8,7 +8,6 @@ export const dynamic = 'force-dynamic'
 export default async function FeedPage() {
   const title = getTranslation('fr', 'app.feed')
   const supabase = await createClient()
-  const { data: { user } } = await supabase.auth.getUser()
 
   const { data: posts } = await supabase
     .from('posts')
@@ -23,15 +22,14 @@ export default async function FeedPage() {
     .order('created_at', { ascending: false })
     .limit(5)
 
-  // Helper function to transform Supabase array joins to single objects
-  const transformProfile = (profiles: unknown) => 
-    Array.isArray(profiles) ? profiles[0] || null : profiles
+  // Transform posts - Supabase returns joins as arrays, components expect single objects
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const transformJoin = (val: any) => Array.isArray(val) ? val[0] ?? null : val ?? null
 
-  // Transform posts - Supabase returns joins as arrays
   const transformedPosts = (posts || []).map(post => ({
     ...post,
-    profiles: transformProfile(post.profiles),
-    memorials: transformProfile(post.memorials)
+    profiles: transformJoin(post.profiles),
+    memorials: transformJoin(post.memorials)
   }))
 
   return (
