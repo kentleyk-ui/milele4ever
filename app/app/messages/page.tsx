@@ -73,7 +73,7 @@ export default async function MessagesPage() {
     .order("full_name")
 
   // Helper function to transform Supabase array joins to single objects
-  const transformProfile = <T,>(profiles: T | T[] | null | undefined): T | null =>
+  const transformJoin = <T,>(profiles: T | T[] | null | undefined): T | null =>
     Array.isArray(profiles) ? (profiles[0] ?? null) : (profiles ?? null)
 
   // Transform conversations data - Supabase returns joins as arrays
@@ -88,7 +88,7 @@ export default async function MessagesPage() {
         conversation_participants: (convData.conversation_participants || []).map(
           (p) => ({
             ...p,
-            profiles: transformProfile(p.profiles)
+            profiles: transformJoin(p.profiles)
           })
         )
       } : convData

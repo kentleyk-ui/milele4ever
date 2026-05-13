@@ -63,7 +63,7 @@ export default async function ChatPage({ params }: ChatPageProps) {
     .eq("is_read", false)
 
   // Helper function to transform Supabase array joins to single objects
-  const transformProfile = <T,>(profiles: T | T[] | null | undefined): T | null =>
+  const transformJoin = <T,>(profiles: T | T[] | null | undefined): T | null =>
     Array.isArray(profiles) ? (profiles[0] ?? null) : (profiles ?? null)
 
   // Get the conversation object - Supabase returns joins as arrays
@@ -74,12 +74,12 @@ export default async function ChatPage({ params }: ChatPageProps) {
   // Get other participants for header
   const otherParticipants = (conversation?.conversation_participants || [])
     .filter((p) => p.user_id !== user.id)
-    .map((p) => transformProfile(p.profiles))
+    .map((p) => transformJoin(p.profiles))
 
   // Transform messages
   const transformedMessages = (messages || []).map(m => ({
     ...m,
-    profiles: transformProfile(m.profiles)
+    profiles: transformJoin(m.profiles)
   }))
 
   return (
