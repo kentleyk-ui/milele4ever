@@ -63,9 +63,8 @@ export default async function ChatPage({ params }: ChatPageProps) {
     .eq("is_read", false)
 
   // Helper function to transform Supabase array joins to single objects
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const transformProfile = (profiles: any) => 
-    Array.isArray(profiles) ? profiles[0] ?? null : profiles ?? null
+  const transformProfile = <T,>(profiles: T | T[] | null | undefined): T | null =>
+    Array.isArray(profiles) ? (profiles[0] ?? null) : (profiles ?? null)
 
   // Get the conversation object - Supabase returns joins as arrays
   const conversation = Array.isArray(participation.conversations) 
@@ -74,8 +73,8 @@ export default async function ChatPage({ params }: ChatPageProps) {
 
   // Get other participants for header
   const otherParticipants = (conversation?.conversation_participants || [])
-    .filter((p: { user_id: string }) => p.user_id !== user.id)
-    .map((p: { profiles: unknown }) => transformProfile(p.profiles))
+    .filter((p) => p.user_id !== user.id)
+    .map((p) => transformProfile(p.profiles))
 
   // Transform messages
   const transformedMessages = (messages || []).map(m => ({

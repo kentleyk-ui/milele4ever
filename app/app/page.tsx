@@ -23,8 +23,8 @@ export default async function FeedPage() {
     .limit(5)
 
   // Transform posts - Supabase returns joins as arrays, components expect single objects
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const transformJoin = (val: any) => Array.isArray(val) ? val[0] ?? null : val ?? null
+  const transformJoin = <T,>(val: T | T[] | null | undefined): T | null =>
+    Array.isArray(val) ? (val[0] ?? null) : (val ?? null)
 
   const transformedPosts = (posts || []).map(post => ({
     ...post,
