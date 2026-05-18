@@ -43,6 +43,7 @@
     "vscode-chat-customizations-evaluation",
     "apps",
     "packages",
-    "milele-project"
+    "milele-project",
+    "src/monark"
   ]
 }
