@@ -142,7 +142,8 @@ export function BottomNav() {
     <nav className="fixed bottom-0 left-0 right-0 z-50 bg-background border-t border-border safe-area-pb">
       <div className="flex items-center justify-around h-16">
         {navItems.map((item) => {
-          const isActive = pathname === item.href || (item.href !== '/app' && pathname.startsWith(item.href))
+          const currentPath = pathname ?? ''
+          const isActive = currentPath === item.href || (item.href !== '/app' && currentPath.startsWith(item.href))
           return (
             <Link
               key={item.href}
