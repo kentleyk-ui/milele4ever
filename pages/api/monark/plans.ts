@@ -1,8 +1,10 @@
-import { Souverain } from "../../../src/monark/core/souverain";
-
 export default async function handler(req, res) {
-  const souverain = new Souverain();
-  const decision = await souverain.statuer(req.body);
+  if (req.method !== "POST") {
+    return res.status(405).json({ error: "Method Not Allowed" });
+  }
 
-  res.status(200).json(decision.plans);
+  return res.status(503).json({
+    error: "Monark service temporarily unavailable",
+    plans: [],
+  });
 }
