@@ -1,0 +1,6 @@
+
+Name     ProcessId CommandLine
+----     --------- -----------
+pwsh.exe     15032 "C:\Program Files\PowerShell\7\pwsh.exe" -noexit -command "t…
+pwsh.exe     21720 "C:\Program Files\PowerShell\7\pwsh.exe" -NoProfile -Executi…
+

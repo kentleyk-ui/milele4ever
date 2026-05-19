@@ -1,0 +1,22 @@
+name: Ajout feedback déploiement
+
+on:
+  workflow_dispatch:
+  push:
+    branches:
+      - master
+    paths:
+      - 'feedback_deployments.json'
+      - '.github/workflows/add-latest-deployment-feedback.yml'
+
+jobs:
+  add-feedback:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Exécuter le script PowerShell d’ajout de feedback
+        shell: pwsh
+        run: |
+          cd docs/new
+          ./add-latest-deployment-feedback.ps1

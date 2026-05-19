@@ -1,0 +1,20 @@
+[
+  {
+    "id": 1713630000000,
+    "type": "admin-announcement",
+    "title": "Popup d'annonce admin améliorée",
+    "details": "Bouton 'Masquer' seul avec icône, texte plus visible, transparence et ombre accentuées, message animaux ajouté.",
+    "date": "2026-04-20T00:00:00.000Z",
+    "status": "done",
+    "note": "Déployé sur https://www.milele4ever.com"
+  },
+  {
+    "id": 1713633600000,
+    "type": "admin-announcement",
+    "title": "Correction finale popup admin",
+    "details": "Bouton 'Masquer' seul, texte plus grand et ombré, transparence de la fenêtre augmentée, ombre accentuée pour la dénivellation.",
+    "date": "2026-04-20T12:00:00.000Z",
+    "status": "done",
+    "note": "Déploiement finalisé et visible sur https://www.milele4ever.com. Section admin enrichie avec suivi automatique des déploiements."
+  }
+]

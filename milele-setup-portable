@@ -1,0 +1,192 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+OS="$(uname -s)"
+
+log() {
+  printf "\n[MILELE] %s\n" "$1"
+}
+
+fail() {
+  printf "\n[ERREUR] %s\n" "$1" >&2
+  exit 1
+}
+
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+install_node_lts() {
+  if command_exists node; then
+    log "Node.js detecte: $(node -v)"
+    return
+  fi
+
+  log "Node.js non detecte, installation de la version LTS..."
+
+  if [[ "$OS" == "Darwin" ]]; then
+    if command_exists brew; then
+      brew install node
+    else
+      curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh | /bin/bash
+      eval "$(/opt/homebrew/bin/brew shellenv 2>/dev/null || /usr/local/bin/brew shellenv 2>/dev/null)"
+      brew install node
+    fi
+  elif [[ "$OS" == MINGW* || "$OS" == MSYS* || "$OS" == CYGWIN* ]] || [[ -n "${WSL_INTEROP:-}" ]]; then
+    if command_exists winget.exe; then
+      winget.exe install -e --id OpenJS.NodeJS.LTS --accept-source-agreements --accept-package-agreements
+    elif command_exists choco; then
+      choco install nodejs-lts -y
+    else
+      fail "Installer Node.js manuellement depuis https://nodejs.org/en/download/"
+    fi
+  else
+    if command_exists apt-get; then
+      sudo apt-get update && sudo apt-get install -y nodejs npm
+    elif command_exists yum; then
+      sudo yum install -y nodejs npm
+    elif command_exists pacman; then
+      sudo pacman -S nodejs npm
+    else
+      fail "Impossible de detecter le gestionnaire de paquets. Installer Node.js manuellement."
+    fi
+  fi
+
+  if command_exists node; then
+    log "Node.js installe: $(node -v)"
+  else
+    fail "Installation Node.js impossible"
+  fi
+}
+
+install_pnpm() {
+  if command_exists pnpm; then
+    log "pnpm detecte: $(pnpm -v)"
+    return
+  fi
+
+  log "pnpm non detecte, installation en cours..."
+
+  if command_exists corepack; then
+    corepack enable 2>/dev/null || true
+    corepack prepare pnpm@latest --activate 2>/dev/null || true
+  fi
+
+  if ! command_exists pnpm; then
+    npm install -g pnpm
+  fi
+
+  if command_exists pnpm; then
+    log "pnpm installe: $(pnpm -v)"
+  else
+    fail "Installation pnpm impossible"
+  fi
+}
+
+resolve_project_dir() {
+  local candidates=(
+    "$SCRIPT_DIR/milele4ever-project/docs/new"
+    "$SCRIPT_DIR/milele4ever-project"
+    "$SCRIPT_DIR/Milele"
+    "$SCRIPT_DIR/milele"
+    "$SCRIPT_DIR"
+  )
+
+  for c in "${candidates[@]}"; do
+    if [[ -f "$c/package.json" ]]; then
+      printf "%s" "$c"
+      return 0
+    fi
+    
+    local found
+    found="$(find "$c" -maxdepth 4 -type f -name package.json 2>/dev/null | head -n 1 || true)"
+    if [[ -n "$found" ]]; then
+      printf "%s" "$(dirname "$found")"
+      return 0
+    fi
+  done
+
+  return 1
+}
+
+prompt_destination() {
+  local default_dest
+  if [[ "$OS" == "Darwin" ]]; then
+    default_dest="$HOME/Projects/milele4ever-project"
+  else
+    default_dest="$HOME/milele4ever-project"
+  fi
+
+  printf "\nEmplacement cible [%s]: " "$default_dest"
+  read -r input_dest
+  if [[ -z "${input_dest:-}" ]]; then
+    printf "%s" "$default_dest"
+  else
+    printf "%s" "$input_dest"
+  fi
+}
+
+copy_project_if_missing() {
+  local source_dir="$1"
+  local dest_dir="$2"
+
+  if [[ -d "$dest_dir" && -f "$dest_dir/package.json" ]]; then
+    log "Projet deja present: $dest_dir"
+    printf "%s" "$dest_dir"
+    return
+  fi
+
+  log "Copie du projet vers: $dest_dir"
+  mkdir -p "$(dirname "$dest_dir")"
+  
+  if command_exists rsync; then
+    rsync -a --delete "$source_dir/" "$dest_dir/" 2>/dev/null || cp -R "$source_dir" "$dest_dir"
+  else
+    cp -R "$source_dir" "$dest_dir"
+  fi
+
+  if [[ -f "$dest_dir/package.json" ]]; then
+    printf "%s" "$dest_dir"
+  elif [[ -f "$dest_dir/docs/new/package.json" ]]; then
+    printf "%s" "$dest_dir/docs/new"
+  else
+    local found
+    found="$(find "$dest_dir" -maxdepth 4 -type f -name package.json 2>/dev/null | head -n 1 || true)"
+    if [[ -z "$found" ]]; then
+      fail "package.json introuvable apres copie"
+    fi
+    printf "%s" "$(dirname "$found")"
+  fi
+}
+
+main() {
+  log "Preparation environnement portable Milele ($OS)"
+  
+  install_node_lts
+  install_pnpm
+
+  local usb_project
+  usb_project="$(resolve_project_dir)" || fail "Projet Milele introuvable sur la cle USB"
+  log "Projet source: $usb_project"
+
+  local target_dir
+  target_dir="$(prompt_destination)"
+  
+  local project_dir
+  project_dir="$(copy_project_if_missing "$usb_project" "$target_dir")"
+  log "Dossier projet: $project_dir"
+
+  cd "$project_dir"
+
+  log "Installation des dependances..."
+  pnpm install
+
+  log "Reconstruction du projet..."
+  pnpm build
+
+  log "Demarrage du serveur de developpement..."
+  pnpm dev
+}
+
+main "$@"

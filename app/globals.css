@@ -1,0 +1,659 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ═══════════════════════════════════════════════════════════════
+   MODE CLAIR — Lumière du matin, douceur et sérénité
+   La fragilité d'une pousse, la chaleur d'un jardin paisible
+   ═══════════════════════════════════════════════════════════════ */
+:root {
+  --background: oklch(0.975 0.008 145);  /* Blanc chaud, comme un voile de brume */
+  --foreground: oklch(0.20 0.04 150);    /* Gris-vert profond, digne et lisible */
+  --card: oklch(0.98 0.006 148);         /* Crème pâle, doux comme un pétale */
+  --card-foreground: oklch(0.20 0.04 150);
+  --popover: oklch(0.98 0.006 148);
+  --popover-foreground: oklch(0.20 0.04 150);
+  --primary: oklch(0.42 0.10 152);       /* Vert sauge profond — force et dignité */
+  --primary-foreground: oklch(0.97 0.01 148);
+  --secondary: oklch(0.92 0.03 148);     /* Brume verte, subtile */
+  --secondary-foreground: oklch(0.25 0.04 150);
+  --muted: oklch(0.94 0.01 148);
+  --muted-foreground: oklch(0.48 0.03 150);  /* Gris-vert discret */
+  --accent: oklch(0.50 0.08 155);        /* Vert mousse, naturel */
+  --accent-foreground: oklch(0.20 0.04 150);
+  --destructive: oklch(0.55 0.18 25);
+  --destructive-foreground: oklch(0.98 0.01 0);
+  --border: oklch(0.88 0.03 148);        /* Bordure douce comme la rosée */
+  --input: oklch(0.88 0.03 148);
+  --ring: oklch(0.42 0.10 152);
+  --chart-1: oklch(0.42 0.10 152);
+  --chart-2: oklch(0.50 0.08 155);
+  --chart-3: oklch(0.58 0.10 145);
+  --chart-4: oklch(0.65 0.07 160);
+  --chart-5: oklch(0.35 0.06 150);
+  --radius: 0.625rem;
+  --sidebar: oklch(0.96 0.008 148);
+  --sidebar-foreground: oklch(0.20 0.04 150);
+  --sidebar-primary: oklch(0.42 0.10 152);
+  --sidebar-primary-foreground: oklch(0.97 0.01 148);
+  --sidebar-accent: oklch(0.90 0.04 148);
+  --sidebar-accent-foreground: oklch(0.25 0.04 150);
+  --sidebar-border: oklch(0.88 0.03 148);
+  --sidebar-ring: oklch(0.42 0.10 152);
+  --surface-tint: oklch(0.42 0.10 152 / 0.06);
+  --surface-tint-strong: oklch(0.42 0.10 152 / 0.14);
+  --texture-dot: oklch(0.42 0.10 152 / 0.08);
+}
+
+/* ═══════════════════════════════════════════════════════════════
+   MODE SOMBRE — Crépuscule en forêt, recueillement et espoir
+   La lueur d'une bougie à travers les feuilles
+   ═══════════════════════════════════════════════════════════════ */
+.dark {
+  --background: oklch(0.20 0.025 150);   /* Nuit douce, pas abyssale */
+  --foreground: oklch(0.91 0.02 148);    /* Lumière de lune douce */
+  --card: oklch(0.24 0.03 150);          /* Écorce claire, chaleureuse */
+  --card-foreground: oklch(0.91 0.02 148);
+  --popover: oklch(0.24 0.03 150);
+  --popover-foreground: oklch(0.91 0.02 148);
+  --primary: oklch(0.65 0.12 150);       /* Vert tendre — la jeune pousse qui perce */
+  --primary-foreground: oklch(0.16 0.03 150);
+  --secondary: oklch(0.30 0.035 150);    /* Mousse adoucie */
+  --secondary-foreground: oklch(0.91 0.02 148);
+  --muted: oklch(0.26 0.02 150);
+  --muted-foreground: oklch(0.62 0.03 148);  /* Clair de lune plus lisible */
+  --accent: oklch(0.52 0.10 155);        /* Vert forêt éclairé */
+  --accent-foreground: oklch(0.91 0.02 148);
+  --destructive: oklch(0.45 0.15 25);
+  --destructive-foreground: oklch(0.98 0.01 0);
+  --border: oklch(0.32 0.035 150);       /* Bordures plus visibles, moins austères */
+  --input: oklch(0.26 0.03 150);
+  --ring: oklch(0.65 0.12 150);
+  --chart-1: oklch(0.65 0.12 150);
+  --chart-2: oklch(0.52 0.10 155);
+  --chart-3: oklch(0.58 0.08 145);
+  --chart-4: oklch(0.55 0.07 160);
+  --chart-5: oklch(0.72 0.06 150);
+  --sidebar: oklch(0.18 0.025 150);
+  --sidebar-foreground: oklch(0.91 0.02 148);
+  --sidebar-primary: oklch(0.65 0.12 150);
+  --sidebar-primary-foreground: oklch(0.16 0.03 150);
+  --sidebar-accent: oklch(0.30 0.035 150);
+  --sidebar-accent-foreground: oklch(0.91 0.02 148);
+  --sidebar-border: oklch(0.32 0.035 150);
+  --sidebar-ring: oklch(0.65 0.12 150);
+  --surface-tint: oklch(0.65 0.12 150 / 0.10);
+  --surface-tint-strong: oklch(0.65 0.12 150 / 0.18);
+  --texture-dot: oklch(0.65 0.12 150 / 0.10);
+}
+
+body[data-scope="staff"] {
+  /* Fond professionnel toujours sombre — le glassmorphisme requiert un fond nuit */
+  --background: oklch(0.11 0.035 252);      /* Navy profond */
+  --foreground: oklch(0.92 0.015 248);      /* Blanc lune */
+  --card: oklch(0.17 0.04 250);             /* Navy card */
+  --card-foreground: oklch(0.92 0.015 248);
+  --popover: oklch(0.17 0.04 250);
+  --popover-foreground: oklch(0.92 0.015 248);
+  --muted: oklch(0.20 0.03 250);
+  --muted-foreground: oklch(0.62 0.04 248);
+  --border: oklch(0.30 0.06 248);
+  --input: oklch(0.22 0.04 250);
+  --secondary: oklch(0.20 0.04 250);
+  --secondary-foreground: oklch(0.88 0.02 248);
+  /* Couleurs primaires staff (bleu acier) */
+  --primary: oklch(0.68 0.14 246);
+  --primary-foreground: oklch(0.10 0.02 252);
+  --accent: oklch(0.72 0.09 210);
+  --ring: oklch(0.68 0.14 246);
+  /* Surfaces & texture */
+  --surface-tint: oklch(0.65 0.14 245 / 0.10);
+  --surface-tint-strong: oklch(0.65 0.14 245 / 0.20);
+  --texture-dot: oklch(0.72 0.10 230 / 0.12);
+}
+
+@theme inline {
+  /* Updated font-sans to use Space Grotesk instead of Geist */
+  --font-sans: var(--font-space-grotesk), "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), "Geist Mono", ui-monospace, monospace;
+  --font-serif: Georgia, "Times New Roman", serif;
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-foreground: var(--destructive-foreground);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+  --color-chart-1: var(--chart-1);
+  --color-chart-2: var(--chart-2);
+  --color-chart-3: var(--chart-3);
+  --color-chart-4: var(--chart-4);
+  --color-chart-5: var(--chart-5);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+  --color-sidebar: var(--sidebar);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-ring: var(--sidebar-ring);
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  :focus-visible {
+    @apply outline-ring/50;
+  }
+  html {
+    scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    text-rendering: optimizeLegibility;
+  }
+  body {
+    @apply bg-background text-foreground;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-text-size-adjust: 100%;
+    overscroll-behavior-y: contain;
+    padding-bottom: 88px;
+    position: relative;
+  }
+  /* Tous les boutons/liens : suppression du délai tap sur mobile */
+  /* NE PAS inclure input/textarea — cela bloque le menu coller sur iOS */
+  button, a, [role="button"] {
+    touch-action: manipulation;
+  }
+  /* Les champs texte doivent pouvoir sélectionner/coller librement */
+  input, textarea, select {
+    -webkit-user-select: text;
+    user-select: text;
+  }
+  /* Sélection — lueur d'espoir */
+  ::selection {
+    background: oklch(0.42 0.10 152 / 0.25);
+    color: oklch(0.15 0.04 150);
+  }
+  .dark ::selection {
+    background: oklch(0.65 0.12 150 / 0.3);
+    color: oklch(0.14 0.03 150);
+  }
+}
+
+.app-shell::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: -1;
+  background-image:
+    radial-gradient(circle at 12% 10%, color-mix(in srgb, var(--surface-tint-strong) 70%, transparent), transparent 35%),
+    radial-gradient(circle at 88% 0%, color-mix(in srgb, var(--surface-tint) 65%, transparent), transparent 30%),
+    radial-gradient(circle, var(--texture-dot) 0.65px, transparent 0.75px);
+  background-size: auto, auto, 18px 18px;
+  background-position: 0 0, 100% 0, 0 0;
+}
+
+.page-surface {
+  max-width: 100%;
+  margin-inline: auto;
+}
+
+.content-wrap {
+  width: min(100%, 1200px);
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 2vw, 2rem);
+}
+
+.panel-surface {
+  background: color-mix(in srgb, var(--card) 88%, var(--surface-tint));
+  border: 1px solid color-mix(in srgb, var(--border) 82%, var(--surface-tint-strong));
+  box-shadow: 0 8px 30px color-mix(in srgb, var(--surface-tint-strong) 35%, transparent);
+}
+
+.panel-surface-strong {
+  background: color-mix(in srgb, var(--card) 78%, var(--surface-tint-strong));
+  border: 1px solid color-mix(in srgb, var(--primary) 18%, var(--border));
+  box-shadow: 0 12px 36px color-mix(in srgb, var(--surface-tint-strong) 40%, transparent);
+}
+
+.text-subtle {
+  color: var(--muted-foreground);
+}
+
+/* ═══ Watch / ultra-small viewport (< 200px) ═══ */
+@media (max-width: 200px) {
+  html { font-size: 12px; }
+}
+
+/* ═══ Small mobile optimizations ═══ */
+@media (max-width: 374px) {
+  html { font-size: 14px; }
+}
+
+/* ═══ Touch-friendly tap targets ═══ */
+@media (hover: none) and (pointer: coarse) {
+  button, a, [role="button"] {
+    min-height: 44px;
+    min-width: 44px;
+  }
+}
+
+/* ═══ Reduce motion for accessibility ═══ */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+@media (hover: none) and (pointer: coarse), (max-width: 640px) {
+  .app-shell::before {
+    background-size: auto, auto, 26px 26px;
+  }
+
+  .panel-surface,
+  .panel-surface-strong {
+    box-shadow: 0 4px 16px color-mix(in srgb, var(--surface-tint-strong) 20%, transparent);
+  }
+
+  [style*="backdrop-filter"],
+  [style*="WebkitBackdropFilter"] {
+    backdrop-filter: none !important;
+    -webkit-backdrop-filter: none !important;
+  }
+
+  [style*="drop-shadow"],
+  [style*="box-shadow"] {
+    filter: none !important;
+  }
+}
+
+@media (max-width: 480px) {
+  * {
+    text-shadow: none !important;
+  }
+}
+
+/* ═══ Safe area for notched devices ═══ */
+@supports (padding: env(safe-area-inset-bottom)) {
+  body {
+    padding-left: env(safe-area-inset-left);
+    padding-right: env(safe-area-inset-right);
+    padding-bottom: calc(env(safe-area-inset-bottom) + 88px);
+  }
+}
+
+/* ══════════════════════════════════════════════════════════════
+   ✨ DESIGN VIVANT — Animations & effets de présence
+   ══════════════════════════════════════════════════════════════ */
+
+/* ── Gradient text utilitaire ── */
+.gradient-text {
+  background: linear-gradient(135deg,
+    oklch(0.52 0.14 152) 0%,
+    oklch(0.62 0.16 165) 40%,
+    oklch(0.55 0.18 140) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.dark .gradient-text {
+  background: linear-gradient(135deg,
+    oklch(0.72 0.18 150) 0%,
+    oklch(0.80 0.14 165) 40%,
+    oklch(0.68 0.20 140) 100%
+  );
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ── Shimmer sur les cards au hover ── */
+@keyframes shimmer {
+  0%   { background-position: -200% center; }
+  100% { background-position: 200% center; }
+}
+.shimmer-hover {
+  background-size: 200% auto;
+  transition: background-position 0.6s ease;
+}
+.shimmer-hover:hover {
+  background-position: right center;
+}
+
+/* ── Halo pulsé sur les icônes/badges ── */
+@keyframes halo-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 color-mix(in srgb, var(--primary) 40%, transparent); }
+  50%       { box-shadow: 0 0 0 8px color-mix(in srgb, var(--primary) 0%, transparent); }
+}
+.halo-pulse { animation: halo-pulse 2.8s ease-in-out infinite; }
+
+/* ── Entrée progressive (fade + slide) ── */
+@keyframes fade-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+@keyframes fade-in {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fade-up   { animation: fade-up  0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.animate-fade-in   { animation: fade-in  0.5s ease both; }
+
+/* ── Flottement doux (orbes décoratifs) ── */
+@keyframes float-slow {
+  0%, 100% { transform: translateY(0px) rotate(0deg) scale(1); }
+  33%       { transform: translateY(-18px) rotate(2deg) scale(1.02); }
+  66%       { transform: translateY(-8px) rotate(-1deg) scale(0.99); }
+}
+@keyframes float-medium {
+  0%, 100% { transform: translateY(0px) rotate(0deg); }
+  50%       { transform: translateY(-12px) rotate(3deg); }
+}
+.animate-float-slow   { animation: float-slow   8s ease-in-out infinite; }
+.animate-float-medium { animation: float-medium  5s ease-in-out infinite; }
+
+/* ── Rotation douce (décor) ── */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spin-slow 20s linear infinite; }
+
+/* ── Gradient animé (fond de section) ── */
+@keyframes gradient-shift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradient-shift 8s ease infinite;
+}
+
+/* ── Bordure arc-en-ciel subtile ── */
+@keyframes border-glow {
+  0%, 100% { border-color: color-mix(in srgb, var(--primary) 30%, var(--border)); }
+  50%       { border-color: color-mix(in srgb, var(--primary) 70%, var(--border)); }
+}
+.animate-border-glow { animation: border-glow 3s ease-in-out infinite; }
+
+/* ── Compteur / barre de progression animée ── */
+@keyframes progress-fill {
+  from { width: 0%; }
+}
+.animate-progress { animation: progress-fill 1.2s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* ── Scintillement étoile ── */
+@keyframes twinkle {
+  0%, 100% { opacity: 0.2; transform: scale(0.8); }
+  50%       { opacity: 1;   transform: scale(1.2); }
+}
+.animate-twinkle { animation: twinkle 2.5s ease-in-out infinite; }
+.animate-twinkle-delay { animation: twinkle 2.5s ease-in-out 1.2s infinite; }
+.animate-twinkle-slow  { animation: twinkle 3.5s ease-in-out 0.6s infinite; }
+
+/* ── Défilement latéral (bandeau infini) ── */
+@keyframes marquee {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.animate-marquee { animation: marquee 28s linear infinite; }
+
+/* ── Cards avec bordure lumineuse hover ── */
+.card-glow {
+  transition: box-shadow 0.35s ease, transform 0.35s cubic-bezier(0.22, 1, 0.36, 1), border-color 0.35s ease;
+}
+.card-glow:hover {
+  transform: translateY(-4px) scale(1.01);
+  box-shadow:
+    0 12px 40px color-mix(in srgb, var(--primary) 18%, transparent),
+    0 0 0 1px color-mix(in srgb, var(--primary) 30%, transparent);
+  border-color: color-mix(in srgb, var(--primary) 45%, var(--border)) !important;
+}
+
+/* ── Bouton avec halo glowing ── */
+.btn-glow {
+  transition: box-shadow 0.3s ease, transform 0.2s ease;
+}
+.btn-glow:hover {
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--primary) 25%, transparent),
+              0 6px 20px color-mix(in srgb, var(--primary) 20%, transparent);
+  transform: translateY(-1px);
+}
+.btn-glow:active { transform: scale(0.97); }
+
+/* ── Stat card accent bar ── */
+.stat-accent-bar {
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 3px;
+  border-radius: 0 0 12px 12px;
+  background: linear-gradient(90deg, transparent, var(--primary), transparent);
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.stat-card:hover .stat-accent-bar { opacity: 1; }
+
+/* ── Texte avec soulignement animé ── */
+.underline-animated {
+  position: relative;
+}
+.underline-animated::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 0;
+  width: 0; height: 2px;
+  background: var(--primary);
+  border-radius: 9999px;
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.underline-animated:hover::after { width: 100%; }
+
+/* ── Délais d'animation ── */
+.delay-100 { animation-delay: 0.1s; }
+.delay-200 { animation-delay: 0.2s; }
+.delay-300 { animation-delay: 0.3s; }
+.delay-400 { animation-delay: 0.4s; }
+.delay-500 { animation-delay: 0.5s; }
+.delay-600 { animation-delay: 0.6s; }
+.delay-700 { animation-delay: 0.7s; }
+.delay-800 { animation-delay: 0.8s; }
+
+/* ── Section orbe décoratif ── */
+.orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  pointer-events: none;
+  will-change: transform;
+}
+.orb-primary {
+  background: radial-gradient(circle, color-mix(in srgb, var(--primary) 35%, transparent), transparent 70%);
+}
+.orb-accent {
+  background: radial-gradient(circle, oklch(0.60 0.15 180 / 0.25), transparent 70%);
+}
+
+/* ── Noise texture légère (premium) ── */
+.noise-overlay::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E");
+  pointer-events: none;
+  opacity: 0.4;
+  mix-blend-mode: overlay;
+}
+
+/* ── Module nav tab active indicator ── */
+.nav-tab-active {
+  position: relative;
+}
+.nav-tab-active::after {
+  content: '';
+  position: absolute;
+  bottom: -2px; left: 50%;
+  transform: translateX(-50%);
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--primary);
+  box-shadow: 0 0 6px var(--primary);
+}
+
+/* ── Particule de lumière ── */
+@keyframes particle-rise {
+  0%   { opacity: 0; transform: translateY(0) scale(0); }
+  20%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-60px) scale(1.5); }
+}
+.particle {
+  position: absolute;
+  width: 4px; height: 4px;
+  border-radius: 50%;
+  background: var(--primary);
+  animation: particle-rise 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+/* ── Focus ring amélioré ── */
+:focus-visible {
+  outline: 2px solid color-mix(in srgb, var(--primary) 70%, transparent) !important;
+  outline-offset: 3px;
+  border-radius: 8px;
+}
+
+/* ── Scrollbar stylée ── */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--background); }
+::-webkit-scrollbar-thumb {
+  background: color-mix(in srgb, var(--primary) 35%, var(--border));
+  border-radius: 9999px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: color-mix(in srgb, var(--primary) 55%, var(--border));
+}
+/* Staff Liquid Styles */
+.liquid-input {
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 12px;
+  color: white;
+  transition: all 0.3s ease;
+}
+.liquid-input:focus {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 15px rgba(255, 255, 255, 0.1);
+  outline: none;
+}
+.glass-card {
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+.liquid-btn {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+}
+.liquid-btn:hover {
+  transform: translateY(-1px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+}
+
+/* Global theme switcher placement by viewport to avoid overlap with mobile menu */
+.global-theme-switcher {
+  top: 0.35rem;
+  right: 4rem;
+}
+
+@media (min-width: 376px) and (max-width: 430px) {
+  .global-theme-switcher {
+    top: 0.45rem;
+    right: 4.2rem;
+  }
+}
+
+@media (min-width: 431px) and (max-width: 639px) {
+  .global-theme-switcher {
+    top: 0.5rem;
+    right: 4.3rem;
+  }
+}
+
+@media (min-width: 640px) and (max-width: 767px) {
+  .global-theme-switcher {
+    top: 1rem;
+    right: 1rem;
+  }
+}
+
+@media (min-width: 768px) {
+  .global-theme-switcher {
+    top: 1.5rem;
+    right: 1.5rem;
+  }
+}
+
+/* ═══ Scroll containers — GPU acceleration ═══ */
+.overflow-y-auto,
+.overflow-y-scroll,
+.overflow-x-auto,
+.overflow-x-scroll {
+  -webkit-overflow-scrolling: touch;
+  will-change: scroll-position;
+}
+
+/* ═══ Animated elements — GPU layer hint ═══ */
+[class*="animate-"],
+[class*="transition-"],
+.liquid-btn,
+.glass-card {
+  will-change: transform;
+}
+
+/* ═══ Mobile tab bar — force hardware compositing ═══ */
+nav[class*="fixed bottom"] {
+  transform: translateZ(0);
+  -webkit-transform: translateZ(0);
+}
+
+/* ═══ Transitions globales fluides ═══ */
+button, a, [role="button"] {
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* ═══ Lazy images — éviter le layout shift ═══ */
+img {
+  height: auto;
+}
+img[loading="lazy"] {
+  content-visibility: auto;
+}

@@ -1,0 +1,44 @@
+{
+    "runId":  "bffce090-0180-4776-80af-d2de57793f17",
+    "timestamp":  "2026-05-08T10:29:45.0184544-04:00",
+    "total":  5,
+    "failed":  0,
+    "status":  "OK",
+    "checks":  [
+                   {
+                       "url":  "https://www.milele4ever.com",
+                       "statusCode":  200,
+                       "result":  "OK",
+                       "error":  null,
+                       "timestamp":  "2026-05-08T10:29:45.0184544-04:00"
+                   },
+                   {
+                       "url":  "https://www.milele4ever.com/espace",
+                       "statusCode":  200,
+                       "result":  "OK",
+                       "error":  null,
+                       "timestamp":  "2026-05-08T10:29:45.0184544-04:00"
+                   },
+                   {
+                       "url":  "https://www.milele4ever.com/services",
+                       "statusCode":  200,
+                       "result":  "OK",
+                       "error":  null,
+                       "timestamp":  "2026-05-08T10:29:45.0184544-04:00"
+                   },
+                   {
+                       "url":  "https://www.milele4ever.com/aion",
+                       "statusCode":  200,
+                       "result":  "OK",
+                       "error":  null,
+                       "timestamp":  "2026-05-08T10:29:45.0184544-04:00"
+                   },
+                   {
+                       "url":  "https://www.milele4ever.com/api/feedback/list",
+                       "statusCode":  200,
+                       "result":  "OK",
+                       "error":  null,
+                       "timestamp":  "2026-05-08T10:29:45.0184544-04:00"
+                   }
+               ]
+}

@@ -1,0 +1,14 @@
+*.tar.gz
+archive*.gz
+milele4ever-archive-*.tar.gz
+milele4ever-light-*.tar.gz
+.next
+node_modules
+.git
+.archives/
+
+backups/
+*.tar.gz
+*.zip
+.next/
+node_modules/
