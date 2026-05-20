@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 40 40" fill="none">
+  <rect width="40" height="40" rx="10" fill="url(#g)"/>
+  <text x="20" y="27" text-anchor="middle" font-family="system-ui,sans-serif" font-weight="900" font-size="20" fill="#000">M</text>
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="40" y2="40" gradientUnits="userSpaceOnUse">
+      <stop offset="0%" stop-color="#8b6914"/>
+      <stop offset="50%" stop-color="#d4af37"/>
+      <stop offset="100%" stop-color="#f0d060"/>
+    </linearGradient>
+  </defs>
+</svg>

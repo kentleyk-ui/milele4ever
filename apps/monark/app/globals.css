@@ -3,16 +3,49 @@
 @tailwind utilities;
 
 :root {
-  --background: #0a0a0a;
-  --foreground: #ededed;
-  --card: #111111;
-  --border: rgba(255,255,255,0.08);
-  --muted-foreground: rgba(255,255,255,0.45);
-  --primary: #a78bfa;
+  --gold-primary: #d4af37;
+  --gold-light:   #f0d060;
+  --gold-dark:    #8b6914;
+  --gold-glow:    rgba(212, 175, 55, 0.35);
+  --gold-surface: rgba(212, 175, 55, 0.08);
+  --gold-border:  rgba(212, 175, 55, 0.2);
+  --bg:           #0a0808;
+  --bg-card:      #111008;
+  --bg-sidebar:   #0c0a08;
+  --foreground:   #f5f0e8;
+  --muted:        rgba(245, 240, 232, 0.45);
 }
 
-body {
-  background: var(--background);
+* { box-sizing: border-box; }
+
+html, body {
+  background: var(--bg);
   color: var(--foreground);
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Inter', sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Scrollbar gold */
+::-webkit-scrollbar        { width: 4px; height: 4px; }
+::-webkit-scrollbar-track  { background: transparent; }
+::-webkit-scrollbar-thumb  { background: var(--gold-border); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: var(--gold-primary); }
+
+/* Selection */
+::selection { background: rgba(212,175,55,0.3); color: var(--gold-light); }
+
+/* Glow animation */
+@keyframes gold-pulse {
+  0%, 100% { box-shadow: 0 0 12px var(--gold-glow); }
+  50%       { box-shadow: 0 0 28px var(--gold-glow), 0 0 60px rgba(212,175,55,0.15); }
+}
+
+.gold-glow { animation: gold-pulse 3s ease-in-out infinite; }
+
+/* Grid background */
+.grid-bg {
+  background-image:
+    linear-gradient(rgba(212,175,55,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(212,175,55,0.04) 1px, transparent 1px);
+  background-size: 40px 40px;
 }
