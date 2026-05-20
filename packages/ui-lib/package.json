@@ -2,8 +2,15 @@
   "name": "ui-lib",
   "version": "1.0.0",
   "private": true,
-  "main": "index.tsx",
-  "types": "index.tsx",
+  "main": "./index.tsx",
+  "types": "./index.tsx",
+  "exports": {
+    ".": {
+      "types": "./index.tsx",
+      "import": "./index.tsx",
+      "require": "./index.tsx"
+    }
+  },
   "peerDependencies": {
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
