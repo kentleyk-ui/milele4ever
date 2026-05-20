@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { Header } from '@/components/header'
 import { Card } from '@/components/card'
-import { LiquidMetalGold, GoldBadge } from '@/ui-lib'
+import { LiquidMetalGold, GoldBadge } from 'ui-lib'
 import { GOLD, API_BASE, MONARK_VERSION } from '@/lib/constants'
 
 const sections = [

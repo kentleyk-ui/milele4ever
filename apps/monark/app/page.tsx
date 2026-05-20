@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import Link from 'next/link'
 import { ArrowRight, Shield, Zap, BarChart3 } from 'lucide-react'
-import { LiquidMetalGold, GoldBadge, GoldDivider } from '@/ui-lib'
+import { LiquidMetalGold, GoldBadge, GoldDivider } from 'ui-lib'
 import { GOLD, MONARK_VERSION } from '@/lib/constants'
 
 const features = [

@@ -3,7 +3,7 @@
 import { motion } from 'framer-motion'
 import { cn } from '@/lib/utils'
 import { GOLD } from '@/lib/constants'
-import { LiquidMetalGold } from '@/ui-lib'
+import { LiquidMetalGold } from 'ui-lib'
 
 export { LiquidMetalGold as Button }
 
