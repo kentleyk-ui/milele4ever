@@ -30,6 +30,9 @@ export function LandingFooter() {
         <p className="text-xs text-muted-foreground">
           {t('footer.copyright').replace('{year}', new Date().getFullYear().toString())}
         </p>
+        <p className="text-xs text-muted-foreground/70">
+          <span className="font-medium">Kent Ley</span> — Founder & CEO
+        </p>
       </div>
     </footer>
   )

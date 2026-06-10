@@ -1,4 +1,5 @@
 import { LegalNav } from '@/components/legal/legal-nav'
+import { LegalFooter } from '@/components/legal/legal-footer'
 
 export default function LegalLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -7,6 +8,7 @@ export default function LegalLayout({ children }: { children: React.ReactNode })
       <main className="flex-1 pb-8">
         {children}
       </main>
+      <LegalFooter />
     </div>
   )
 }

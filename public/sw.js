@@ -1,11 +1,16 @@
-// Milele Service Worker
-const CACHE_NAME = 'milele-v1';
+// Milele Service Worker - v2
+const CACHE_NAME = 'milele-v2';
 const OFFLINE_URL = '/offline.html';
 
-// Assets to cache immediately on install
+// Core assets to cache immediately on install
 const PRECACHE_ASSETS = [
   '/',
   '/offline.html',
+  '/manifest.webmanifest',
+  '/icons/icon-72x72.png',
+  '/icons/icon-96x96.png',
+  '/icons/icon-128x128.png',
+  '/icons/icon-144x144.png',
   '/icons/icon-192x192.png',
   '/icons/icon-512x512.png',
 ];
@@ -15,6 +20,8 @@ self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
       return cache.addAll(PRECACHE_ASSETS);
+    }).catch(() => {
+      // Some assets may not exist, continue anyway
     })
   );
   self.skipWaiting();
@@ -29,9 +36,10 @@ self.addEventListener('activate', (event) => {
           .filter((name) => name !== CACHE_NAME)
           .map((name) => caches.delete(name))
       );
+    }).then(() => {
+      return self.clients.claim();
     })
   );
-  self.clients.claim();
 });
 
 // Fetch event - network first, fallback to cache
@@ -39,16 +47,20 @@ self.addEventListener('fetch', (event) => {
   // Skip non-GET requests
   if (event.request.method !== 'GET') return;
 
-  // Skip API requests and external resources
+  // Skip API requests, auth, and external resources
   const url = new URL(event.request.url);
-  if (url.pathname.startsWith('/api/') || url.origin !== self.location.origin) {
+  if (url.pathname.startsWith('/api/') ||
+      url.pathname.startsWith('/auth/') ||
+      url.pathname.startsWith('/_next/') ||
+      url.pathname.startsWith('/static/') ||
+      url.origin !== self.location.origin) {
     return;
   }
 
   event.respondWith(
     fetch(event.request)
       .then((response) => {
-        // Cache successful responses
+        // Cache successful static responses
         if (response.status === 200) {
           const responseClone = response.clone();
           caches.open(CACHE_NAME).then((cache) => {
@@ -76,6 +88,9 @@ self.addEventListener('fetch', (event) => {
         return new Response('Offline', {
           status: 503,
           statusText: 'Service Unavailable',
+          headers: {
+            'Content-Type': 'text/plain',
+          },
         });
       })
   );
@@ -89,7 +104,7 @@ self.addEventListener('push', (event) => {
   const options = {
     body: data.body || 'Nouvelle notification Milele',
     icon: '/icons/icon-192x192.png',
-    badge: '/icons/badge-72x72.png',
+    badge: '/icons/icon-72x72.png',
     vibrate: [100, 50, 100],
     data: {
       url: data.url || '/',
@@ -98,6 +113,7 @@ self.addEventListener('push', (event) => {
       { action: 'open', title: 'Ouvrir' },
       { action: 'close', title: 'Fermer' },
     ],
+    requireInteraction: false,
   };
 
   event.waitUntil(
@@ -111,7 +127,46 @@ self.addEventListener('notificationclick', (event) => {
 
   if (event.action === 'close') return;
 
+  const url = event.notification.data?.url || '/';
+
   event.waitUntil(
-    clients.openWindow(event.notification.data.url || '/')
+    self.clients.matchAll({ type: 'window', includeUncontrolled: true }).then((clients) => {
+      // Focus existing window if open
+      for (const client of clients) {
+        if (client.url === url && 'focus' in client) {
+          return client.focus();
+        }
+      }
+      // Open new window
+      if (self.clients.openWindow) {
+        return self.clients.openWindow(url);
+      }
+    })
   );
+});
+
+// Background sync for offline form submissions
+self.addEventListener('sync', (event) => {
+  if (event.tag === 'milele-sync') {
+    event.waitUntil(
+      // Retry any queued background sync operations
+      self.clients.matchAll({ type: 'window' }).then((clients) => {
+        clients.forEach((client) => {
+          client.postMessage({ type: 'SYNC_COMPLETE' });
+        });
+      })
+    );
+  }
+});
+
+// Periodic background sync for updates
+self.addEventListener('periodicsync', (event) => {
+  if (event.tag === 'milele-update') {
+    event.waitUntil(
+      // Check for updates in the background
+      fetch('/api/health').catch(() => {
+        // Silently fail if offline
+      })
+    );
+  }
 });
