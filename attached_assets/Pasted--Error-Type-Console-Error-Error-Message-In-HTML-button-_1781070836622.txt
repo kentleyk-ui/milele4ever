@@ -1,0 +1,55 @@
+## Error Type
+Console Error
+
+## Error Message
+In HTML, <button> cannot be a descendant of <button>.
+This will cause a hydration error.
+
+  ...
+    <Menu __scopeMenu={{Menu:[...], ...}} open={false} onOpenChange={function useControllableState.useCallback[setValue]} ...>
+      <Popper __scopePopper={{Menu:[...], ...}}>
+        <PopperProvider scope={{Menu:[...], ...}} anchor={null} onAnchorChange={function bound dispatchSetState}>
+          <MenuProvider scope={{Menu:[...], ...}} open={false} onOpenChange={function useCallbackRef.useMemo} ...>
+            <MenuProvider scope={{Menu:[...], ...}} onClose={function Menu.useCallback} ...>
+              <DropdownMenuTrigger>
+                <MenuAnchor asChild={true} __scopeMenu={{Menu:[...], ...}}>
+                  <PopperAnchor __scopePopper={{Menu:[...], ...}} asChild={true} ref={null}>
+                    <Primitive.div asChild={true} ref={function}>
+                      <Primitive.div.Slot ref={function}>
+                        <Primitive.div.SlotClone ref={function}>
+                          <Primitive.button type="button" id="radix-_R_a..." aria-haspopup="menu" aria-expanded={false} ...>
+>                           <button
+>                             type="button"
+>                             id="radix-_R_aincqlb_"
+>                             aria-haspopup="menu"
+>                             aria-expanded={false}
+>                             aria-controls={undefined}
+>                             data-state="closed"
+>                             data-disabled={undefined}
+>                             disabled={false}
+>                             onPointerDown={function handleEvent}
+>                             onKeyDown={function handleEvent}
+>                             ref={function}
+>                           >
+                              <Button variant="ghost" size="sm" className="gap-1.5 h-...">
+                                <Button data-slot="button" className={"group/bu..."}>
+>                                 <button
+>                                   type="button"
+>                                   onClick={function onClick}
+>                                   onMouseDown={function onMouseDown}
+>                                   onKeyDown={function}
+>                                   onKeyUp={function onKeyUp}
+>                                   onPointerDown={function onPointerDown}
+>                                   tabIndex={0}
+>                                   disabled={false}
+>                                   data-slot="button"
+>                                   ref={function}
+>                                   className={"group/button inline-flex shrink-0 items-center justify-center border ..."}
+>                                 >
+              ...
+
+
+
+    at button (unknown:0:0)
+
+Next.js version: 16.1.6 (Turbopack)
