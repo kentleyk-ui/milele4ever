@@ -23,11 +23,11 @@ author = "agent"
 
 [[workflows.workflow.tasks]]
 task = "shell.exec"
-args = "pnpm dev"
-waitForPort = 3000
+args = "pnpm dev --port 5000 --hostname 0.0.0.0"
+waitForPort = 5000
 
 [workflows.workflow.metadata]
-outputType = "console"
+outputType = "webview"
 
 [[ports]]
 localPort = 3000
@@ -36,3 +36,7 @@ externalPort = 3000
 [[ports]]
 localPort = 3001
 externalPort = 3001
+
+[[ports]]
+localPort = 5000
+externalPort = 80

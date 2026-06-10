@@ -81,9 +81,6 @@ export default function RootLayout({
         >
           <I18nProvider>
             {children}
-            <Chatbot />
-            <FeedbackButton />
-            <PWAInstall />
           </I18nProvider>
         </ThemeProvider>
         <Analytics />

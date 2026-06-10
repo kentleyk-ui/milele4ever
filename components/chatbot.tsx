@@ -1,8 +1,6 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { useChat } from '@ai-sdk/react'
-import { DefaultChatTransport } from 'ai'
 import { Button } from '@/components/ui/button'
 import { MessageCircle, X, Send, User, Loader2 } from 'lucide-react'
 import { cn } from '@/lib/utils'
@@ -21,52 +19,75 @@ function AngelIcon({ className }: { className?: string }) {
       strokeLinejoin="round"
       className={className}
     >
-      {/* Halo */}
       <ellipse cx="12" cy="5" rx="3" ry="1" />
-      {/* Head */}
       <circle cx="12" cy="9" r="2.5" />
-      {/* Body */}
       <path d="M12 11.5v4" />
-      {/* Wings */}
       <path d="M8 13c-2-1-3 0-3 2s2 2 4 1" />
       <path d="M16 13c2-1 3 0 3 2s-2 2-4 1" />
-      {/* Robe */}
       <path d="M9 19l3-3.5 3 3.5" />
     </svg>
   )
+}
+
+interface Message {
+  id: string
+  role: 'user' | 'assistant'
+  text: string
 }
 
 export function Chatbot() {
   const { t, language } = useI18n()
   const [isOpen, setIsOpen] = useState(false)
   const [input, setInput] = useState('')
+  const [messages, setMessages] = useState<Message[]>([])
+  const [isLoading, setIsLoading] = useState(false)
   const messagesEndRef = useRef<HTMLDivElement>(null)
-  
-  const { messages, sendMessage, status } = useChat({
-    transport: new DefaultChatTransport({ 
-      api: '/api/malaika',
-      prepareSendMessagesRequest: ({ id, messages }) => ({
-        body: {
-          messages,
-          id,
-          language,
-        },
-      }),
-    }),
-  })
 
-  const isLoading = status === 'streaming' || status === 'submitted'
-
-  // Scroll to bottom when messages change
   useEffect(() => {
     messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     if (!input.trim() || isLoading) return
-    sendMessage({ text: input })
+
+    const userMessage: Message = { id: Date.now().toString(), role: 'user', text: input }
+    setMessages(prev => [...prev, userMessage])
     setInput('')
+    setIsLoading(true)
+
+    try {
+      const res = await fetch('/api/malaika', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          messages: [...messages, userMessage].map(m => ({
+            id: m.id,
+            role: m.role,
+            content: m.text,
+            parts: [{ type: 'text', text: m.text }],
+          })),
+          language,
+        }),
+      })
+
+      if (!res.ok) throw new Error('Failed')
+
+      const data = await res.json()
+      const text = data.text || data.response || "Je suis désolé, une erreur est survenue."
+      
+      setMessages(prev => [...prev, { id: (Date.now() + 1).toString(), role: 'assistant', text }])
+    } catch {
+      setMessages(prev => [...prev, {
+        id: (Date.now() + 1).toString(),
+        role: 'assistant',
+        text: language === 'fr'
+          ? "Je suis désolé, une erreur est survenue. Veuillez réessayer plus tard."
+          : "I'm sorry, an error occurred. Please try again later."
+      }])
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   const suggestedQuestions = language === 'fr' ? [
@@ -81,7 +102,6 @@ export function Chatbot() {
 
   return (
     <>
-      {/* Chat Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
@@ -97,7 +117,6 @@ export function Chatbot() {
         {isOpen ? <X className="w-6 h-6" /> : <MessageCircle className="w-6 h-6" />}
       </button>
 
-      {/* Chat Window */}
       {isOpen && (
         <div 
           className={cn(
@@ -110,34 +129,21 @@ export function Chatbot() {
           role="dialog"
           aria-labelledby="chatbot-title"
         >
-          {/* Header */}
           <div className="flex items-center gap-3 p-4 border-b border-border bg-muted/30">
             <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
               <AngelIcon className="w-5 h-5 text-primary" />
             </div>
             <div className="flex-1">
-              <h3 id="chatbot-title" className="font-semibold text-sm">
-                Malaïka
-              </h3>
+              <h3 id="chatbot-title" className="font-semibold text-sm">Malaïka</h3>
               <p className="text-xs text-muted-foreground">
-                {isLoading 
-                  ? t('chatbot.typing', 'En train d\'ecrire...')
-                  : t('chatbot.online', 'En ligne')
-                }
+                {isLoading ? t('chatbot.typing', 'En train d\'ecrire...') : t('chatbot.online', 'En ligne')}
               </p>
             </div>
-            <Button
-              variant="ghost"
-              size="icon"
-              className="h-8 w-8"
-              onClick={() => setIsOpen(false)}
-              aria-label={t('chatbot.close', 'Fermer')}
-            >
+            <Button variant="ghost" size="icon" className="h-8 w-8" onClick={() => setIsOpen(false)}>
               <X className="w-4 h-4" />
             </Button>
           </div>
 
-          {/* Messages */}
           <div className="flex-1 overflow-y-auto p-4 space-y-4">
             {messages.length === 0 ? (
               <div className="space-y-4">
@@ -154,18 +160,15 @@ export function Chatbot() {
                     </p>
                   </div>
                 </div>
-                
-                {/* Suggested Questions */}
                 <div className="space-y-2">
-                  <p className="text-xs text-muted-foreground px-2">
-                    {t('chatbot.suggestions', 'Questions frequentes:')}
-                  </p>
+                  <p className="text-xs text-muted-foreground px-2">{t('chatbot.suggestions', 'Questions frequentes:')}</p>
                   <div className="flex flex-wrap gap-2">
                     {suggestedQuestions.map((question, index) => (
                       <button
                         key={index}
                         onClick={() => {
-                          sendMessage({ text: question })
+                          const msg: Message = { id: Date.now().toString(), role: 'user', text: question }
+                          setMessages(prev => [...prev, msg])
                         }}
                         className="text-xs px-3 py-1.5 rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors"
                       >
@@ -177,46 +180,23 @@ export function Chatbot() {
               </div>
             ) : (
               messages.map((message) => (
-                <div
-                  key={message.id}
-                  className={cn(
-                    "flex gap-3",
-                    message.role === 'user' && "flex-row-reverse"
-                  )}
-                >
+                <div key={message.id} className={cn("flex gap-3", message.role === 'user' && "flex-row-reverse")}>
                   <div className={cn(
                     "w-8 h-8 rounded-full flex items-center justify-center shrink-0",
-                    message.role === 'user' 
-                      ? "bg-primary text-primary-foreground"
-                      : "bg-primary/10"
+                    message.role === 'user' ? "bg-primary text-primary-foreground" : "bg-primary/10"
                   )}>
-                    {message.role === 'user' 
-                      ? <User className="w-4 h-4" />
-                      : <AngelIcon className="w-4 h-4 text-primary" />
-                    }
+                    {message.role === 'user' ? <User className="w-4 h-4" /> : <AngelIcon className="w-4 h-4 text-primary" />}
                   </div>
                   <div className={cn(
                     "rounded-2xl p-3 max-w-[85%]",
-                    message.role === 'user'
-                      ? "bg-primary text-primary-foreground rounded-tr-sm"
-                      : "bg-muted rounded-tl-sm"
+                    message.role === 'user' ? "bg-primary text-primary-foreground rounded-tr-sm" : "bg-muted rounded-tl-sm"
                   )}>
-                    {message.parts.map((part, index) => {
-                      if (part.type === 'text') {
-                        return (
-                          <p key={index} className="text-sm whitespace-pre-wrap">
-                            {part.text}
-                          </p>
-                        )
-                      }
-                      return null
-                    })}
+                    <p className="text-sm whitespace-pre-wrap">{message.text}</p>
                   </div>
                 </div>
               ))
             )}
             
-            {/* Loading indicator */}
             {isLoading && messages.length > 0 && messages[messages.length - 1]?.role === 'user' && (
               <div className="flex gap-3">
                 <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center shrink-0">
@@ -231,7 +211,6 @@ export function Chatbot() {
             <div ref={messagesEndRef} />
           </div>
 
-          {/* Input */}
           <form onSubmit={handleSubmit} className="p-3 border-t border-border bg-background">
             <div className="flex gap-2">
               <input
@@ -246,20 +225,9 @@ export function Chatbot() {
                   "focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2"
                 )}
                 disabled={isLoading}
-                aria-label={t('chatbot.inputLabel', 'Message')}
               />
-              <Button
-                type="submit"
-                size="icon"
-                className="rounded-full w-10 h-10 shrink-0"
-                disabled={!input.trim() || isLoading}
-                aria-label={t('chatbot.send', 'Envoyer')}
-              >
-                {isLoading ? (
-                  <Loader2 className="w-4 h-4 animate-spin" />
-                ) : (
-                  <Send className="w-4 h-4" />
-                )}
+              <Button type="submit" size="icon" className="rounded-full w-10 h-10 shrink-0" disabled={!input.trim() || isLoading}>
+                {isLoading ? <Loader2 className="w-4 h-4 animate-spin" /> : <Send className="w-4 h-4" />}
               </Button>
             </div>
           </form>

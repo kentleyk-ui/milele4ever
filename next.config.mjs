@@ -1,7 +1,7 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
   reactStrictMode: true,
-  allowedDevOrigins: ['*.replit.dev'],
+  allowedDevOrigins: ['*.replit.dev', '*.kirk.replit.dev', '*.replit.co'],
   turbopack: {
     root: process.cwd(),
   },
