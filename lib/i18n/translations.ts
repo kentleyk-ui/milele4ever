@@ -345,7 +345,6 @@ export const translations: Record<Language, Record<string, string>> = {
     'legal.loiExpenses': 'Expenses',
     'legal.loiBinding': 'Binding vs. Non-Binding',
     'legal.loiExpiration': 'Expiration',
-    'legal.ndaWhereas': 'WHEREAS Clauses',
     'legal.contractReview': 'Contract Review',
   },
   
@@ -686,7 +685,6 @@ export const translations: Record<Language, Record<string, string>> = {
     'legal.loiExpenses': 'Frais',
     'legal.loiBinding': 'Obligatoire vs. Non-Obligatoire',
     'legal.loiExpiration': 'Expiration',
-    'legal.ndaWhereas': 'Clauses PREAMBULES',
     'legal.contractReview': 'Révision de Contrat',
   },
   
