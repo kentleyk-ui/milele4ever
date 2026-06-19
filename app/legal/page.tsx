@@ -2,9 +2,10 @@
 
 import { useI18n } from '@/lib/i18n/context'
 import { Card, CardContent } from '@/components/ui/card'
-import { Button } from '@/components/ui/button'
+import { Button, buttonVariants } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
+import { cn } from '@/lib/utils'
 import {
   FileText,
   Search,
@@ -127,12 +128,13 @@ export default function LegalDashboard() {
       <div className="space-y-3">
         <div className="flex items-center justify-between">
           <h2 className="text-base font-semibold">{t('dashboard.recentDocs')}</h2>
-          <Button variant="ghost" size="sm" className="gap-1 text-xs" asChild>
-            <Link href="/legal/contracts">
-              {t('dashboard.viewAll')}
-              <ArrowRight className="w-3.5 h-3.5" />
-            </Link>
-          </Button>
+          <Link
+            href="/legal/contracts"
+            className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'gap-1 text-xs')}
+          >
+            {t('dashboard.viewAll')}
+            <ArrowRight className="w-3.5 h-3.5" />
+          </Link>
         </div>
         <Card>
           <CardContent className="p-0">
