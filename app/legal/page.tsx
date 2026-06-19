@@ -1,8 +1,7 @@
 'use client'
 
 import { useI18n } from '@/lib/i18n/context'
-import { Card, CardContent } from '@/components/ui/card'
-import { Button, buttonVariants } from '@/components/ui/button'
+import { buttonVariants } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import Link from 'next/link'
 import { cn } from '@/lib/utils'
@@ -16,6 +15,7 @@ import {
   Scale,
   ArrowRight,
   Zap,
+  TrendingUp,
 } from 'lucide-react'
 
 const recentDocuments = [
@@ -28,26 +28,53 @@ export default function LegalDashboard() {
   const { t } = useI18n()
 
   const stats = [
-    { label: t('dashboard.totalDocs'), value: '12', icon: FileText, color: 'text-primary', bg: 'bg-primary/10 border-primary/20' },
-    { label: t('dashboard.drafts'), value: '5', icon: Scale, color: 'text-blue-400', bg: 'bg-blue-500/10 border-blue-500/20' },
-    { label: t('dashboard.reviewed'), value: '4', icon: FileCheck, color: 'text-amber-400', bg: 'bg-amber-500/10 border-amber-500/20' },
-    { label: t('dashboard.completed'), value: '3', icon: CheckCircle, color: 'text-emerald-400', bg: 'bg-emerald-500/10 border-emerald-500/20' },
+    {
+      label: t('dashboard.totalDocs'),
+      value: '12',
+      icon: FileText,
+      glass: 'glass-cyan',
+      textColor: 'text-cyan-300',
+      sub: '+2 ce mois',
+    },
+    {
+      label: t('dashboard.drafts'),
+      value: '5',
+      icon: Scale,
+      glass: 'glass-violet',
+      textColor: 'text-violet-300',
+      sub: '3 en attente',
+    },
+    {
+      label: t('dashboard.reviewed'),
+      value: '4',
+      icon: FileCheck,
+      glass: 'glass-amber',
+      textColor: 'text-amber-300',
+      sub: '↑ 1 depuis hier',
+    },
+    {
+      label: t('dashboard.completed'),
+      value: '3',
+      icon: CheckCircle,
+      glass: 'glass-emerald',
+      textColor: 'text-emerald-300',
+      sub: '100% validés',
+    },
   ]
 
   const quickActions = [
-    { label: t('type.mutualNda'), href: '/legal/contracts', icon: Shield, accent: 'text-primary border-primary/25 hover:border-primary/50 hover:bg-primary/8' },
-    { label: t('type.serviceAgreement'), href: '/legal/contracts', icon: FileText, accent: 'text-emerald-400 border-emerald-500/25 hover:border-emerald-500/50 hover:bg-emerald-500/8' },
-    { label: t('nav.review'), href: '/legal/review', icon: Search, accent: 'text-amber-400 border-amber-500/25 hover:border-amber-500/50 hover:bg-amber-500/8' },
-    { label: t('nav.dueDiligence'), href: '/legal/due-diligence', icon: ClipboardCheck, accent: 'text-violet-400 border-violet-500/25 hover:border-violet-500/50 hover:bg-violet-500/8' },
+    { label: t('type.mutualNda'), href: '/legal/contracts', icon: Shield, glass: 'glass-cyan', text: 'text-cyan-300' },
+    { label: t('type.serviceAgreement'), href: '/legal/contracts', icon: FileText, glass: 'glass-emerald', text: 'text-emerald-300' },
+    { label: t('nav.review'), href: '/legal/review', icon: Search, glass: 'glass-amber', text: 'text-amber-300' },
+    { label: t('nav.dueDiligence'), href: '/legal/due-diligence', icon: ClipboardCheck, glass: 'glass-violet', text: 'text-violet-300' },
   ]
 
   const tools = [
     {
       href: '/legal/contracts',
       icon: FileText,
-      color: 'text-primary',
-      glow: 'group-hover:shadow-[0_0_20px_oklch(0.78_0.20_200/0.15)]',
-      border: 'hover:border-primary/30',
+      glass: 'glass-cyan',
+      text: 'text-cyan-300',
       title: t('nav.contracts'),
       desc: t('contracts.subtitle'),
       tag: 'NDA · Service · LOI',
@@ -55,9 +82,8 @@ export default function LegalDashboard() {
     {
       href: '/legal/review',
       icon: Search,
-      color: 'text-amber-400',
-      glow: 'group-hover:shadow-[0_0_20px_rgba(251,191,36,0.1)]',
-      border: 'hover:border-amber-500/30',
+      glass: 'glass-amber',
+      text: 'text-amber-300',
       title: t('nav.review'),
       desc: t('review.subtitle'),
       tag: 'Risk Analysis',
@@ -65,9 +91,8 @@ export default function LegalDashboard() {
     {
       href: '/legal/due-diligence',
       icon: ClipboardCheck,
-      color: 'text-violet-400',
-      glow: 'group-hover:shadow-[0_0_20px_rgba(167,139,250,0.1)]',
-      border: 'hover:border-violet-500/30',
+      glass: 'glass-violet',
+      text: 'text-violet-300',
       title: t('nav.dueDiligence'),
       desc: t('dd.subtitle'),
       tag: 'M&A · 57 items',
@@ -78,21 +103,23 @@ export default function LegalDashboard() {
     switch (status) {
       case 'completed':
         return (
-          <Badge className="bg-emerald-500/15 text-emerald-400 border border-emerald-500/25 hover:bg-emerald-500/20 text-xs font-mono tracking-wider">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono tracking-wider glass-emerald text-emerald-300 border-0">
+            <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 pulse-glow inline-block" />
             {t('status.completed')}
-          </Badge>
+          </span>
         )
       case 'draft':
         return (
-          <Badge className="bg-muted/80 text-muted-foreground border border-border text-xs font-mono tracking-wider">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono tracking-wider glass text-foreground/70">
             {t('status.draft')}
-          </Badge>
+          </span>
         )
       case 'reviewed':
         return (
-          <Badge className="bg-amber-500/15 text-amber-400 border border-amber-500/25 hover:bg-amber-500/20 text-xs font-mono tracking-wider">
+          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-xs font-mono tracking-wider glass-amber text-amber-300 border-0">
+            <span className="w-1.5 h-1.5 rounded-full bg-amber-400 pulse-glow inline-block" />
             {t('status.reviewed')}
-          </Badge>
+          </span>
         )
       default:
         return <Badge variant="outline">{status}</Badge>
@@ -101,136 +128,145 @@ export default function LegalDashboard() {
 
   return (
     <div className="container max-w-6xl mx-auto px-4 py-8 space-y-10">
-      {/* Header */}
-      <div className="space-y-1 animate-fade-up">
-        <div className="flex items-center gap-2 text-xs font-mono tracking-widest text-primary/70 uppercase mb-2">
-          <Zap className="w-3 h-3" />
-          <span>LexDraft / Dashboard</span>
+
+      {/* ── Header ── */}
+      <div className="space-y-1 animate-fade-up" style={{ animationDelay: '0ms' }}>
+        <div className="flex items-center gap-1.5 text-xs font-mono tracking-[0.2em] text-cyan-400/60 uppercase mb-3">
+          <Zap className="w-3 h-3 pulse-glow" />
+          <span>LexDraft</span>
+          <span className="text-white/20">/</span>
+          <span>Dashboard</span>
         </div>
-        <h1 className="text-3xl font-bold tracking-tight gradient-text">
+        <h1 className="text-4xl font-bold tracking-tight gradient-text leading-tight">
           {t('dashboard.title')}
         </h1>
-        <p className="text-muted-foreground text-sm">{t('dashboard.subtitle')}</p>
+        <p className="text-sm text-muted-foreground/70">{t('dashboard.subtitle')}</p>
       </div>
 
-      {/* Stats */}
+      {/* ── Stats ── */}
       <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {stats.map((stat, i) => (
           <div
             key={stat.label}
             className={cn(
-              'rounded-lg border p-4 bg-card flex items-center gap-3 transition-all duration-300 hover:scale-[1.02] animate-fade-up',
-              stat.bg
+              'relative rounded-xl p-4 glass-hover liquid-hover',
+              stat.glass
             )}
-            style={{ animationDelay: `${i * 60}ms` }}
+            style={{ animationDelay: `${60 + i * 60}ms` }}
           >
-            <div className={cn('p-2 rounded-md border', stat.bg, 'shrink-0')}>
-              <stat.icon className={cn('w-4 h-4', stat.color)} />
-            </div>
-            <div>
-              <p className={cn('text-2xl font-bold font-mono', stat.color)}>{stat.value}</p>
-              <p className="text-xs text-muted-foreground leading-tight">{stat.label}</p>
+            {/* top-right icon faded */}
+            <stat.icon className={cn('absolute top-3 right-3 w-8 h-8 opacity-10', stat.textColor)} strokeWidth={1} />
+
+            <div className="relative z-10 space-y-1.5">
+              <p className="text-xs font-mono tracking-wider text-white/40 uppercase leading-none">
+                {stat.label}
+              </p>
+              <p className={cn('text-4xl font-bold font-mono tabular-nums leading-none', stat.textColor)}>
+                {stat.value}
+              </p>
+              <p className="text-xs text-white/30 font-mono flex items-center gap-1">
+                <TrendingUp className="w-3 h-3" />
+                {stat.sub}
+              </p>
             </div>
           </div>
         ))}
       </div>
 
-      {/* Quick Actions */}
-      <div className="space-y-3">
-        <h2 className="text-xs font-mono tracking-widest text-muted-foreground uppercase">
+      {/* ── Quick Actions ── */}
+      <div className="space-y-3 animate-fade-up" style={{ animationDelay: '300ms' }}>
+        <p className="text-xs font-mono tracking-[0.18em] text-white/25 uppercase">
           ▸ {t('dashboard.quickActions')}
-        </h2>
+        </p>
         <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
           {quickActions.map((action) => (
             <Link
               key={action.href + action.label}
               href={action.href}
               className={cn(
-                'group relative flex flex-col items-center gap-3 p-4 rounded-lg border bg-card text-center transition-all duration-200 hover:scale-[1.02] overflow-hidden',
-                action.accent
+                'relative flex flex-col items-center gap-3 p-5 rounded-xl text-center glass-hover liquid-hover cursor-pointer',
+                action.glass
               )}
             >
-              <div className="absolute inset-0 shimmer opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-              <action.icon className={cn('w-5 h-5 relative z-10', action.accent.split(' ')[0])} />
-              <span className="text-xs font-medium relative z-10">{action.label}</span>
+              <action.icon className={cn('w-6 h-6 relative z-10', action.text)} />
+              <span className={cn('text-xs font-mono font-medium tracking-wide relative z-10', action.text)}>
+                {action.label}
+              </span>
             </Link>
           ))}
         </div>
       </div>
 
-      {/* Recent Documents */}
-      <div className="space-y-3">
+      {/* ── Recent Documents ── */}
+      <div className="space-y-3 animate-fade-up" style={{ animationDelay: '380ms' }}>
         <div className="flex items-center justify-between">
-          <h2 className="text-xs font-mono tracking-widest text-muted-foreground uppercase">
+          <p className="text-xs font-mono tracking-[0.18em] text-white/25 uppercase">
             ▸ {t('dashboard.recentDocs')}
-          </h2>
+          </p>
           <Link
             href="/legal/contracts"
             className={cn(
               buttonVariants({ variant: 'ghost', size: 'sm' }),
-              'gap-1.5 text-xs font-mono uppercase tracking-wider text-primary/70 hover:text-primary hover:bg-primary/8 border border-transparent hover:border-primary/20'
+              'gap-1.5 text-xs font-mono uppercase tracking-wider text-cyan-400/60 hover:text-cyan-300 hover:bg-transparent px-0'
             )}
           >
             {t('dashboard.viewAll')}
             <ArrowRight className="w-3 h-3" />
           </Link>
         </div>
-        <div className="rounded-lg border border-border/50 bg-card overflow-hidden">
-          {recentDocuments.map((doc, i) => (
+
+        <div className="rounded-xl overflow-hidden glass divide-y divide-white/5">
+          {recentDocuments.map((doc) => (
             <div
               key={doc.id}
-              className={cn(
-                'flex items-center justify-between px-4 py-3 hover:bg-white/3 transition-colors group cursor-pointer',
-                i < recentDocuments.length - 1 && 'border-b border-border/40'
-              )}
+              className="flex items-center justify-between px-5 py-3.5 hover:bg-white/[0.03] transition-colors group cursor-pointer liquid-hover"
             >
               <div className="flex items-center gap-3 min-w-0">
-                <div className="w-7 h-7 rounded-md border border-border/50 bg-primary/8 flex items-center justify-center shrink-0 group-hover:border-primary/30 transition-colors">
-                  <FileText className="w-3.5 h-3.5 text-primary/70" />
+                <div className="w-8 h-8 rounded-lg glass-cyan flex items-center justify-center shrink-0">
+                  <FileText className="w-3.5 h-3.5 text-cyan-300" />
                 </div>
                 <div className="min-w-0">
-                  <p className="font-medium text-sm truncate group-hover:text-primary transition-colors">{doc.title}</p>
-                  <p className="text-xs text-muted-foreground font-mono">{doc.type} · {doc.date}</p>
+                  <p className="font-medium text-sm truncate group-hover:text-cyan-300 transition-colors text-white/80">
+                    {doc.title}
+                  </p>
+                  <p className="text-xs text-white/25 font-mono">{doc.type} · {doc.date}</p>
                 </div>
               </div>
-              <div className="flex items-center gap-2 shrink-0 ml-3">
+              <div className="flex items-center gap-3 shrink-0 ml-3">
                 {getStatusBadge(doc.status)}
-                <ArrowRight className="w-3.5 h-3.5 text-muted-foreground/30 group-hover:text-primary transition-all group-hover:translate-x-0.5" />
+                <ArrowRight className="w-3.5 h-3.5 text-white/15 group-hover:text-cyan-400 transition-all group-hover:translate-x-0.5" />
               </div>
             </div>
           ))}
         </div>
       </div>
 
-      {/* Tools */}
-      <div className="space-y-3">
-        <h2 className="text-xs font-mono tracking-widest text-muted-foreground uppercase">
+      {/* ── Tools ── */}
+      <div className="space-y-3 animate-fade-up" style={{ animationDelay: '460ms' }}>
+        <p className="text-xs font-mono tracking-[0.18em] text-white/25 uppercase">
           ▸ {t('dashboard.tools')}
-        </h2>
+        </p>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-          {tools.map((tool, i) => (
+          {tools.map((tool) => (
             <Link
               key={tool.href}
               href={tool.href}
               className={cn(
-                'group relative flex flex-col p-5 rounded-lg border border-border/50 bg-card transition-all duration-300 hover:scale-[1.01] overflow-hidden animate-fade-up',
-                tool.border,
-                tool.glow
+                'group relative flex flex-col p-5 rounded-xl glass-hover liquid-hover',
+                tool.glass
               )}
-              style={{ animationDelay: `${i * 80}ms` }}
             >
-              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-current to-transparent opacity-0 group-hover:opacity-30 transition-opacity" />
-              <div className="flex items-start justify-between mb-3">
-                <div className="p-2 rounded-md border border-border/50 bg-background/50 group-hover:border-current/30 transition-colors">
-                  <tool.icon className={cn('w-4 h-4', tool.color)} />
+              <div className="flex items-start justify-between mb-4">
+                <div className={cn('p-2.5 rounded-lg glass flex items-center justify-center')}>
+                  <tool.icon className={cn('w-4.5 h-4.5', tool.text)} />
                 </div>
-                <span className="text-xs font-mono text-muted-foreground/50 border border-border/30 rounded px-1.5 py-0.5">
-                  {tool.tag}
+                <span className="text-[10px] font-mono text-white/25 text-right leading-relaxed">
+                  {tool.tag.replace(' · ', '\n')}
                 </span>
               </div>
-              <h3 className="font-semibold text-sm mb-1">{tool.title}</h3>
-              <p className="text-xs text-muted-foreground leading-relaxed flex-1">{tool.desc}</p>
-              <div className="flex items-center gap-1 mt-3 text-xs font-mono text-muted-foreground/40 group-hover:text-primary transition-colors">
+              <h3 className={cn('font-semibold text-sm mb-1.5', tool.text)}>{tool.title}</h3>
+              <p className="text-xs text-white/40 leading-relaxed flex-1">{tool.desc}</p>
+              <div className={cn('flex items-center gap-1 mt-4 text-xs font-mono group-hover:gap-2 transition-all', tool.text, 'opacity-50 group-hover:opacity-100')}>
                 <span>Accéder</span>
                 <ArrowRight className="w-3 h-3 group-hover:translate-x-0.5 transition-transform" />
               </div>
@@ -238,6 +274,7 @@ export default function LegalDashboard() {
           ))}
         </div>
       </div>
+
     </div>
   )
 }
