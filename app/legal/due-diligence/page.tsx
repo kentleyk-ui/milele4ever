@@ -6,340 +6,240 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Badge } from '@/components/ui/badge'
 import { Progress } from '@/components/ui/progress'
-import { ClipboardCheck, Plus, CheckCircle, Circle, AlertCircle, FileUp, ChevronDown, ChevronUp } from 'lucide-react'
+import { ClipboardCheck, Plus, ChevronDown, ChevronRight, CheckCircle2, Circle, AlertCircle, FileUp, Clock } from 'lucide-react'
 
-interface DDItem {
-  id: string
-  name: string
-  status: 'not_started' | 'uploaded' | 'under_review' | 'approved' | 'flagged'
-  files: number
-  notes: string
-}
+type ItemStatus = 'not_started' | 'uploaded' | 'under_review' | 'approved' | 'flagged'
 
-interface DDCategory {
-  id: string
-  name: string
-  items: DDItem[]
-}
+interface DDItem { id: string; label: string; status: ItemStatus }
+interface DDCategory { id: string; name: string; items: DDItem[]; expanded: boolean }
+interface DDRoom { id: string; name: string; targetCompany: string; createdAt: string; categories: DDCategory[] }
 
-const defaultCategories: DDCategory[] = [
-  {
-    id: '1',
-    name: 'legal.ddCorporate',
-    items: [
-      { id: '1-1', name: 'Formation documents (articles of incorporation)', status: 'not_started', files: 0, notes: '' },
-      { id: '1-2', name: 'Bylaws and operating agreements', status: 'not_started', files: 0, notes: '' },
-      { id: '1-3', name: 'Board minutes and resolutions', status: 'not_started', files: 0, notes: '' },
-      { id: '1-4', name: 'Capitalization table (cap table)', status: 'not_started', files: 0, notes: '' },
-      { id: '1-5', name: 'Good standing certificates', status: 'not_started', files: 0, notes: '' },
-      { id: '1-6', name: 'Organizational chart', status: 'not_started', files: 0, notes: '' },
-      { id: '1-7', name: 'List of jurisdictions of operation', status: 'not_started', files: 0, notes: '' },
-    ],
-  },
-  {
-    id: '2',
-    name: 'legal.ddFinancial',
-    items: [
-      { id: '2-1', name: 'Audited financial statements (last 3 years)', status: 'not_started', files: 0, notes: '' },
-      { id: '2-2', name: 'Interim financial statements (current year)', status: 'not_started', files: 0, notes: '' },
-      { id: '2-3', name: 'Tax returns (last 3 years)', status: 'not_started', files: 0, notes: '' },
-      { id: '2-4', name: 'Debt schedule and credit agreements', status: 'not_started', files: 0, notes: '' },
-      { id: '2-5', name: 'Accounts receivable aging report', status: 'not_started', files: 0, notes: '' },
-      { id: '2-6', name: 'Revenue breakdown by product/service', status: 'not_started', files: 0, notes: '' },
-      { id: '2-7', name: 'Financial projections and budgets', status: 'not_started', files: 0, notes: '' },
-      { id: '2-8', name: 'Bank account statements', status: 'not_started', files: 0, notes: '' },
-    ],
-  },
-  {
-    id: '3',
-    name: 'legal.ddContracts',
-    items: [
-      { id: '3-1', name: 'Major customer contracts', status: 'not_started', files: 0, notes: '' },
-      { id: '3-2', name: 'Major vendor/supplier agreements', status: 'not_started', files: 0, notes: '' },
-      { id: '3-3', name: 'Partnership and joint venture agreements', status: 'not_started', files: 0, notes: '' },
-      { id: '3-4', name: 'Distribution and franchise agreements', status: 'not_started', files: 0, notes: '' },
-      { id: '3-5', name: 'Government contracts', status: 'not_started', files: 0, notes: '' },
-      { id: '3-6', name: 'Change of control provisions', status: 'not_started', files: 0, notes: '' },
-      { id: '3-7', name: 'Non-compete and exclusivity agreements', status: 'not_started', files: 0, notes: '' },
-    ],
-  },
-  {
-    id: '4',
-    name: 'legal.ddIP',
-    items: [
-      { id: '4-1', name: 'Patents and patent applications', status: 'not_started', files: 0, notes: '' },
-      { id: '4-2', name: 'Trademarks and trademark registrations', status: 'not_started', files: 0, notes: '' },
-      { id: '4-3', name: 'Copyrights and domain registrations', status: 'not_started', files: 0, notes: '' },
-      { id: '4-4', name: 'Software licenses and agreements', status: 'not_started', files: 0, notes: '' },
-      { id: '4-5', name: 'IP assignments and work-for-hire agreements', status: 'not_started', files: 0, notes: '' },
-      { id: '4-6', name: 'Open source software audit', status: 'not_started', files: 0, notes: '' },
-      { id: '4-7', name: 'Trade secret documentation', status: 'not_started', files: 0, notes: '' },
-      { id: '4-8', name: 'IP infringement claims', status: 'not_started', files: 0, notes: '' },
-    ],
-  },
-  {
-    id: '5',
-    name: 'legal.ddEmployees',
-    items: [
-      { id: '5-1', name: 'Employee census and org chart', status: 'not_started', files: 0, notes: '' },
-      { id: '5-2', name: 'Employment agreements and offer letters', status: 'not_started', files: 0, notes: '' },
-      { id: '5-3', name: 'Independent contractor agreements', status: 'not_started', files: 0, notes: '' },
-      { id: '5-4', name: 'Employee handbook and policies', status: 'not_started', files: 0, notes: '' },
-      { id: '5-5', name: 'Non-compete and non-solicitation agreements', status: 'not_started', files: 0, notes: '' },
-      { id: '5-6', name: 'Benefits plans and summaries', status: 'not_started', files: 0, notes: '' },
-      { id: '5-7', name: 'Stock option and equity plans', status: 'not_started', files: 0, notes: '' },
-      { id: '5-8', name: 'Workers compensation and OSHA', status: 'not_started', files: 0, notes: '' },
-      { id: '5-9', name: 'Pending labor disputes', status: 'not_started', files: 0, notes: '' },
-    ],
-  },
-  {
-    id: '6',
-    name: 'legal.ddLitigation',
-    items: [
-      { id: '6-1', name: 'Pending litigation and claims', status: 'not_started', files: 0, notes: '' },
-      { id: '6-2', name: 'Settled litigation and releases', status: 'not_started', files: 0, notes: '' },
-      { id: '6-3', name: 'Consent decrees and injunctions', status: 'not_started', files: 0, notes: '' },
-      { id: '6-4', name: 'Regulatory investigations', status: 'not_started', files: 0, notes: '' },
-      { id: '6-5', name: 'Insurance claims history', status: 'not_started', files: 0, notes: '' },
-      { id: '6-6', name: 'Regulatory correspondence', status: 'not_started', files: 0, notes: '' },
-    ],
-  },
-  {
-    id: '7',
-    name: 'legal.ddInsurance',
-    items: [
-      { id: '7-1', name: 'All insurance policies', status: 'not_started', files: 0, notes: '' },
-      { id: '7-2', name: 'Claims history', status: 'not_started', files: 0, notes: '' },
-      { id: '7-3', name: 'Insurance broker information', status: 'not_started', files: 0, notes: '' },
-      { id: '7-4', name: 'Certificates of insurance', status: 'not_started', files: 0, notes: '' },
-    ],
-  },
-  {
-    id: '8',
-    name: 'legal.ddTechnology',
-    items: [
-      { id: '8-1', name: 'System architecture documentation', status: 'not_started', files: 0, notes: '' },
-      { id: '8-2', name: 'Data flow and processing diagrams', status: 'not_started', files: 0, notes: '' },
-      { id: '8-3', name: 'SOC 2 and security audit reports', status: 'not_started', files: 0, notes: '' },
-      { id: '8-4', name: 'Data breach history', status: 'not_started', files: 0, notes: '' },
-      { id: '8-5', name: 'Business continuity and disaster recovery plans', status: 'not_started', files: 0, notes: '' },
-      { id: '8-6', name: 'SLA and uptime reports', status: 'not_started', files: 0, notes: '' },
-      { id: '8-7', name: 'Third-party vendor security assessments', status: 'not_started', files: 0, notes: '' },
-      { id: '8-8', name: 'Privacy policy and compliance documentation', status: 'not_started', files: 0, notes: '' },
-    ],
-  },
+const DD_FR = [
+  { name: 'Documents Corporatifs', items: ['Statuts constitutifs et actes modificatifs', 'Registre des actionnaires', 'Procès-verbaux du conseil', 'Liste des filiales et participations', 'Autorisations réglementaires'] },
+  { name: 'Finances', items: ['États financiers 3 derniers exercices (audités)', 'États financiers intermédiaires récents', 'Projections financières', 'Dettes et facilités de crédit', 'Comptes fournisseurs et clients'] },
+  { name: 'Propriété Intellectuelle', items: ['Brevets et demandes de brevets', 'Marques déposées', 'Code source et licences logiciels', 'Accords de PI avec employés/prestataires', 'Licences accordées et reçues'] },
+  { name: 'Ressources Humaines', items: ['Liste des employés et rémunérations', 'Contrats de travail clés', 'Accords de non-concurrence et confidentialité', 'Plans de stock-options/BSPCE', 'Procédures RH en cours'] },
+  { name: 'Contrats Clients & Fournisseurs', items: ['Contrats clients importants (>5% CA)', 'Accords de distribution et partenariat', 'Contrats fournisseurs critiques', 'Accords de sous-traitance', 'Conditions de changement de contrôle'] },
+  { name: 'Juridique & Conformité', items: ['Litiges en cours ou potentiels', 'Correspondances avec régulateurs', 'Conformité RGPD/protection des données', 'Licences et permis', 'Politiques anti-corruption'] },
+  { name: 'Informatique & Données', items: ['Architecture technique et infrastructure', 'Politique de sécurité informatique', 'Contrats SaaS et cloud', 'Plan de continuité et reprise', 'Incidents de sécurité passés'] },
+  { name: 'Immobilier', items: ['Baux immobiliers', 'Actifs immobiliers détenus', 'Suretés et hypothèques', 'Baux d\'équipements et leasing'] },
 ]
 
+const DD_EN = [
+  { name: 'Corporate Documents', items: ['Articles of incorporation and amendments', 'Shareholder register', 'Board meeting minutes', 'Subsidiaries and affiliates list', 'Regulatory approvals'] },
+  { name: 'Financials', items: ['3-year audited financial statements', 'Recent interim financial statements', 'Financial projections', 'Debt and credit facilities', 'Accounts payable and receivable'] },
+  { name: 'Intellectual Property', items: ['Patents and patent applications', 'Trademarks', 'Source code and software licenses', 'Employee/contractor IP agreements', 'Inbound and outbound licenses'] },
+  { name: 'Human Resources', items: ['Employee list and compensation', 'Key employment contracts', 'Non-compete and confidentiality agreements', 'Equity/option plans', 'Pending HR proceedings'] },
+  { name: 'Customer & Supplier Contracts', items: ['Key customer contracts (>5% revenue)', 'Distribution and partnership agreements', 'Critical supplier contracts', 'Subcontracting agreements', 'Change-of-control provisions'] },
+  { name: 'Legal & Compliance', items: ['Pending or threatened litigation', 'Regulatory correspondence', 'GDPR/data protection compliance', 'Licenses and permits', 'Anti-corruption policies'] },
+  { name: 'IT & Data', items: ['Technical architecture and infrastructure', 'IT security policy', 'SaaS and cloud contracts', 'Business continuity plan', 'Past security incidents'] },
+  { name: 'Real Estate', items: ['Leases', 'Owned real estate', 'Mortgages and liens', 'Equipment leases'] },
+]
+
+function buildCategories(tpl: { name: string; items: string[] }[]): DDCategory[] {
+  return tpl.map((cat, ci) => ({
+    id: `cat-${ci}`,
+    name: cat.name,
+    expanded: ci === 0,
+    items: cat.items.map((item, ii) => ({ id: `item-${ci}-${ii}`, label: item, status: 'not_started' as ItemStatus })),
+  }))
+}
+
+const STATUS_CYCLE: ItemStatus[] = ['not_started', 'uploaded', 'under_review', 'approved', 'flagged', 'not_started']
+
 export default function DueDiligencePage() {
-  const { t } = useI18n()
-  const [categories, setCategories] = useState<DDCategory[]>(defaultCategories)
-  const [expandedCategories, setExpandedCategories] = useState<string[]>(['1'])
-  const [showCreate, setShowCreate] = useState(false)
+  const { t, language } = useI18n()
+  const isFr = language === 'fr'
+  const [rooms, setRooms] = useState<DDRoom[]>([])
+  const [activeRoom, setActiveRoom] = useState<DDRoom | null>(null)
+  const [showForm, setShowForm] = useState(false)
   const [roomName, setRoomName] = useState('')
-  const [buyer, setBuyer] = useState('')
-  const [seller, setSeller] = useState('')
-  const [dealStructure, setDealStructure] = useState('asset')
+  const [targetCompany, setTargetCompany] = useState('')
 
-  const totalItems = categories.reduce((sum, cat) => sum + cat.items.length, 0)
-  const approvedItems = categories.reduce((sum, cat) => sum + cat.items.filter(i => i.status === 'approved').length, 0)
-  const uploadedItems = categories.reduce((sum, cat) => sum + cat.items.filter(i => i.status === 'uploaded').length, 0)
-  const underReviewItems = categories.reduce((sum, cat) => sum + cat.items.filter(i => i.status === 'under_review').length, 0)
-  const flaggedItems = categories.reduce((sum, cat) => sum + cat.items.filter(i => i.status === 'flagged').length, 0)
-  const notStartedItems = totalItems - approvedItems - uploadedItems - underReviewItems - flaggedItems
+  const createRoom = () => {
+    if (!roomName.trim()) return
+    const room: DDRoom = {
+      id: Date.now().toString(),
+      name: roomName,
+      targetCompany,
+      createdAt: new Date().toLocaleDateString(isFr ? 'fr-FR' : 'en-US'),
+      categories: buildCategories(isFr ? DD_FR : DD_EN),
+    }
+    setRooms(prev => [...prev, room])
+    setActiveRoom(room)
+    setRoomName(''); setTargetCompany(''); setShowForm(false)
+  }
 
-  const progress = Math.round((approvedItems / totalItems) * 100)
+  const mutateRoom = (fn: (r: DDRoom) => DDRoom) => {
+    setRooms(prev => prev.map(r => r.id === activeRoom?.id ? fn(r) : r))
+    setActiveRoom(prev => prev ? fn(prev) : prev)
+  }
 
-  const toggleCategory = (id: string) => {
-    setExpandedCategories(prev =>
-      prev.includes(id) ? prev.filter(c => c !== id) : [...prev, id]
+  const cycleStatus = (catId: string, itemId: string) => {
+    mutateRoom(room => ({
+      ...room,
+      categories: room.categories.map(cat => cat.id !== catId ? cat : {
+        ...cat,
+        items: cat.items.map(item => item.id !== itemId ? item : {
+          ...item,
+          status: STATUS_CYCLE[STATUS_CYCLE.indexOf(item.status) + 1],
+        }),
+      }),
+    }))
+  }
+
+  const toggleCat = (catId: string) => {
+    mutateRoom(room => ({
+      ...room,
+      categories: room.categories.map(cat => cat.id === catId ? { ...cat, expanded: !cat.expanded } : cat),
+    }))
+  }
+
+  const getRoomProg = (room: DDRoom) => {
+    const all = room.categories.flatMap(c => c.items)
+    const done = all.filter(i => i.status !== 'not_started').length
+    return { done, total: all.length, pct: all.length > 0 ? Math.round((done / all.length) * 100) : 0 }
+  }
+
+  const statusCfg = (s: ItemStatus) => ({
+    not_started: { icon: Circle, color: 'text-muted-foreground', label: t('dd.status.notStarted') },
+    uploaded: { icon: FileUp, color: 'text-blue-500', label: t('dd.status.uploaded') },
+    under_review: { icon: Clock, color: 'text-amber-500', label: t('dd.status.underReview') },
+    approved: { icon: CheckCircle2, color: 'text-green-500', label: t('dd.status.approved') },
+    flagged: { icon: AlertCircle, color: 'text-red-500', label: t('dd.status.flagged') },
+  }[s])
+
+  if (activeRoom) {
+    const prog = getRoomProg(activeRoom)
+    return (
+      <div className="container max-w-5xl mx-auto px-4 py-6 space-y-5">
+        <div className="flex items-center gap-3">
+          <Button variant="ghost" size="sm" onClick={() => setActiveRoom(null)}>← {t('dd.back')}</Button>
+          <div>
+            <h1 className="text-xl font-bold">{activeRoom.name}</h1>
+            {activeRoom.targetCompany && <p className="text-sm text-muted-foreground">{activeRoom.targetCompany}</p>}
+          </div>
+        </div>
+
+        <Card>
+          <CardContent className="p-4 space-y-2">
+            <div className="flex justify-between text-sm">
+              <span className="font-medium">{t('dd.progress')}</span>
+              <span className="text-muted-foreground">{prog.done}/{prog.total} {t('dd.items')} · {prog.pct}%</span>
+            </div>
+            <Progress value={prog.pct} className="h-2" />
+          </CardContent>
+        </Card>
+
+        <div className="space-y-2">
+          {activeRoom.categories.map(cat => {
+            const catDone = cat.items.filter(i => i.status !== 'not_started').length
+            return (
+              <Card key={cat.id}>
+                <button onClick={() => toggleCat(cat.id)} className="w-full flex items-center gap-3 p-4 text-left hover:bg-muted/30 transition-colors">
+                  {cat.expanded ? <ChevronDown className="w-4 h-4 text-muted-foreground shrink-0" /> : <ChevronRight className="w-4 h-4 text-muted-foreground shrink-0" />}
+                  <span className="font-medium text-sm flex-1">{cat.name}</span>
+                  <Badge variant="outline" className="text-xs">{catDone}/{cat.items.length}</Badge>
+                </button>
+                {cat.expanded && (
+                  <div className="border-t border-border divide-y divide-border">
+                    {cat.items.map(item => {
+                      const cfg = statusCfg(item.status)
+                      const Icon = cfg.icon
+                      return (
+                        <div key={item.id} className="flex items-center justify-between px-4 py-2.5 hover:bg-muted/20 gap-3">
+                          <div className="flex items-center gap-2.5 min-w-0">
+                            <Icon className={`w-4 h-4 shrink-0 ${cfg.color}`} />
+                            <span className="text-sm truncate">{item.label}</span>
+                          </div>
+                          <button onClick={() => cycleStatus(cat.id, item.id)} className="shrink-0">
+                            <Badge variant="outline" className="text-xs cursor-pointer hover:bg-muted transition-colors whitespace-nowrap">
+                              {cfg.label}
+                            </Badge>
+                          </button>
+                        </div>
+                      )
+                    })}
+                  </div>
+                )}
+              </Card>
+            )
+          })}
+        </div>
+      </div>
     )
   }
 
-  const updateItemStatus = (categoryId: string, itemId: string, status: DDItem['status']) => {
-    setCategories(prev => prev.map(cat =>
-      cat.id === categoryId
-        ? {
-            ...cat,
-            items: cat.items.map(item =>
-              item.id === itemId ? { ...item, status } : item
-            ),
-          }
-        : cat
-    ))
-  }
-
-  const getStatusBadge = (status: DDItem['status']) => {
-    switch (status) {
-      case 'not_started':
-        return <Badge variant="outline" className="text-xs">{t('legal.ddNotStarted')}</Badge>
-      case 'uploaded':
-        return <Badge variant="secondary" className="text-xs">{t('legal.ddUploaded')}</Badge>
-      case 'under_review':
-        return <Badge variant="default" className="bg-blue-500/20 text-blue-700 dark:text-blue-400 text-xs">{t('legal.ddUnderReview')}</Badge>
-      case 'approved':
-        return <Badge variant="default" className="bg-green-500/20 text-green-700 dark:text-green-400 text-xs">{t('legal.ddApproved')}</Badge>
-      case 'flagged':
-        return <Badge variant="default" className="bg-red-500/20 text-red-700 dark:text-red-400 text-xs">{t('legal.ddFlagged')}</Badge>
-    }
-  }
-
-  const getStatusIcon = (status: DDItem['status']) => {
-    switch (status) {
-      case 'approved': return <CheckCircle className="w-4 h-4 text-green-500" />
-      case 'flagged': return <AlertCircle className="w-4 h-4 text-red-500" />
-      default: return <Circle className="w-4 h-4 text-muted-foreground" />
-    }
-  }
-
   return (
-    <div className="container max-w-6xl mx-auto px-4 py-6 space-y-6">
-      <div className="space-y-1">
-        <h1 className="text-2xl font-bold text-foreground">{t('legal.dueDiligence')}</h1>
-        <p className="text-muted-foreground">{t('legal.ddRoom')}</p>
+    <div className="container max-w-5xl mx-auto px-4 py-6 space-y-6">
+      <div className="flex items-center justify-between">
+        <div>
+          <h1 className="text-2xl font-bold">{t('dd.title')}</h1>
+          <p className="text-muted-foreground mt-1">{t('dd.subtitle')}</p>
+        </div>
+        <Button onClick={() => setShowForm(true)} className="gap-2">
+          <Plus className="w-4 h-4" />
+          {t('dd.newRoom')}
+        </Button>
       </div>
 
-      {/* Disclaimer */}
-      <div className="bg-amber-50 dark:bg-amber-950/30 border border-amber-200 dark:border-amber-800 rounded-md px-4 py-3 text-sm text-amber-800 dark:text-amber-300">
-        {t('legal.disclaimer')}
-      </div>
-
-      {!showCreate ? (
-        <>
-          {/* Progress Overview */}
-          <Card>
-            <CardContent className="p-5 space-y-4">
-              <div className="flex items-center justify-between">
-                <div>
-                  <h2 className="font-semibold text-foreground">{t('legal.ddProgress')}</h2>
-                  <p className="text-sm text-muted-foreground">
-                    {approvedItems} / {totalItems} {t('legal.ddItems')} {t('legal.ddApproved')}
-                  </p>
-                </div>
-                <div className="text-right">
-                  <p className="text-2xl font-bold text-foreground">{progress}%</p>
-                </div>
-              </div>
-              <Progress value={progress} className="h-2" />
-              <div className="flex flex-wrap gap-3 text-xs">
-                <span className="flex items-center gap-1"><Circle className="w-3 h-3 text-muted-foreground" /> {notStartedItems} {t('legal.ddNotStarted')}</span>
-                <span className="flex items-center gap-1"><Circle className="w-3 h-3 text-secondary" /> {uploadedItems} {t('legal.ddUploaded')}</span>
-                <span className="flex items-center gap-1"><Circle className="w-3 h-3 text-blue-500" /> {underReviewItems} {t('legal.ddUnderReview')}</span>
-                <span className="flex items-center gap-1"><CheckCircle className="w-3 h-3 text-green-500" /> {approvedItems} {t('legal.ddApproved')}</span>
-                <span className="flex items-center gap-1"><AlertCircle className="w-3 h-3 text-red-500" /> {flaggedItems} {t('legal.ddFlagged')}</span>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* Categories */}
-          <div className="space-y-3">
-            {categories.map((category) => {
-              const isExpanded = expandedCategories.includes(category.id)
-              const catApproved = category.items.filter(i => i.status === 'approved').length
-              const catTotal = category.items.length
-              const catProgress = Math.round((catApproved / catTotal) * 100)
-
-              return (
-                <Card key={category.id}>
-                  <CardHeader className="p-4 pb-0">
-                    <button
-                      onClick={() => toggleCategory(category.id)}
-                      className="flex items-center justify-between w-full text-left"
-                    >
-                      <div className="flex items-center gap-3">
-                        <ClipboardCheck className="w-5 h-5 text-primary" />
-                        <div>
-                          <h3 className="font-semibold text-foreground">{t(category.name as any)}</h3>
-                          <p className="text-xs text-muted-foreground">{catApproved} / {catTotal} approved</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center gap-3">
-                        <div className="hidden sm:flex items-center gap-2 w-32">
-                          <Progress value={catProgress} className="h-1.5 flex-1" />
-                          <span className="text-xs text-muted-foreground">{catProgress}%</span>
-                        </div>
-                        {isExpanded ? <ChevronUp className="w-4 h-4 text-muted-foreground" /> : <ChevronDown className="w-4 h-4 text-muted-foreground" />}
-                      </div>
-                    </button>
-                  </CardHeader>
-                  {isExpanded && (
-                    <CardContent className="p-4 pt-2">
-                      <div className="space-y-1">
-                        {category.items.map((item) => (
-                          <div key={item.id} className="flex items-center justify-between p-2 rounded-md hover:bg-muted/50 transition-colors">
-                            <div className="flex items-center gap-3 min-w-0">
-                              {getStatusIcon(item.status)}
-                              <span className="text-sm text-foreground truncate">{item.name}</span>
-                            </div>
-                            <div className="flex items-center gap-2">
-                              {getStatusBadge(item.status)}
-                              <Select
-                                value={item.status}
-                                onValueChange={(v) => updateItemStatus(category.id, item.id, v as DDItem['status'])}
-                              >
-                                <SelectTrigger className="w-[140px] h-8 text-xs">
-                                  <SelectValue />
-                                </SelectTrigger>
-                                <SelectContent>
-                                  <SelectItem value="not_started">{t('legal.ddNotStarted')}</SelectItem>
-                                  <SelectItem value="uploaded">{t('legal.ddUploaded')}</SelectItem>
-                                  <SelectItem value="under_review">{t('legal.ddUnderReview')}</SelectItem>
-                                  <SelectItem value="approved">{t('legal.ddApproved')}</SelectItem>
-                                  <SelectItem value="flagged">{t('legal.ddFlagged')}</SelectItem>
-                                </SelectContent>
-                              </Select>
-                            </div>
-                          </div>
-                        ))}
-                      </div>
-                    </CardContent>
-                  )}
-                </Card>
-              )
-            })}
-          </div>
-        </>
-      ) : (
-        /* Create Room Form */
+      {showForm && (
         <Card>
-          <CardHeader>
-            <CardTitle>{t('legal.ddCreate')}</CardTitle>
-          </CardHeader>
+          <CardHeader><CardTitle className="text-base">{t('dd.createRoom')}</CardTitle></CardHeader>
           <CardContent className="space-y-4">
-            <div className="space-y-2">
-              <Label>{t('legal.ddName')}</Label>
-              <Input value={roomName} onChange={(e) => setRoomName(e.target.value)} placeholder="Acquisition of TechCorp" />
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-              <div className="space-y-2">
-                <Label>{t('legal.ddBuyer')}</Label>
-                <Input value={buyer} onChange={(e) => setBuyer(e.target.value)} placeholder="Milele Corp" />
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div className="space-y-1.5">
+                <Label>{t('dd.roomName')}</Label>
+                <Input placeholder={t('dd.roomNamePlaceholder')} value={roomName} onChange={e => setRoomName(e.target.value)} />
               </div>
-              <div className="space-y-2">
-                <Label>{t('legal.ddSeller')}</Label>
-                <Input value={seller} onChange={(e) => setSeller(e.target.value)} placeholder="TechCorp Inc." />
+              <div className="space-y-1.5">
+                <Label>{t('dd.targetCompany')}</Label>
+                <Input placeholder="TechCorp Inc." value={targetCompany} onChange={e => setTargetCompany(e.target.value)} />
               </div>
-            </div>
-            <div className="space-y-2">
-              <Label>{t('legal.ddDealStructure')}</Label>
-              <Select value={dealStructure} onValueChange={setDealStructure}>
-                <SelectTrigger>
-                  <SelectValue />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="asset">{t('legal.ddAssetPurchase')}</SelectItem>
-                  <SelectItem value="stock">{t('legal.ddStockPurchase')}</SelectItem>
-                </SelectContent>
-              </Select>
             </div>
             <div className="flex gap-2">
-              <Button onClick={() => setShowCreate(false)}>{t('common.save')}</Button>
-              <Button variant="outline" onClick={() => setShowCreate(false)}>{t('common.cancel')}</Button>
+              <Button onClick={createRoom} disabled={!roomName.trim()}>{t('dd.create')}</Button>
+              <Button variant="outline" onClick={() => setShowForm(false)}>{t('dd.cancel')}</Button>
             </div>
           </CardContent>
         </Card>
+      )}
+
+      {rooms.length === 0 ? (
+        <div className="flex flex-col items-center justify-center py-16 text-center text-muted-foreground">
+          <ClipboardCheck className="w-14 h-14 mb-4 opacity-30" />
+          <p className="text-sm">{t('dd.noRooms')}</p>
+          <Button variant="outline" className="mt-4 gap-2" onClick={() => setShowForm(true)}>
+            <Plus className="w-4 h-4" />{t('dd.newRoom')}
+          </Button>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+          {rooms.map(room => {
+            const prog = getRoomProg(room)
+            return (
+              <Card key={room.id} className="cursor-pointer hover:bg-muted/50 transition-colors" onClick={() => setActiveRoom(room)}>
+                <CardContent className="p-5 space-y-3">
+                  <div>
+                    <h3 className="font-semibold">{room.name}</h3>
+                    {room.targetCompany && <p className="text-sm text-muted-foreground">{room.targetCompany}</p>}
+                    <p className="text-xs text-muted-foreground mt-1">{room.createdAt}</p>
+                  </div>
+                  <div className="space-y-1">
+                    <div className="flex justify-between text-xs text-muted-foreground">
+                      <span>{prog.done}/{prog.total} {t('dd.items')}</span>
+                      <span>{prog.pct}%</span>
+                    </div>
+                    <Progress value={prog.pct} className="h-1.5" />
+                  </div>
+                  <p className="text-xs text-muted-foreground">{room.categories.length} {t('dd.categories')}</p>
+                </CardContent>
+              </Card>
+            )
+          })}
+        </div>
       )}
     </div>
   )
