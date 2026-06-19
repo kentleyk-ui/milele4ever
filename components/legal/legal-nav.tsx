@@ -37,12 +37,22 @@ export function LegalNav() {
   ]
 
   return (
-    <header className="sticky top-0 z-40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60 border-b border-border">
-      <div className="flex h-14 items-center justify-between px-4 gap-2">
+    <header className="sticky top-0 z-40 border-b border-border/50 bg-background/80 backdrop-blur-xl">
+      {/* Top accent line */}
+      <div className="h-px bg-gradient-to-r from-transparent via-primary/60 to-transparent" />
+
+      <div className="flex h-13 items-center justify-between px-4 gap-2">
         {/* Logo */}
-        <Link href="/legal" className="flex items-center gap-2 shrink-0">
-          <Scale className="w-5 h-5 text-primary" />
-          <span className="font-semibold text-foreground hidden sm:block">{t('app.name')}</span>
+        <Link href="/legal" className="flex items-center gap-2 shrink-0 group">
+          <div className="relative">
+            <Scale className="w-5 h-5 text-primary transition-all group-hover:text-glow" />
+            <div className="absolute inset-0 w-5 h-5 text-primary blur-md opacity-0 group-hover:opacity-60 transition-opacity">
+              <Scale className="w-5 h-5" />
+            </div>
+          </div>
+          <span className="font-bold tracking-widest text-sm uppercase text-foreground hidden sm:block">
+            Lex<span className="text-primary">Draft</span>
+          </span>
         </Link>
 
         {/* Desktop nav */}
@@ -56,14 +66,17 @@ export function LegalNav() {
                 key={item.href}
                 href={item.href}
                 className={cn(
-                  'flex items-center gap-1.5 px-3 py-1.5 rounded-md text-sm transition-colors',
+                  'relative flex items-center gap-1.5 px-3 py-1.5 rounded-md text-xs font-medium tracking-wide uppercase transition-all duration-200',
                   isActive
-                    ? 'bg-primary/10 text-primary font-medium'
-                    : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                    ? 'text-primary bg-primary/10 border border-primary/20'
+                    : 'text-muted-foreground hover:text-foreground hover:bg-white/5 border border-transparent'
                 )}
               >
-                <item.icon className="w-4 h-4" />
+                <item.icon className="w-3.5 h-3.5" />
                 <span>{item.label}</span>
+                {isActive && (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-px bg-primary rounded-full" />
+                )}
               </Link>
             )
           })}
@@ -71,24 +84,23 @@ export function LegalNav() {
 
         {/* Right controls */}
         <div className="flex items-center gap-1 shrink-0">
-          {/* Language switcher */}
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-              <Button variant="ghost" size="sm" className="gap-1.5 h-8 px-2">
-                <Globe className="w-4 h-4" />
-                <span className="text-xs font-medium uppercase">{language}</span>
+              <Button variant="ghost" size="sm" className="gap-1.5 h-7 px-2 text-xs font-mono uppercase tracking-wider border border-transparent hover:border-primary/20">
+                <Globe className="w-3.5 h-3.5" />
+                {language}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="min-w-[120px]">
+            <DropdownMenuContent align="end" className="min-w-[130px] border-border/50 bg-background/90 backdrop-blur-xl">
               <DropdownMenuItem
                 onClick={() => setLanguage('fr')}
-                className={cn(language === 'fr' && 'bg-primary/10 text-primary')}
+                className={cn('text-xs', language === 'fr' && 'text-primary bg-primary/10')}
               >
                 🇫🇷 Français
               </DropdownMenuItem>
               <DropdownMenuItem
                 onClick={() => setLanguage('en')}
-                className={cn(language === 'en' && 'bg-primary/10 text-primary')}
+                className={cn('text-xs', language === 'en' && 'text-primary bg-primary/10')}
               >
                 🇬🇧 English
               </DropdownMenuItem>
@@ -99,7 +111,7 @@ export function LegalNav() {
         </div>
       </div>
 
-      {/* Mobile nav — scrollable */}
+      {/* Mobile nav */}
       <div className="lg:hidden flex items-center gap-0.5 overflow-x-auto px-2 pb-2 scrollbar-hide">
         {navItems.map((item) => {
           const isActive = item.exact
@@ -110,13 +122,13 @@ export function LegalNav() {
               key={item.href}
               href={item.href}
               className={cn(
-                'flex items-center gap-1 px-2.5 py-1.5 rounded-md text-xs whitespace-nowrap transition-colors',
+                'flex items-center gap-1 px-2.5 py-1.5 rounded-md text-xs whitespace-nowrap uppercase tracking-wide font-medium transition-all',
                 isActive
-                  ? 'bg-primary/10 text-primary font-medium'
-                  : 'text-muted-foreground hover:text-foreground hover:bg-muted'
+                  ? 'bg-primary/10 text-primary border border-primary/20'
+                  : 'text-muted-foreground hover:text-foreground hover:bg-white/5 border border-transparent'
               )}
             >
-              <item.icon className="w-3.5 h-3.5" />
+              <item.icon className="w-3 h-3" />
               <span>{item.label}</span>
             </Link>
           )
