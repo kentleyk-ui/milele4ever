@@ -9,8 +9,8 @@ const inter = Inter({ subsets: ['latin'], variable: '--font-inter' })
 
 export const metadata: Metadata = {
   title: {
-    default: 'LexDraft — Plateforme Juridique',
-    template: '%s | LexDraft',
+    default: 'Aurea Clavis — Plateforme Juridique',
+    template: '%s | Aurea Clavis',
   },
   description: 'Rédigez, révisez et gérez vos documents juridiques. NDA, contrats de service, lettres d\'intention, due diligence.',
   keywords: ['contrat', 'NDA', 'juridique', 'legal', 'contract', 'due diligence'],
@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
-    title: 'LexDraft',
+    title: 'Aurea Clavis',
   },
   formatDetection: { telephone: false },
 }

@@ -51,7 +51,7 @@ export function LegalNav() {
             </div>
           </div>
           <span className="font-bold tracking-widest text-sm uppercase text-foreground hidden sm:block">
-            Lex<span className="text-primary">Draft</span>
+            Aurea<span className="text-primary"> Clavis</span>
           </span>
         </Link>
 

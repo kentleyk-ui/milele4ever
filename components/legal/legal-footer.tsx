@@ -23,7 +23,7 @@ export function LegalFooter() {
           <div className="flex items-center gap-2">
             <Scale className="w-3.5 h-3.5 text-primary/70" />
             <span className="text-xs font-bold tracking-widest uppercase text-foreground/80">
-              Lex<span className="text-primary/80">Draft</span>
+              Aurea<span className="text-primary/80"> Clavis</span>
             </span>
             <span className="text-xs text-muted-foreground/50">
               · {t('footer.rights').replace('{year}', year.toString())}

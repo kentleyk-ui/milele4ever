@@ -1,5 +1,5 @@
-// LexDraft Service Worker - v1
-const CACHE_NAME = 'lexdraft-v1';
+// Aurea Clavis Service Worker - v1
+const CACHE_NAME = 'aurea-clavis-v1';
 const OFFLINE_URL = '/offline.html';
 
 const PRECACHE_ASSETS = [
@@ -61,8 +61,8 @@ self.addEventListener('push', (event) => {
   if (!event.data) return;
   const data = event.data.json();
   event.waitUntil(
-    self.registration.showNotification(data.title || 'LexDraft', {
-      body: data.body || 'Nouvelle notification LexDraft',
+    self.registration.showNotification(data.title || 'Aurea Clavis', {
+      body: data.body || 'Nouvelle notification Aurea Clavis',
       icon: '/icons/icon-192x192.png',
       badge: '/icons/icon-72x72.png',
       data: { url: data.url || '/legal' },

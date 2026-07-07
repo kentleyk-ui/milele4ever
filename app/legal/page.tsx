@@ -133,7 +133,7 @@ export default function LegalDashboard() {
       <div className="space-y-1 animate-fade-up" style={{ animationDelay: '0ms' }}>
         <div className="flex items-center gap-1.5 text-xs font-mono tracking-[0.2em] text-cyan-400/60 uppercase mb-3">
           <Zap className="w-3 h-3 pulse-glow" />
-          <span>LexDraft</span>
+          <span>Aurea Clavis</span>
           <span className="text-white/20">/</span>
           <span>Dashboard</span>
         </div>

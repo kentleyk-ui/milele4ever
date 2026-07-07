@@ -57,7 +57,7 @@ export default function LoginPage() {
           <div className="text-center">
             <div className="flex items-center justify-center gap-1 mb-1">
               <Zap className="w-3 h-3 text-cyan-400/60" />
-              <span className="text-xs font-mono tracking-[0.2em] text-cyan-400/60 uppercase">LexDraft</span>
+              <span className="text-xs font-mono tracking-[0.2em] text-cyan-400/60 uppercase">Aurea Clavis</span>
             </div>
             <h1 className="text-2xl font-bold gradient-text">Connexion</h1>
             <p className="text-sm text-muted-foreground/60 mt-1">Accédez à votre espace juridique</p>
@@ -151,7 +151,7 @@ export default function LoginPage() {
 
         <p className="text-center text-xs text-muted-foreground/30">
           <Link href="/legal" className="hover:text-muted-foreground/60 transition-colors">
-            ← Retour à LexDraft
+            ← Retour à Aurea Clavis
           </Link>
         </p>
       </div>

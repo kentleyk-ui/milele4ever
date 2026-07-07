@@ -17,7 +17,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   const [language, setLanguageState] = useState<Language>('fr')
 
   useEffect(() => {
-    const stored = localStorage.getItem('lexdraft-language') as Language | null
+    const stored = localStorage.getItem('aurea-clavis-language') as Language | null
     if (stored && (stored === 'en' || stored === 'fr')) {
       setLanguageState(stored)
     }
@@ -26,7 +26,7 @@ export function I18nProvider({ children }: { children: React.ReactNode }) {
   const setLanguage = (lang: Language) => {
     setLanguageState(lang)
     if (typeof window !== 'undefined') {
-      localStorage.setItem('lexdraft-language', lang)
+      localStorage.setItem('aurea-clavis-language', lang)
     }
   }
 

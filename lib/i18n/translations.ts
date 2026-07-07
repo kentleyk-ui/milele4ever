@@ -8,7 +8,7 @@ export function getTranslation(lang: Language, key: string, defaultValue?: strin
 export const translations: Record<Language, Record<string, string>> = {
   fr: {
     // App
-    'app.name': 'LexDraft',
+    'app.name': 'Aurea Clavis',
     'app.tagline': 'Plateforme Juridique',
     'app.description': 'Rédigez, révisez et gérez vos documents juridiques',
 
@@ -172,8 +172,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.actions': 'Actions',
 
     // Footer
-    'footer.disclaimer': 'LexDraft fournit des modèles informatifs uniquement. Ce n\'est pas un avis juridique. Consultez un avocat pour vos besoins spécifiques.',
-    'footer.rights': '© {year} LexDraft. Tous droits réservés.',
+    'footer.disclaimer': 'Aurea Clavis fournit des modèles informatifs uniquement. Ce n\'est pas un avis juridique. Consultez un avocat pour vos besoins spécifiques.',
+    'footer.rights': '© {year} Aurea Clavis. Tous droits réservés.',
     'footer.founder': 'Kent Ley — Fondateur & CEO',
     'footer.privacy': 'Confidentialité',
     'footer.terms': 'Conditions',
@@ -181,7 +181,7 @@ export const translations: Record<Language, Record<string, string>> = {
 
   en: {
     // App
-    'app.name': 'LexDraft',
+    'app.name': 'Aurea Clavis',
     'app.tagline': 'Legal Platform',
     'app.description': 'Draft, review, and manage your legal documents',
 
@@ -345,8 +345,8 @@ export const translations: Record<Language, Record<string, string>> = {
     'common.actions': 'Actions',
 
     // Footer
-    'footer.disclaimer': 'LexDraft provides informational templates only. This is not legal advice. Consult an attorney for your specific needs.',
-    'footer.rights': '© {year} LexDraft. All rights reserved.',
+    'footer.disclaimer': 'Aurea Clavis provides informational templates only. This is not legal advice. Consult an attorney for your specific needs.',
+    'footer.rights': '© {year} Aurea Clavis. All rights reserved.',
     'footer.founder': 'Kent Ley — Founder & CEO',
     'footer.privacy': 'Privacy',
     'footer.terms': 'Terms',
