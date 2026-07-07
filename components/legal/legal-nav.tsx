@@ -50,8 +50,8 @@ export function LegalNav() {
               <Scale className="w-5 h-5" />
             </div>
           </div>
-          <span className="font-bold tracking-widest text-sm uppercase text-foreground hidden sm:block">
-            Aurea<span className="text-primary"> Clavis</span>
+          <span className="logo-metallic font-extrabold tracking-[0.14em] text-lg uppercase hidden sm:block select-none">
+            Aurea Clavis
           </span>
         </Link>
 
