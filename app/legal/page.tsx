@@ -130,17 +130,19 @@ export default function LegalDashboard() {
     <div className="container max-w-6xl mx-auto px-4 py-8 space-y-10">
 
       {/* ── Header ── */}
-      <div className="space-y-1 animate-fade-up" style={{ animationDelay: '0ms' }}>
-        <div className="flex items-center gap-1.5 text-xs font-mono tracking-[0.2em] text-cyan-400/60 uppercase mb-3">
-          <Zap className="w-3 h-3 pulse-glow" />
-          <span>Aurea Clavis</span>
-          <span className="text-white/20">/</span>
-          <span>Dashboard</span>
-        </div>
-        <h1 className="text-4xl font-bold tracking-tight gradient-text leading-tight">
-          {t('dashboard.title')}
+      <div className="space-y-3 animate-fade-up" style={{ animationDelay: '0ms' }}>
+        {/* Grand titre métallique */}
+        <h1 className="logo-metallic font-black uppercase leading-none tracking-[0.08em] select-none"
+          style={{ fontSize: 'clamp(2.8rem, 7vw, 5.5rem)' }}>
+          Aurea Clavis
         </h1>
-        <p className="text-sm text-muted-foreground/70">{t('dashboard.subtitle')}</p>
+        {/* Sous-titre discret */}
+        <div className="flex items-center gap-2">
+          <div className="h-px w-6 bg-gradient-to-r from-transparent to-cyan-500/50" />
+          <p className="text-xs font-mono tracking-[0.22em] text-cyan-400/50 uppercase">
+            {t('dashboard.subtitle')}
+          </p>
+        </div>
       </div>
 
       {/* ── Stats ── */}
