@@ -483,9 +483,14 @@ html:not(.dark) header {
     drop-shadow(0 0 14px oklch(0.82 0.20 86 / 0.22));
 }
 
-/* Mode clair : or plus chaud + ombre plus visible */
+/* Mode clair : or plus chaud + ombre plus visible.
+   IMPORTANT : on utilise `background-image` (pas le raccourci `background`)
+   pour ne pas réinitialiser `background-clip: text` défini plus haut — le
+   raccourci `background` inclut background-clip depuis CSS Backgrounds
+   Level 4, ce qui faisait apparaître un bloc plein au lieu du texte
+   découpé en mode clair. */
 html:not(.dark) .logo-metallic {
-  background: linear-gradient(
+  background-image: linear-gradient(
     160deg,
     oklch(0.45 0.12 78)  0%,
     oklch(0.80 0.20 86)  14%,
@@ -496,6 +501,9 @@ html:not(.dark) .logo-metallic {
     oklch(0.48 0.14 76)  84%,
     oklch(0.74 0.16 84) 100%
   );
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
   filter:
     drop-shadow(0 1px 0 oklch(0.25 0.08 75 / 0.80))
     drop-shadow(0 2px 4px oklch(0.18 0.06 70 / 0.45))
