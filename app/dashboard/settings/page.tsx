@@ -8,7 +8,7 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
-import { useI18n } from "@/lib/i18n/context"
+import { useI18n, type Language } from "@/lib/i18n/context"
 import { User, Mail, Phone, MapPin, Calendar, Save, LogOut } from "lucide-react"
 import { useRouter } from "next/navigation"
 
@@ -45,11 +45,11 @@ export default function DashboardSettingsPage() {
     router.push('/')
   }
 
-  const languages = [
+  // Seules fr/en ont des traductions réelles dans lib/i18n/translations.ts —
+  // es/sw retirés de la liste tant qu'elles n'y sont pas ajoutées.
+  const languages: { code: Language; label: string }[] = [
     { code: 'fr', label: 'Français' },
     { code: 'en', label: 'English' },
-    { code: 'es', label: 'Español' },
-    { code: 'sw', label: 'Kiswahili' },
   ]
 
   return (
@@ -175,7 +175,7 @@ export default function DashboardSettingsPage() {
                 key={lang.code}
                 variant={language === lang.code ? 'default' : 'outline'}
                 size="sm"
-                onClick={() => setLanguage(lang.code as 'fr' | 'en' | 'es' | 'sw')}
+                onClick={() => setLanguage(lang.code)}
               >
                 {lang.label}
               </Button>
