@@ -18,11 +18,12 @@ import {
   TrendingUp,
 } from 'lucide-react'
 
-const recentDocuments = [
-  { id: '1', title: 'NDA - TechCorp', type: 'NDA Mutuel', status: 'completed', date: '2025-06-08' },
-  { id: '2', title: 'Contrat de Service - Freelance', type: 'Service Agreement', status: 'draft', date: '2025-06-07' },
-  { id: '3', title: 'Contract Review - SaaS', type: 'Révision', status: 'reviewed', date: '2025-06-05' },
-]
+// Aucune table Supabase ne persiste encore les documents générés (la page
+// /legal/contracts génère et exporte, mais ne sauvegarde nulle part) — donc
+// pas de vraies données à afficher pour l'instant. On montre un vrai zéro
+// plutôt que des chiffres d'exemple ("12 documents", faux NDA...) qui
+// donnaient l'illusion d'une activité inexistante.
+const recentDocuments: { id: string; title: string; type: string; status: string; date: string }[] = []
 
 export default function LegalDashboard() {
   const { t } = useI18n()
@@ -30,35 +31,35 @@ export default function LegalDashboard() {
   const stats = [
     {
       label: t('dashboard.totalDocs'),
-      value: '12',
+      value: '0',
       icon: FileText,
       glass: 'glass-cyan',
       textColor: 'text-cyan-300',
-      sub: '+2 ce mois',
+      sub: null,
     },
     {
       label: t('dashboard.drafts'),
-      value: '5',
+      value: '0',
       icon: Scale,
       glass: 'glass-violet',
       textColor: 'text-violet-300',
-      sub: '3 en attente',
+      sub: null,
     },
     {
       label: t('dashboard.reviewed'),
-      value: '4',
+      value: '0',
       icon: FileCheck,
       glass: 'glass-amber',
       textColor: 'text-amber-300',
-      sub: '↑ 1 depuis hier',
+      sub: null,
     },
     {
       label: t('dashboard.completed'),
-      value: '3',
+      value: '0',
       icon: CheckCircle,
       glass: 'glass-emerald',
       textColor: 'text-emerald-300',
-      sub: '100% validés',
+      sub: null,
     },
   ]
 
@@ -166,10 +167,12 @@ export default function LegalDashboard() {
               <p className={cn('text-4xl font-bold font-mono tabular-nums leading-none', stat.textColor)}>
                 {stat.value}
               </p>
-              <p className="text-xs text-white/30 font-mono flex items-center gap-1">
-                <TrendingUp className="w-3 h-3" />
-                {stat.sub}
-              </p>
+              {stat.sub && (
+                <p className="text-xs text-white/30 font-mono flex items-center gap-1">
+                  <TrendingUp className="w-3 h-3" />
+                  {stat.sub}
+                </p>
+              )}
             </div>
           </div>
         ))}
@@ -218,6 +221,21 @@ export default function LegalDashboard() {
         </div>
 
         <div className="rounded-xl overflow-hidden glass divide-y divide-white/5">
+          {recentDocuments.length === 0 && (
+            <div className="flex flex-col items-center gap-2 px-5 py-10 text-center">
+              <FileText className="w-6 h-6 text-white/20" strokeWidth={1.5} />
+              <p className="text-sm text-white/40">
+                {t('dashboard.noDocs', 'Aucun document pour l\'instant')}
+              </p>
+              <Link
+                href="/legal/contracts"
+                className={cn(buttonVariants({ variant: 'ghost', size: 'sm' }), 'gap-1.5 text-xs font-mono uppercase tracking-wider text-cyan-400/60 hover:text-cyan-300')}
+              >
+                {t('dashboard.createFirst', 'Créer votre premier document')}
+                <ArrowRight className="w-3 h-3" />
+              </Link>
+            </div>
+          )}
           {recentDocuments.map((doc) => (
             <div
               key={doc.id}
