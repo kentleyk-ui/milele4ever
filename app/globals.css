@@ -301,15 +301,26 @@ html:not(.dark) .glass-amber {
 
 /* ════════════════════════════════════════
    LIGHT MODE — surcharge couleurs de texte
-   Les couleurs *-300 sont trop claires sur fond blanc.
+   Les couleurs *-300/*-400 sont trop claires sur fond blanc.
    On les rembrunce en mode clair uniquement.
+
+   Filet de sécurité générique d'abord (attrape toute variante d'opacité
+   non listée explicitement, ex: text-cyan-400/35), puis règles précises
+   ci-dessous qui, à spécificité égale, gagnent car déclarées après.
    ════════════════════════════════════════ */
+html:not(.dark) [class*="text-cyan-400/"]    { color: oklch(0.42 0.18 200 / 0.85) !important; }
+html:not(.dark) [class*="text-violet-400/"]  { color: oklch(0.42 0.19 280 / 0.85) !important; }
+html:not(.dark) [class*="text-amber-400/"]   { color: oklch(0.46 0.17 78  / 0.85) !important; }
+html:not(.dark) [class*="text-emerald-400/"] { color: oklch(0.40 0.17 165 / 0.85) !important; }
+
 html:not(.dark) .text-cyan-300    { color: oklch(0.38 0.17 200) !important; }
 html:not(.dark) .text-violet-300  { color: oklch(0.38 0.18 280) !important; }
 html:not(.dark) .text-amber-300   { color: oklch(0.42 0.16 75)  !important; }
 html:not(.dark) .text-emerald-300 { color: oklch(0.36 0.16 165) !important; }
 html:not(.dark) .text-cyan-400    { color: oklch(0.42 0.18 200) !important; }
 html:not(.dark) .text-cyan-400\/60 { color: oklch(0.42 0.18 200 / 0.70) !important; }
+html:not(.dark) .text-cyan-400\/50 { color: oklch(0.42 0.18 200 / 0.80) !important; }
+html:not(.dark) .text-emerald-400 { color: oklch(0.38 0.17 165) !important; }
 
 /* text-white/* → texte sombre en mode clair */
 html:not(.dark) [class*="text-white"] {
