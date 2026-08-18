@@ -793,8 +793,20 @@ export default function ContractsPage() {
   )
 }
 
+function escapeHtml(input: string): string {
+  return input
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#39;')
+}
+
 function renderMarkdownToHtml(md: string): string {
-  return md
+  // Échappe le contenu brut AVANT toute transformation markdown — sans ça,
+  // un champ de formulaire contenant du HTML/JS (nom de partie, société...)
+  // se retrouve injecté tel quel via dangerouslySetInnerHTML plus bas (XSS).
+  return escapeHtml(md)
     .replace(/^# (.+)$/gm, '<h1 style="font-size:1.4em;font-weight:700;border-bottom:2px solid currentColor;padding-bottom:6px;margin:0 0 16px">$1</h1>')
     .replace(/^## (.+)$/gm, '<h2 style="font-size:1.05em;font-weight:600;margin:20px 0 8px">$1</h2>')
     .replace(/^> \*\*(.+)\*\*$/gm, '<div style="background:rgba(245,158,11,0.1);border-left:3px solid #f59e0b;padding:8px 12px;margin:8px 0;font-size:0.85em;color:#92400e">$1</div>')

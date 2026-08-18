@@ -327,6 +327,8 @@ html:not(.dark) .text-white\/80 { color: oklch(0.22 0.02 240 / 0.88) !important;
 
 /* bg-white/* dans les cards → visible en mode clair */
 html:not(.dark) .bg-white\/5  { background-color: oklch(0.50 0.04 240 / 0.06) !important; }
+html:not(.dark) .bg-white\/10 { background-color: oklch(0.50 0.04 240 / 0.10) !important; }
+html:not(.dark) .bg-white\/20 { background-color: oklch(0.50 0.04 240 / 0.16) !important; }
 html:not(.dark) .bg-white\/\[0\.03\] { background-color: oklch(0.50 0.04 240 / 0.04) !important; }
 html:not(.dark) .divide-white\/5 > * + * { border-color: oklch(0.50 0.04 240 / 0.10) !important; }
 html:not(.dark) .border-white\/5  { border-color: oklch(0.50 0.04 240 / 0.12) !important; }

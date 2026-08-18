@@ -15,6 +15,26 @@ export const metadata: Metadata = {
   description: 'Rédigez, révisez et gérez vos documents juridiques. NDA, contrats de service, lettres d\'intention, due diligence.',
   keywords: ['contrat', 'NDA', 'juridique', 'legal', 'contract', 'due diligence'],
   manifest: '/manifest.webmanifest',
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+      { url: '/icon-light-32x32.jpg', media: '(prefers-color-scheme: light)' },
+      { url: '/icon-dark-32x32.jpg', media: '(prefers-color-scheme: dark)' },
+    ],
+    apple: '/apple-icon.png',
+  },
+  openGraph: {
+    title: 'Aurea Clavis — Plateforme Juridique',
+    description: 'Rédigez, révisez et gérez vos documents juridiques. NDA, contrats de service, lettres d\'intention, due diligence.',
+    siteName: 'Aurea Clavis',
+    locale: 'fr_FR',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary',
+    title: 'Aurea Clavis — Plateforme Juridique',
+    description: 'Rédigez, révisez et gérez vos documents juridiques.',
+  },
   appleWebApp: {
     capable: true,
     statusBarStyle: 'black-translucent',
