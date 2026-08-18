@@ -1,6 +1,7 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect, Suspense } from 'react'
+import { useSearchParams } from 'next/navigation'
 import { useI18n } from '@/lib/i18n/context'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
@@ -8,7 +9,7 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { FileText, Download, Eye, Copy, Check } from 'lucide-react'
+import { FileText, Download, Eye, Copy, Check, Printer } from 'lucide-react'
 
 type ContractType = 'mutualNda' | 'oneWayNda' | 'serviceAgreement' | 'freelanceContract' | 'employmentContract' | 'letterOfIntent'
 
@@ -548,9 +549,30 @@ The binding provisions are governed by the laws of **${form.governingLaw}**.
 `
 }
 
+const VALID_CONTRACT_TYPES: ContractType[] = ['mutualNda', 'oneWayNda', 'serviceAgreement', 'freelanceContract', 'employmentContract', 'letterOfIntent']
+
 export default function ContractsPage() {
+  return (
+    <Suspense fallback={null}>
+      <ContractsPageContent />
+    </Suspense>
+  )
+}
+
+function ContractsPageContent() {
   const { t } = useI18n()
+  const searchParams = useSearchParams()
   const [selectedType, setSelectedType] = useState<ContractType>('mutualNda')
+
+  // Permet aux liens externes (palette de commandes, tableau de bord...) de
+  // présélectionner un type de document via ?type=mutualNda
+  useEffect(() => {
+    const requested = searchParams.get('type')
+    if (requested && (VALID_CONTRACT_TYPES as string[]).includes(requested)) {
+      setSelectedType(requested as ContractType)
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
   const [showPreview, setShowPreview] = useState(false)
   const [copied, setCopied] = useState(false)
   const [form, setForm] = useState<ContractForm>({
@@ -598,7 +620,11 @@ export default function ContractsPage() {
     }
   }
 
-  const handleExportPdf = () => {
+  // Ouvre le document mis en forme dans une fenêtre dédiée puis déclenche
+  // window.print() — la boîte de dialogue du navigateur laisse ensuite
+  // choisir entre une imprimante physique ou "Enregistrer en PDF", donc
+  // "Imprimer" et "Exporter PDF" partagent la même implémentation.
+  const openPrintWindow = () => {
     if (!previewContent) return
     const printWindow = window.open('', '_blank')
     if (!printWindow) return
@@ -630,6 +656,9 @@ export default function ContractsPage() {
     `)
     printWindow.document.close()
   }
+
+  const handlePrint = openPrintWindow
+  const handleExportPdf = openPrintWindow
 
   return (
     <div className="container max-w-7xl mx-auto px-4 py-6">
@@ -743,6 +772,12 @@ export default function ContractsPage() {
                 <Eye className="w-4 h-4 mr-2" />
                 {t('contracts.preview')}
               </Button>
+              {showPreview && (
+                <Button variant="outline" onClick={handlePrint}>
+                  <Printer className="w-4 h-4 mr-2" />
+                  {t('contracts.print', 'Imprimer')}
+                </Button>
+              )}
               {showPreview && (
                 <Button variant="outline" onClick={handleExportPdf}>
                   <Download className="w-4 h-4 mr-2" />

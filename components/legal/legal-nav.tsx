@@ -5,6 +5,7 @@ import { usePathname } from 'next/navigation'
 import { cn } from '@/lib/utils'
 import { useI18n } from '@/lib/i18n/context'
 import { ThemeToggle } from '@/components/theme-toggle'
+import { CommandPaletteHint } from '@/components/legal/command-palette'
 import {
   LayoutDashboard,
   FileText,
@@ -106,6 +107,15 @@ export function LegalNav() {
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
+
+          <button
+            onClick={() => document.dispatchEvent(new KeyboardEvent('keydown', { key: 'k', metaKey: true }))}
+            className="hidden items-center gap-1.5 rounded-lg border border-border/70 bg-muted/40 px-2.5 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground md:flex"
+            aria-label="Ouvrir la palette de commandes"
+          >
+            <Search className="h-3.5 w-3.5" />
+            <CommandPaletteHint />
+          </button>
 
           <ThemeToggle />
         </div>
