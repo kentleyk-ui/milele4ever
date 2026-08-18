@@ -59,7 +59,10 @@ export async function POST(req: Request) {
     const { messages }: { messages: UIMessage[] } = await req.json()
 
     const result = streamText({
-      model: groq('llama-3.3-70b-versatile'),
+      // llama-3.3-70b-versatile a été retiré du catalogue Groq — voir
+      // https://console.groq.com/docs/models pour la liste à jour si ce
+      // modèle venait lui aussi à disparaître.
+      model: groq('openai/gpt-oss-120b'),
       system: MILELE_SYSTEM_PROMPT,
       messages: await convertToModelMessages(messages),
     })

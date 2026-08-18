@@ -86,7 +86,7 @@ Use this context to provide more personalized and relevant responses about their
   }
 
   const result = streamText({
-    model: groq('llama-3.3-70b-versatile'),
+    model: groq('openai/gpt-oss-120b'),
     system: `${systemPrompt}\n\n${languageInstruction}`,
     messages: await convertToModelMessages(messages),
     abortSignal: req.signal,
