@@ -1,5 +1,6 @@
 import { LegalNav } from '@/components/legal/legal-nav'
 import { LegalFooter } from '@/components/legal/legal-footer'
+import { LegalChatbot } from '@/components/legal/legal-chatbot'
 
 export default function LegalLayout({ children }: { children: React.ReactNode }) {
   return (
@@ -9,6 +10,7 @@ export default function LegalLayout({ children }: { children: React.ReactNode })
         {children}
       </main>
       <LegalFooter />
+      <LegalChatbot />
     </div>
   )
 }
